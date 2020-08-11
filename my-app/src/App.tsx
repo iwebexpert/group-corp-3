@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 //import './App.css';
 
 import { Message } from './components/Message';
@@ -7,6 +6,7 @@ import { Messages } from './components/Messages';
 import { Button } from './components/Button';
 import { Button2 } from './components/Button2';
 import { DivBlock } from './components/DivBlock';
+import { MessagesList } from './components/MessagesList';
 
 //Вариант 1
 const element1 = React.createElement('h1', {className: 'test'}, 'Hello!');
@@ -15,7 +15,7 @@ const element1 = React.createElement('h1', {className: 'test'}, 'Hello!');
 const element2 = (<h1 className="test2">Test!</h1>);
 
 const items = ['Message 1', 'Test 1', 'React!'];
-
+ 
 function App() {
   return (
     <>
@@ -31,6 +31,8 @@ function App() {
       <Button2 callback={()=>{console.log('Click!')}}><b>Новая кнопка!</b></Button2>
       <hr/>
       <DivBlock />
+      <hr/>
+      <MessagesList />
     </>
 
       
