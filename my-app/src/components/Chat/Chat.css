@@ -1,0 +1,42 @@
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-width: 200px;
+  max-width: 50%;
+  height: 300px;
+
+  border: 1px solid steelblue;
+  padding: 10px;
+}
+
+.chat .messages-container {
+    height: 100%;
+    overflow-y: auto;
+
+    border: 1px solid steelblue;
+    border-radius: 5px;
+}
+
+.chat .messages {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  width: 100%;
+  min-height: min-content;
+}
+
+.chat .messages .message {
+}
+
+.chat .messages .message .author {
+    color: gray;
+    font-size: small;
+}
+
+.chat .send-button {
+  margin-top: 10px;
+}

@@ -1,15 +1,15 @@
-import React, { MouseEventHandler, ReactNode } from 'react';
+import React, { MouseEventHandler, ReactNode, HTMLAttributes } from 'react';
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLButtonElement> {
     callback: MouseEventHandler,
     // children: string,
     // children: JSX.Element,
-    children: ReactNode,
+    children: ReactNode
 };
 
-function Button2({ children, callback }: Props){
+function Button2({ children, callback, ...htmlAttributes }: Props){
     return (
-    <button onClick={ callback }>{children}</button>
+    <button {...htmlAttributes} onClick={ callback }>{children}</button>
     );
 }
 
