@@ -1,0 +1,16 @@
+.task-card{
+  flex-direction: row !important;
+  padding: 10px;
+  margin: 10px;
+  justify-content: space-between;
+}
+.task-card>.task-body{
+  width: 100%;
+  cursor: pointer;
+}
+.task-card>.task-body> input {
+  margin-right: 10px;
+}
+.task-card> button{
+  width: 135px;
+}
