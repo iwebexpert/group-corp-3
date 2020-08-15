@@ -1,35 +1,60 @@
 
 import './App.css';
 import React, { useState } from 'react';
-import { AddMessageButton } from './components/add-message-button';
+import { TaskList } from './components/task-list';
+import { AddTaskBlock } from './components/add-task-block';
+import { TaskModel } from './models/TaskModel';
+import { Container, Row, Col } from 'react-bootstrap';
+import 'bootstrap/scss/bootstrap.scss';
 
 /*
-Реализовать возможность отправки нового сообщения с
-   фиксированным текстом:
-1. добавить кнопку;
-2. обрабатывать нажатие на кнопку функцией, которая добавляет 
-  в массив сообщений новое — например, с текстом «Нормально».
-3. функция-обработчик также должна делать перерендер DOM’а, 
-  чтобы новое сообщение не просто добавилось в массив, но и 
-  появилось у пользователя на странице.
+  Сделать TODO лист в функциональном стиле 
+  Два блока - список задач, окно добавления таска (тест, кнопка)
+  В списке задач появляются добавленные задачи,
+    Есть возможность их выполнить путем нажатия на чекбокс (слева)
+    Есть возможность их удалить путем нажатия на кнопку удаления (справа)
  */
 
 function App() {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<TaskModel[]>([]);
 
-  const addMessageToChat = (message: string) => setMessages(messages.concat([message]))
+  const addTask = (task: TaskModel) => setTasks(tasks.concat([task]));
 
-  return <>
-    <div className="messages-block">
-      {messages.map(q => <>
-        <p>
-          {q}
-        </p>
-      </>)}
-    </div>
-    <AddMessageButton onAddMessage={(message) => addMessageToChat(message)}></AddMessageButton>
+  const removeTask = (task: TaskModel) => setTasks(tasks.filter(q => q.id !== task.id))
 
-  </>;
+  const onChangeStatusTask = (task: TaskModel) => {
+    console.log(task);
+    tasks.sort((a, b) => {
+      if (a.enabled && !b.enabled) return -1;
+      if (!a.enabled && b.enabled) return 1;
+      return 0;
+    });
+    console.log(tasks);
+    setTasks([...tasks])
+  }
+
+  return <Container className="margin-top">
+    <Row>
+      <Col></Col>
+      <Col>
+        <TaskList
+          onRemoveTask={(task: TaskModel) => removeTask(task)}
+          onChangeStatusTask={(t) => onChangeStatusTask(t)}
+          tasks={tasks}></TaskList>
+      </Col>
+      <Col></Col>
+
+    </Row>
+    <Row>
+      <Col></Col>
+
+      <Col>
+        <AddTaskBlock onAddTask={(task: TaskModel) => addTask(task)}></AddTaskBlock>
+      </Col>
+      <Col></Col>
+
+    </Row>
+  </Container>;
 }
 
 export default App;
