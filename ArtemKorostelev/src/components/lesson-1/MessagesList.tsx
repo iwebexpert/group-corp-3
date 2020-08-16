@@ -12,9 +12,9 @@ const MessagesList = () => {
             <button onClick={clearAllMessages} disabled={messages.length === 0}>
                 Удалить все сообщения
             </button>
-            {messages.map((item: string) => <Message text={item} />)}
+            {messages.map((item: string, index: number) => <Message key={index} text={item} />)}
         </>
     )
 }
 
-export { MessagesList };
+export default MessagesList;
