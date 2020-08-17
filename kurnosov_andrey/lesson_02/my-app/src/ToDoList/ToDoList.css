@@ -1,0 +1,67 @@
+.todo-list {
+    min-width: 50%;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.todo-list ul, ul.todo-list {
+    padding-left: 0;
+}
+
+li.todo-element {
+    list-style: none;
+}
+
+.todo-element {
+}
+.todo-element-header {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: solid gray 1px;
+    
+}
+.todo-element-header-line {
+    width: 100%;
+    cursor: pointer;
+}
+
+.todo-element-header-name {
+    padding-left: 1rem;
+}
+.todo-element-content {
+    border-bottom: solid gray 1px;
+    padding-left: 2rem;
+    padding-top: 0.5rem;
+}
+
+.todo-form {
+}
+
+.todo-form-name {
+    
+}
+.todo-form-name input {
+    padding: 0.2rem;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.todo-form-content {
+    width: 100%;
+}
+
+.todo-form-content textarea {
+    padding: 0.2rem;
+    resize: none;
+    margin-right: 0;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.todo-form-save-button {
+    float: right;
+}
