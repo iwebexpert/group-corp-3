@@ -18,6 +18,7 @@ function MessagesBlock({items, addValue="Нормально"}: Props) {
         <hr/>
         <Messages items={item}/>
         </>
-        )}
+        )
+}
 
 export {MessagesBlock}
