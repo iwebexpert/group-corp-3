@@ -1,0 +1,66 @@
+.header {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.container__item {
+  flex: 1 1 50%;
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 10rem;
+  padding: 0.2rem;
+  border: 1px solid aqua;
+}
+
+.todo__empty-message {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+}
+
+.new {
+  display: flex;
+}
+
+.new__btn {
+  margin-left: 0.5rem;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 1rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: baseline;
+  height: 1.5rem;
+}
+
+.todo-item__completed {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  align-self: center;
+}
+
+.todo-item__text {
+  margin: 0 0.5rem;
+}
+
+.todo-item__text_comleted {
+  text-decoration: line-through;
+}
