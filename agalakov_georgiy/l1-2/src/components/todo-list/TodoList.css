@@ -1,0 +1,22 @@
+.main {
+    height: 40rem;
+    width: 30rem;
+    margin: 10rem auto;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.custom-row {
+    width: 100%;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-button {
+    max-height: 2rem;
+    cursor: pointer;
+}
