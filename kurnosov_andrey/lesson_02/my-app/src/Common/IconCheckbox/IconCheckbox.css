@@ -1,0 +1,10 @@
+.icon-checkbox {
+}
+
+.icon-checkbox .hidden-checkbox {
+    visibility: hidden;
+    width: 0;
+    margin: 0;
+    padding: 0;
+}
+
