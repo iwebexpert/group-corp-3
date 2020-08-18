@@ -1,4 +1,4 @@
-type ConfigApp ={
+type ConfigApp = {
     lang: string;
 }
 
@@ -29,4 +29,23 @@ type TaskFormProps = {
 
 type TaskFormState = {
     TaskText: string;
+}
+
+type MessageFormProps = {
+    MessageFormData: MessageData;
+    AddMessageHandler: any;
+}
+
+type MessageData = {
+    Author: string;
+    MessageText: string;
+}
+
+type MessagesBlockProps = {
+    messages: MessageData[];
+    authors: string[]
+}
+
+type MessageProps = {
+    messages: MessageData[];
 }

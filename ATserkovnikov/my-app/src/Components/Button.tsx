@@ -6,7 +6,7 @@ type Props = {
 }
 
 function Button({addItem, children }: Props){
-    return (<button onClick={addItem}>Добавить {children}</button>)
+    return (<button onClick={addItem}>{children}</button>)
 }
 
 export {Button}
