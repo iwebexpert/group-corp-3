@@ -1,30 +1,8 @@
-type Task = {
-    id: number;
-    title: string;
-    done: boolean;
+type CreateMessageProps = {
+    onSend: (message: string) => void;
 }
 
-type TodoItemProps = {
-    onCompleteToggle: (id: number) => void;
-    onDelete: (id: number) => void;
-    item: Task;
+type Message = {
+    text: string;
+    data: Date;
 }
-
-type TodoListProps = {
-    items: Task[];
-    onCompleteToggle: (id: number) => void;
-    onDelete: (id: number) => void
-}
-
-type TodoCreateProps = {
-    onSubmit: (text: string) => void;
-}
-
-type TodoCreateState = {
-    value: string;
-}
-
-type TodoState = {
-    items: Task[];
-    showCompletedList: boolean;
-  }

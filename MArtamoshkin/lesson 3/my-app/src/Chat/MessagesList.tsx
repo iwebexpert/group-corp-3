@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { Message } from "./Message";
 
 const MessagesList = () => {
-    const [messagesList, setMessagesList] = useState<string[]>([]);
+    const [messagesList, setMessagesList] = useState<Message[]>([{} as any, {} as any]);
 
-    const addHandler = () => setMessagesList([...messagesList, 'Нормально'])
     return (<>
-        {messagesList.map((item: string) => <Message text={item} />)}
-        <button onClick={addHandler}>Add message</button>
-    </>)
-}
+        {messagesList.map((item: any) => <Message author={{isMe: true, avatar: ''}} message={{} as any}/>)}
+    </>);
+};
 
 export { MessagesList };
