@@ -1,78 +1,70 @@
-import React from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { CreateMessage } from "./CreateMessage";
 
 import './Chat.css';
 import { MessagesList } from './MessagesList';
+import useDebounce from "../common/useDebounce";
+import { UserContext } from "../common/UserContext";
 
 const Chat = () => {
+    const responseTimeout = 10 * 1000;
+
+    const currentUser: User = useContext(UserContext);
+
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [hasResponse, setHasResponse] = useState<boolean>(true);
+    const debouncedMessage = useDebounce<Message[]>(messages, responseTimeout);
+
+    const onSendHandler = (message: string) => {
+        const newMessage: Message = {
+            text: message,
+            date: new Date(),
+            author: {
+                avatar: currentUser.avatar,
+                id: currentUser.id,
+                name: currentUser.name
+            }
+        }
+
+        setMessages([...messages, newMessage]);
+        setHasResponse(false);
+    }
+
+    useEffect(() => {
+        if (!hasResponse) {
+            const newResponse: Message = {
+                text: 'Hello',
+                date: new Date(),
+                author: {
+                    avatar: 'https://html5css.ru/w3images/avatar2.png',
+                    name: 'Bot',
+                    id: 2
+                }
+            }
+
+            setMessages([...messages, newResponse]);
+            setHasResponse(true);
+        }
+    }, [debouncedMessage])
+
     return (<>
         <div className="container">
-            <div className="col-xs-12 col-md-offset-2">
+            <div className="col-8 mx-auto">
                 <div className="panel-heading">
                     <h2 className="panel-title pb-3">
-                        boto<span
-                        className="badge badge-secondary" style={{background: 'orange', color: 'black'}}>chat</span>
+                        bot <span
+                            className="badge badge-secondary">chat</span>
                     </h2>
                 </div>
                 <div className="panel chat-box card p-3" id="chat">
 
                     <div className="panel-body">
                         <div className="chats">
-                            <MessagesList/>
-                            <div className="chat">
-                                <div className="chat-avatar">
-                                    <a className="avatar avatar-online" href="#" data-placement="right" title=""
-                                       data-original-title="June Lane">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="..."/>
-                                        <i></i>
-                                    </a>
-                                </div>
-                                <div className="chat-body">
-                                    <div className="chat-content">
-                                        <p>
-                                            Good morning, sir.
-                                            <br/>What can I do for you?
-                                        </p>
-                                        <time className="chat-time">11:37:08 am</time>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="chat chat-left">
-                                <div className="chat-avatar">
-                                    <a className="avatar avatar-online" href="#">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="..."/>
-                                        <i></i>
-                                    </a>
-                                </div>
-                                <div className="chat-body">
-                                    <div className="chat-content">
-                                        <p>Well, I am just looking around.</p>
-                                        <time className="chat-time">11:39:57 am</time>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="chat">
-                                <div className="chat-avatar">
-                                    <a className="avatar avatar-online">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="..."/>
-                                        <i></i>
-                                    </a>
-                                </div>
-                                <div className="chat-body">
-                                    <div className="chat-content">
-                                        <p>
-                                            If necessary, please ask me.
-                                        </p>
-                                        <time className="chat-time">11:40:10 am</time>
-                                    </div>
-                                </div>
-                            </div>
+                            <MessagesList messages={messages} />
                         </div>
                     </div>
-                    <div className="panel-footer">
-                        <CreateMessage onSend={(e) => {
-                            console.log(e);
-                        }}/>
+                    <div className="panel-footer pt-4">
+                        <CreateMessage onSend={onSendHandler} />
                     </div>
                 </div>
             </div>

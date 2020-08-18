@@ -4,5 +4,26 @@ type CreateMessageProps = {
 
 type Message = {
     text: string;
-    data: Date;
+    date: Date;
+    author: Author;
+}
+
+type Author = {
+    id: number;
+    avatar: string;
+    name: string;
+}
+
+type MessagesListProps = {
+    messages: Message[];
+}
+
+type User = {
+    id: number;
+    avatar: string;
+    name: string
+}
+
+type MessageItemProps = {
+    message: Message;
 }

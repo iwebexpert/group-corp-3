@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Message } from "./Message";
+import { Message } from "./MessageItem";
 
-const MessagesList = () => {
-    const [messagesList, setMessagesList] = useState<Message[]>([{} as any, {} as any]);
-
+const MessagesList = (props: MessagesListProps) => {
+    const {messages} = props;
     return (<>
-        {messagesList.map((item: any) => <Message author={{isMe: true, avatar: ''}} message={{} as any}/>)}
+        {messages.map((item: Message) => <Message message={item}/>)}
     </>);
 };
 
