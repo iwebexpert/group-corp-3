@@ -8,8 +8,8 @@ import { UserContext } from "../common/UserContext";
 import { fakeUser, getFakeResponse } from '../common/fakeResponse';
 
 const Chat = () => {
-    const typingTimeout = 3000;
-    const responseTimeout = (Math.random() * 10) * 1000 + typingTimeout;
+    const typingTimeout = 3 * 1000;
+    const responseTimeout = (Math.random() * 5) * 1000 + typingTimeout;
 
     const currentUser: User = useContext(UserContext);
     const contactPerson: User = fakeUser;
@@ -46,21 +46,29 @@ const Chat = () => {
     };
 
     useEffect(() => {
-        if (!hasResponse) {
-            const newResponse: Message = getFakeResponse(responseStep);
+        const addBotResponse = () => {
+            if (!hasResponse) {
+                const newResponse: Message = getFakeResponse(responseStep);
 
-            setMessages([...messages, newResponse]);
-            setHasResponse(true);
-            setResponseStep(responseStep + 1);
-            setIsTyping(false);
+                setMessages([...messages, newResponse]);
+                setHasResponse(true);
+                setResponseStep(responseStep + 1);
+                setIsTyping(false);
+            }
         }
+        
+        addBotResponse();
     }, [debouncedMessage]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        if (!hasResponse) {
-            setIsTyping(true);
+        const showTyping = () => {
+            if (!hasResponse) {
+                setIsTyping(true);
+            }
         }
-    }, [debouncedTyping]); // eslint-disable-line react-hooks/exhaustive-deps
+
+        showTyping();
+    }, [debouncedTyping]);  // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         scrollToBottom();
@@ -72,20 +80,20 @@ const Chat = () => {
                 <div className="panel-heading">
                     <h2 className="panel-title pb-3">
                         bot <span
-                        className="badge badge-chat">chat</span>
+                            className="badge badge-chat">chat</span>
                     </h2>
                 </div>
                 <div className="panel chat-box card p-3" id="chat">
                     <div className="panel-body">
                         <div ref={chatsRef} className="chats">
-                            <MessagesList messages={messages}/>
+                            <MessagesList messages={messages} />
                         </div>
                     </div>
                     <span className="typing text-muted text-right"> {isTyping && <>{contactPerson.name} набирает
                         сообщение...</>} </span>
 
                     <div className="panel-footer pt-4">
-                        <CreateMessage onSend={onSendHandler}/>
+                        <CreateMessage onSend={onSendHandler} />
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const CreateMessage = (props: CreateMessageProps) => {
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState<string>('');
     const {onSend} = props;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
