@@ -9,3 +9,8 @@ type ToDoListFormProps = {
 type ToDoListProps = {
     tasks: ToDoListFormState[]
 }
+
+type Item = {
+    message: string;
+    author: string;
+}
