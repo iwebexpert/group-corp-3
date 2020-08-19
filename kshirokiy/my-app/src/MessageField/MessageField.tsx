@@ -12,9 +12,7 @@ export const MessageField: React.FC<Props> = () => {
     const inputMessageRef = useRef<HTMLInputElement>(null);
     const inputAuthorRef = useRef<HTMLInputElement>(null);
 
-    const handleInputChange = (event: any) => {
-        console.log('event: ', event.target.value);
-    }
+    const handleInputChange = (event: any) => {}
 
     const handleButtonClick2 = (inputRef: any, inputAuthorRef: any) => {
         let message = inputRef.current.value;
