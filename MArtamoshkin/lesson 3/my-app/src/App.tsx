@@ -3,18 +3,16 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { Chat } from './Chat/Chat';
-import { UserProvider } from './common/UserContext';
 import { AuthProvider } from './common/AuthProvider';
 
-
 function App() {
-  return (
-    <div className="App">
-      <AuthProvider>
-        <Chat />
-      </AuthProvider>
-    </div>
-  );
+    return (
+        <div className="App">
+            <AuthProvider>
+                <Chat/>
+            </AuthProvider>
+        </div>
+    );
 }
 
 export default App;

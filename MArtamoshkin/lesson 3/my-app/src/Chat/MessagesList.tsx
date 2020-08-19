@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Message } from "./MessageItem";
 
 const MessagesList = (props: MessagesListProps) => {
     const {messages} = props;
     return (<>
-        {messages.map((item: Message) => <Message message={item}/>)}
+        {messages.map((item: Message, index: number) => <Message key={item.date.getDate() + index} message={item}/>)}
+
     </>);
 };
 

@@ -8,10 +8,10 @@ const MessageItem = (props: MessageItemProps) => {
 
     return <div className={messageClasses}>
         <div className="chat-avatar">
-            <a className="avatar avatar-online" href="#">
+            <div className="avatar avatar-online">
                 <img src={message.author.avatar} alt="Avatar" />
                 <i></i>
-            </a>
+            </div>
         </div>
         <div className="chat-body">
             <div className="chat-content">

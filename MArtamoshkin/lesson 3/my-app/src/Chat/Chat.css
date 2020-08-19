@@ -3,13 +3,18 @@ body {
     margin-top:10px;
     }
 
+    .badge.badge-chat {
+        background-color: #435f7a;
+        color: #fff;
+    }
+
 
     .chat-box {
         height: 100%;
         width: 100%;
         background-color: #fff;
         overflow: hidden;
-        border-color: rgba(0, 0, 0, .3);
+        border-color: #435f7a;
     }
 
     .chats {
@@ -38,11 +43,16 @@ body {
         margin-top: 0
     }
 
+    .typing {
+        height: 1rem;
+    }
+
     .chat-content {
         position: relative;
         display: block;
         float: right;
         min-width: 300px;
+        max-width: 400px;
         padding: 8px 15px;
         margin: 0 20px 10px 0;
         clear: both;
