@@ -1,10 +1,7 @@
 import React from 'react';
-//import {MessagesBlock} from "./Components/MessagesBlock";
-import {TasksBlock} from "./Components/TasksBlock";
+import {MessagesBlock} from "./Components/MessagesBlock";
 
 const element = (<h1 className="test1">Hello!</h1>);
-//const items: string[] = [];
-//const addValue: string = "Нормально";
 
 export const ConfigContext = React.createContext<ConfigApp>({lang: 'en'});
 export const ConfigContextProvider = ConfigContext.Provider;
@@ -15,8 +12,8 @@ function App() {
     <>
       {element}
       <hr/>
-      {/*<MessagesBlock items={items} addValue={addValue}/>*/}
-      <TasksBlock/>
+      <MessagesBlock messages={[]} authors={[]}/>
+      {/*<TasksBlock/>*/}
     </>
   );
 }
