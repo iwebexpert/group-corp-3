@@ -3,8 +3,8 @@ import './App.css';
 import TodoList from './components/TodoList';
 import Form from './components/Form';
 
-export default class App extends React.Component<any, AppState> {
-  constructor(props: any) {
+export default class App extends React.Component<{}, AppState> {
+  constructor(props: {}) {
     super(props);
     this.state = { items: [] };
   }
