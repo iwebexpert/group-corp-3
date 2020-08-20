@@ -1,23 +1,34 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Messages} from "./Messages";
-import {Button} from "./Button";
+import {MessageForm} from "./MessageForm";
 
-type Props = {
-    items: string[]
-    addValue?: string
-}
+function MessagesBlock({messages, authors}: MessagesBlockProps) {
+    const [curMessages, setMessage] = useState(messages);
+    const [curAuthors, setAuthor] = useState(authors);
 
-function MessagesBlock({items, addValue="Нормально"}: Props) {
-    const [item, setItems] = useState(items);
+    let newAuthor: string = "";
+    const [curAuthor, setNewAuthor] = useState(newAuthor);
+
+    useEffect(() => {
+        setTimeout(()=>{
+            if (curAuthor !== "")
+                setMessage(curMessages.concat({ Author: "Бот", MessageText: "Привет! " + curAuthor}));
+
+            setAuthor(curAuthors.concat(curAuthor));
+        }, 1000);
+    }, [curAuthor]);
 
     return (<>
-        <Button addItem={()=>{
-            setItems(item.concat(addValue))
-        }}><b>Нормально</b>
-        </Button>
+        <Messages messages={curMessages} />
         <hr/>
-        <Messages items={item}/>
-        </>
-        )}
+        <MessageForm MessageFormData={{Author: "", MessageText: ""}} AddMessageHandler={(newData: MessageData) => {
+
+            if (curAuthors.find(c => c === newData.Author) === undefined)
+                setNewAuthor(newData.Author);
+
+            setMessage(curMessages.concat(newData))}
+        } />
+        </>)
+}
 
 export {MessagesBlock}

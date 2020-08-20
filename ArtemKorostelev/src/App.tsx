@@ -20,6 +20,11 @@ function App() {
             path: "/lesson02",
             title: "Lesson #2",
             content: lazy(() => import('./components/lesson-2/Lesson2'))
+        },
+        {
+            path: "/lesson03",
+            title: "Lesson #3",
+            content: lazy(() => import('./components/lesson-3/Lesson3'))
         }
     ];
 
@@ -41,8 +46,7 @@ function App() {
                 <div
                     style={{
                         padding: "10px",
-                        width: "20%",
-                        background: "#f0f0f0"
+                        width: "15%",
                     }}
                 >
                     <ul style={{ listStyleType: "none", padding: 0 }}>
@@ -59,7 +63,7 @@ function App() {
                         <Route
                             exact
                             path="/"
-                            render={() => <Redirect to="/lesson01" /> }
+                            render={() => <Redirect to="/lesson03" /> }
                         />
                         <Suspense fallback={<>azaza</>}>
                         {

@@ -4,6 +4,7 @@ import Button from './components/UI/Button/Button';
 import Messages from './Messages/Messages';
 import ToDoList from './ToDoList/ToDoList';
 import {ToDoListForm} from './ToDoListForm/ToDoListForm';
+import {MessageField} from './MessageField/MessageField';
 
 
 class App extends Component {
@@ -38,6 +39,10 @@ class App extends Component {
                 <ToDoList tasks={this.state.task}></ToDoList>
                 <ToDoListForm handlerOnSend={this.handlerTaskCreate.bind(this)}></ToDoListForm>
 
+                <p>
+                    <b>3. lesson</b>
+                    <MessageField></MessageField>
+                </p>
             </div>
         );
     }

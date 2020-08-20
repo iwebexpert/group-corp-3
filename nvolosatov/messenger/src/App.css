@@ -1,0 +1,80 @@
+.header {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.messenger {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 30rem;
+  height: 100%;
+}
+
+.messenger__list {
+  min-height: 30rem;
+  border: 1px solid cyan;
+}
+
+.messenger__empty {
+  text-align: center;
+  color: grey;
+}
+
+.messenger__message-form {
+  margin-top: 1rem;
+}
+
+.message-list {
+  list-style: none;
+  padding: 0;
+  overflow-y: auto;
+  max-height: 30rem;
+}
+
+.message {
+  padding: 0.5rem;
+  margin: 0.25rem;
+  background-color: plum;
+  border-radius: 0.75rem;
+}
+
+.message_auto {
+  background-color: aqua;
+}
+
+.message_text {
+  margin: 0;
+}
+
+.message__caption {
+  width: 100%;
+  display: inline-block;
+  text-align: right;
+}
+
+.form__item {
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__label_required::after {
+  content: "*";
+  color: red;
+}
+
+.form__input {
+  resize: vertical;
+}
+
+textarea.form__input {
+  min-height: 10rem;
+}
+
+.form__button {
+  width: 100%;
+}

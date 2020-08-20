@@ -1,15 +1,10 @@
 import React, {ReactElement} from "react";
 import {Message} from "./Message";
 
-type Props = {
-    items: string[]
-}
-
-function Messages({items}: Props): ReactElement{
-    console.log(items);
-    const messages = items.map((item, index) => <Message text={item} key={index}/>);
+function Messages({messages}: MessageProps): ReactElement{
+    const messageView = messages.map((item, index) => <Message Author={item.Author} MessageText={item.MessageText} key={index}/>);
     return (<>
-        {messages}
+        {messageView}
     </>)
 }
 
