@@ -1,59 +1,90 @@
 
 import './App.css';
-import React, { useState } from 'react';
-import { TaskList } from './components/task-list';
-import { AddTaskBlock } from './components/add-task-block';
-import { TaskModel } from './models/TaskModel';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/scss/bootstrap.scss';
+import { MessageModel } from './models/MessageModel';
+import { UserModel } from './models/UserModel';
+import { AuthorizationBlock } from './components/AuthorizationBlock';
+import { MessageField } from './components/MessageField';
+import { MessageCreate } from './components/MessageCreate';
 
 /*
-  Сделать TODO лист в функциональном стиле 
-  Два блока - список задач, окно добавления таска (тест, кнопка)
-  В списке задач появляются добавленные задачи,
-    Есть возможность их выполнить путем нажатия на чекбокс (слева)
-    Есть возможность их удалить путем нажатия на кнопку удаления (справа)
+  1. Создать в папке components два компонента - MessageField и Message
+      Компоненты Message должны быть вложены в MessageField
+  2. Реализовать отправку сообщений по нажатию кнопки
+  3. На каждое сообщение должен отвечать робот
+  4. Добавить автора к сообщеням и отображать его в интерфейсе. Переделать логику ответа от робота в соответствии с этим
  */
 
 function App() {
-  const [tasks, setTasks] = useState<TaskModel[]>([]);
 
-  const addTask = (task: TaskModel) => setTasks(tasks.concat([task]));
 
-  const removeTask = (task: TaskModel) => setTasks(tasks.filter(q => q.id !== task.id))
 
-  const onChangeStatusTask = (task: TaskModel) => {
-    console.log(task);
-    tasks.sort((a, b) => {
-      if (a.enabled && !b.enabled) return -1;
-      if (!a.enabled && b.enabled) return 1;
-      return 0;
-    });
-    console.log(tasks);
-    setTasks([...tasks])
+  const [author, setAuthor] = useState<UserModel>();
+
+  const [messages, setMessages] = useState<MessageModel[]>([]);
+
+  const updateMessages = (message: MessageModel) => {
+    setMessages(messages.concat([message]));
+    ;
+  }
+
+  useEffect(() => {
+
+    if (!messages || !messages.length) {
+      return;
+    }
+
+    const botMessageModel: MessageModel = {
+      author: {
+        id: 3,
+        name: 'Bot'
+      },
+      text: 'Test bot text'
+    }
+
+    if (messages[messages.length - 1].author.id !== botMessageModel.author.id) {
+      setTimeout(() => setMessages(messages.concat([botMessageModel])), 1000)
+    }
+  }, [messages]);
+
+  const authorizeUser = (author: UserModel) => {
+    setAuthor(author);
+  }
+
+  const renderAuthorization = () => {
+    if (!!author) {
+      return;
+    }
+    return <AuthorizationBlock onAuth={(author: UserModel) => authorizeUser(author)}></AuthorizationBlock>
+  }
+
+  const renderChat = () => {
+    if (!author) {
+      return;
+    }
+    return <>
+      <Row>
+        <Col></Col>
+        <Col>
+          <MessageField messages={messages}></MessageField>
+        </Col>
+        <Col></Col>
+      </Row>
+      <Row>
+        <Col></Col>
+        <Col>
+          <MessageCreate author={author} onCreate={(message: MessageModel) => updateMessages(message)}></MessageCreate>
+        </Col>
+        <Col></Col>
+      </Row>
+    </>
   }
 
   return <Container className="margin-top">
-    <Row>
-      <Col></Col>
-      <Col>
-        <TaskList
-          onRemoveTask={(task: TaskModel) => removeTask(task)}
-          onChangeStatusTask={(t) => onChangeStatusTask(t)}
-          tasks={tasks}></TaskList>
-      </Col>
-      <Col></Col>
-
-    </Row>
-    <Row>
-      <Col></Col>
-
-      <Col>
-        <AddTaskBlock onAddTask={(task: TaskModel) => addTask(task)}></AddTaskBlock>
-      </Col>
-      <Col></Col>
-
-    </Row>
+    {renderAuthorization()}
+    {renderChat()}
   </Container>;
 }
 
