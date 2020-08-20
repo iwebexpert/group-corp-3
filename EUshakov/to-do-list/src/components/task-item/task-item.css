@@ -1,0 +1,10 @@
+.task-item span {
+    padding: 0px 5px;
+}
+.task-item button {
+    padding: 0px 5px;
+    margin: 0px 5px;
+}
+.completed-task {
+    text-decoration: line-through;
+}
