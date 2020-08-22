@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { LayoutComponent } from './lesson3_4/LayoutComponent';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LayoutComponent />
   </React.StrictMode>,
   document.getElementById('root')
 );
