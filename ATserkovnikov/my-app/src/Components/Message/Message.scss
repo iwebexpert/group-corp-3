@@ -1,0 +1,16 @@
+.message {
+  background-color: aquamarine;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 22px;
+  margin: 5px;
+
+  &-user {
+    align-self: flex-start;
+  }
+
+  &-bot {
+    align-self: flex-end;
+    background-color: yellow;
+  }
+}
