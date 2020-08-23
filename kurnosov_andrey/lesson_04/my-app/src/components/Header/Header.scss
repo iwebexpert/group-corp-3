@@ -1,0 +1,34 @@
+.page-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: aquamarine;;
+
+    
+
+    &-logo {
+        display: flex;
+
+
+        &-img {
+            // Failed to compile.
+            // Can't resolve './logo.svg'
+            // background-image: url('./logo.svg');
+            width: 32px;
+            height: 32px;
+        }
+
+        &-text {
+            font-size: larger;
+            margin: auto;
+        }
+    }
+
+
+}

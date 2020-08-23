@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
-import { Message, MessageData } from './Message/Message';
+import { Message } from './Message/Message';
+import { MessageData } from '../../../../logic/domain/MessageData';
 
 type Props = {
     items: MessageData[]

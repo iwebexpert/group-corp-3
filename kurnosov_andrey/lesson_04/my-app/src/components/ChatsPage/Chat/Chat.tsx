@@ -1,35 +1,10 @@
-import './Chat.css'
+import './Chat.scss'
 import React, { useState, useEffect, useRef } from 'react';
 import { Messages } from './Messages/Messages';
 import { MessageForm } from './Messages/MessageForm/MessageForm';
-import { MessageData } from './Messages/Message/Message';
+import { MessageData } from '../../../logic/domain/MessageData';
+import { Delay } from '../../../logic/utils/Delay';
 
-
-class Delay {
-    constructor(private delay: number) {
-    }
-    private _timeout: number | null = null
-    public start(func: () => void, mode: 'from-first'|'from-last') {
-        const _setTimeout = () => {
-            this._timeout = window.setTimeout(
-                () => {
-                    func();
-                    if (this._timeout != null) {
-                        window.clearTimeout(this._timeout);
-                        this._timeout = null;
-                    }
-                }, this.delay);
-        }
-        
-        if (this._timeout === null) {
-            _setTimeout();
-        } 
-        else if (mode === 'from-last') {
-            window.clearTimeout(this._timeout);
-            _setTimeout()
-        }
-    }
-}
 
 enum AnswerStatus {
     Typing,
