@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { MessageList } from "./MessageList";
-import { NewMessage } from "./NewMessage";
+import { MessageList } from "./components/MessageList";
+import { NewMessageForm } from "./components/NewMessageForm";
+import './Messenger.scss';
 
 export function Messenger() {
   const [messages, setMessages] = useState<MessageEntity[]>([]);
@@ -11,7 +12,7 @@ export function Messenger() {
 
   useEffect(() => {
     const lastMessage = messages[messages.length - 1];
-    if (!lastMessage || lastMessage.isAnswerphone) {
+    if (!lastMessage || lastMessage.fromBot) {
       return;
     }
 
@@ -22,7 +23,7 @@ export function Messenger() {
             author: "Мистер робот",
             created: new Date(),
             text: `Здрасте, ${messages[messages.length - 1].author}`,
-            isAnswerphone: true,
+            fromBot: true,
           },
         ])
       );
@@ -39,7 +40,7 @@ export function Messenger() {
         <MessageList messages={messages} />
       </div>
       <div className="messenger__message-form">
-        <NewMessage createdMessage={onCreatedNewMessage} />
+        <NewMessageForm createdMessage={onCreatedNewMessage} />
       </div>
     </div>
   );

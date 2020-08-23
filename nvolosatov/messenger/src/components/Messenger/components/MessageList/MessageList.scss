@@ -1,0 +1,19 @@
+$chat-background-color:  #f3f2f1;
+$chat-height: 30rem;
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: $chat-height;
+  max-height: $chat-height;
+  background-color:$chat-background-color;
+}
+
+.empty-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $chat-height;
+  background-color: $chat-background-color;
+}

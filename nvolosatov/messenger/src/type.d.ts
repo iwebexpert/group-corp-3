@@ -2,7 +2,7 @@ type MessageEntity = {
     text: string;
     author: string;
     created: Date;
-    isAnswerphone?: boolean;
+    fromBot?: boolean;
 }
 
 type MessageListProps = {
