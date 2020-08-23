@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserProvider } from './UserContext';
+import { UserProvider } from '../contexts/UserContext';
 
 const AuthProvider: React.FC = ({ children }) => {
     const stubUser: User = {

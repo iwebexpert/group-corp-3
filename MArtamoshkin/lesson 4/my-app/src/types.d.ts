@@ -27,3 +27,10 @@ type User = {
 type MessageItemProps = {
     message: Message;
 }
+
+type Chat = {
+    id: number;
+    text: string;
+    author: Author;
+    date: Date;
+}

@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../../../common/UserContext';
+import { UserContext } from '../../contexts/UserContext';
+
+import './MessageField.scss';
 
 const MessageField = (props: MessageItemProps) => {
     const { message } = props;

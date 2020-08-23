@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import './CreateMessage.scss';
+
 const CreateMessage = (props: CreateMessageProps) => {
     const [message, setMessage] = useState<string>('');
     const {onSend} = props;
@@ -19,10 +21,11 @@ const CreateMessage = (props: CreateMessageProps) => {
         <form onSubmit={handleSubmit}>
             <div className="input-group create-message">
                 <input type="text" name="message" value={message} autoComplete='off' onChange={handleChange}
-                       className="form-control message-input"
+                       className="form-control message-input rounded-0"
                        placeholder="Введите сообщение"/>
+                
                 <div className="input-group-append">
-                    <button className="btn btn-light border message-submit" type="submit"
+                    <button className="btn btn-light border message-submit rounded-0" type="submit"
                             disabled={!message.trim().length}>Отправить
                     </button>
                 </div>

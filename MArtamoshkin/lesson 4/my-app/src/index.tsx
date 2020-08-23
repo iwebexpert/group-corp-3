@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
-import { Layout } from './components/Layout/Layout';
+import { Layout } from './Layout';
 
 ReactDOM.render(
   <React.StrictMode>

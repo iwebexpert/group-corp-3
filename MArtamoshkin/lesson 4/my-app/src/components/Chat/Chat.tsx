@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { CreateMessage } from "../CreateMessage/CreateMessage";
 
-import './Chat.css';
+import './Chat.scss';
 import { MessagesList } from '../MessagesList/MessagesList';
-import useDebounce from "../../../common/useDebounce";
-import { UserContext } from "../../../common/UserContext";
-import { fakeUser, getFakeResponse } from '../../../common/fakeResponse';
+import useDebounce from "../../hooks/useDebounce";
+import { UserContext } from "../../contexts/UserContext";
+import { fakeUser, getFakeResponse } from '../../common/fakeResponse';
+import { ChatList } from "../ChatList";
 
 const Chat = () => {
     const typingTimeout = 3 * 1000;
@@ -56,7 +57,7 @@ const Chat = () => {
                 setIsTyping(false);
             }
         }
-        
+
         addBotResponse();
     }, [debouncedMessage]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -74,31 +75,32 @@ const Chat = () => {
         scrollToBottom();
     }, [messages]);
 
-    return (<>
-        <div className="container">
-            <div className="col-8 mx-auto">
-                <div className="panel-heading">
-                    <h2 className="panel-title pb-3">
-                        bot <span
-                            className="badge badge-chat">chat</span>
-                    </h2>
-                </div>
-                <div className="panel chat-box card p-3" id="chat">
-                    <div className="panel-body">
-                        <div ref={chatsRef} className="chats">
-                            <MessagesList messages={messages} />
+    return (
+        <>
+            <div className="col-3 border-right p-0">
+                <ChatList />
+            </div>
+            <div className="col-9">
+                <div className="row">
+                    <div className="p-3 text-right w-100" id="chat">
+                        <div className="panel-body">
+                            <div ref={chatsRef} className="chats">
+                                <MessagesList messages={messages} />
+                            </div>
                         </div>
+                        <span className="typing text-muted"> {isTyping && <>{contactPerson.name} набирает
+                        сообщение...</>}&nbsp; </span>
                     </div>
-                    <span className="typing text-muted text-right"> {isTyping && <>{contactPerson.name} набирает
-                        сообщение...</>} </span>
+                </div>
 
-                    <div className="panel-footer pt-4">
+                <div className="row">
+                    <div className="panel-footer pt-2 w-100">
                         <CreateMessage onSend={onSendHandler} />
                     </div>
                 </div>
             </div>
-        </div>
-    </>);
+        </>
+    );
 };
 
 export { Chat };
