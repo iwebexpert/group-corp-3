@@ -1,43 +1,28 @@
 import React from 'react';
+import {ItemWithId, MessagesProps} from '../types/types';
+import {Message} from "../Message/Message";
 
-class Messages extends React.Component<any, any> {
-    public state: any = {
-        greeting: null
-    };
+export const Messages: React.FC<MessagesProps> = ({items}) => {
 
-    renderMessages(items: any) {
-        return items.map((item: string | Item, index: number) => {
+    const renderMessages = (items: any): any => {
+        return items.map((item: string | ItemWithId, index: number) => {
             if (typeof item === 'string') {
-                return <li key={index}>{item}</li>
-            } else {
-                return <li key={index}>
-                    Автор: {item.author} <br/>
-                    Сообщение: {item.message} <br/>
+                return <li
+                    className="list-group-item" key={index}>
+                    {item}
                 </li>
+            } else {
+                return <Message key={index} {...item}/>
             }
         });
     }
-
-    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
-        if (this.props.items.length && (this.props.items.length !== prevProps.items.length)) {
-            this.setState({
-                greeting: `Приветствую, ${this.props.items[this.props.items.length - 1].author}!`
-            });
-        }
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <div>
-                    {this.state.greeting}
-                </div>
-                <ol>
-                    {this.renderMessages(this.props.items)}
-                </ol>
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+            <ul className="list-group mb-4">
+                {renderMessages(items)}
+            </ul>
+        </React.Fragment>
+    )
 }
 
 export default Messages;

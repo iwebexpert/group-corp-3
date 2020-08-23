@@ -1,16 +1,37 @@
-type ToDoListFormState = {
+import {MessageProps, MessageWithId} from "../../../../../../4_lesson/lesson4/lesson4/my-app/src/components/Message";
+
+export type ToDoListFormState = {
     name: string
 };
 
-type ToDoListFormProps = {
+export type ToDoListFormProps = {
     handlerOnSend: (ToDoListFormState) => void;
 }
 
-type ToDoListProps = {
+export type ToDoListProps = {
     tasks: ToDoListFormState[]
 }
 
-type Item = {
+export type Item = {
     message: string;
     author: string;
 }
+
+export type ItemFormProps = {
+    onSendHandler: (data: ItemFormState) => void;
+};
+
+export type ItemWithId = {
+    id: string;
+    message: string;
+    author: string;
+};
+
+export type ItemFormState = {
+    text: string;
+    author: string;
+};
+
+type MessagesProps = {
+    items: ItemWithId[],
+};
