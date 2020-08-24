@@ -1,50 +1,49 @@
-import React, {useState, useEffect, useRef} from 'react';
-import Messages from '../Messages/Messages';
+import React from 'react';
 
-type State = {
-    messages: Item[];
-};
+export const MessageField: React.FC<any> = ({onSendHandler}) => {
+    const [message, setMessage] = React.useState('');
+    const [author, setAuthor] = React.useState('');
 
-type Props = {};
-
-export const MessageField: React.FC<Props> = () => {
-    const [messages, setMessages] = useState<any[]>([]);
-    const inputMessageRef = useRef<HTMLInputElement>(null);
-    const inputAuthorRef = useRef<HTMLInputElement>(null);
-
-    const handleInputChange = (event: any) => {}
-
-    const handleButtonClick2 = (inputRef: any, inputAuthorRef: any) => {
-        let message = inputRef.current.value;
-        let author = inputAuthorRef.current.value;
-        inputRef.current.value = '';
-        inputAuthorRef.current.value = '';
+    const handleButtonClick2 = () => {
         if (message.trim() !== '' && author.trim() !== '') {
-            setMessages(currentState => ([...currentState, {message, author}]));
+            onSendHandler({message, author});
+            setAuthor('');
+            setMessage('');
+        }
+    }
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter') {
+            handleButtonClick2();
         }
     }
 
     return (
         <>
-            <Messages items={messages}></Messages>
             <div>
-                <div>
+                <div className="form-group">
                     <input type="text"
-                           ref={inputMessageRef}
-                           name="message"
-                           placeholder="Введите сообщение"
-                           onChange={handleInputChange}/>
+                           className="form-control"
+                           placeholder="Сообщение"
+                           value={message}
+                           onKeyDown={handleKeyDown}
+                           onChange={e => setMessage(e.target.value)}/>
 
                 </div>
-                <div>
+                <div className="form-group">
                     <input type="text"
-                           ref={inputAuthorRef}
-                           name="message"
-                           placeholder="Введите Автора сообщение"
-                           onChange={handleInputChange}/>
-
+                           className="form-control"
+                           placeholder="Автор"
+                           value={author}
+                           onKeyDown={handleKeyDown}
+                           onChange={e => setAuthor(e.target.value)}
+                    />
                 </div>
-                <button onClick={() => {handleButtonClick2(inputMessageRef, inputAuthorRef); }}>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                        handleButtonClick2();
+                    }}>
                     Добавить сообщение
                 </button>
             </div>

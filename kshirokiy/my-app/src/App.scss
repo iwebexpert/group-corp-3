@@ -1,15 +1,12 @@
+@import "~bootstrap/scss/bootstrap";
+
 .App {
   text-align: center;
   padding: 20px;
   max-width: 980px;
   margin: 0 auto;
 }
-ol, ul {
-  list-style: none;
-}
-input[type="text"] {
-  min-width: 200px;
-}
+
 .tasks {
   padding: 10px;
   border: 1px solid gray;
