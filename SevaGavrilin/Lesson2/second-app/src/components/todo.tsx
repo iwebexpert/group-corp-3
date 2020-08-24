@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 
 class Todo extends React.Component {
@@ -8,8 +8,10 @@ class Todo extends React.Component {
         return (
             <>
              <input type = "text"/>
-             <button>
-                    add
+             <button onClick={() => {
+
+             }}>
+                add
              </button>
             </>
         );

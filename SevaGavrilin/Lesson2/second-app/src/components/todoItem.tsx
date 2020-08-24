@@ -1,15 +1,30 @@
 import React from 'react';
 
-class TodoItem extends React.Component {
 
 
+class TodoItem extends React.Component<MessageProps> {
 
-    render() {
+  public state = {
+    isDone: false,
+  };
+
+  protected handleChangeDone = () => {
+    this.state.isDone = !this.state.isDone;
+  }
+
+    public render() {
       return (
           <>
-           <input type="checkbox"/>
+           <input type="checkbox" onChange={()=>{
+                this.handleChangeDone();
+              }}/>
            
-           <label/>
+           <div>
+             Text: {this.props.text}
+           </div>
+           <div>
+             {this.state.isDone}
+           </div>
           </>
       );
     }

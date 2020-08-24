@@ -5,9 +5,7 @@ import { TodoItem } from './todoItem';
 
 class Todos extends React.Component<{}> {
 
-
-
-    render() {
+    public render() {
       return (
            <hr/> 
       );
