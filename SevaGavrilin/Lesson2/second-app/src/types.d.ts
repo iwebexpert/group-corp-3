@@ -1,0 +1,3 @@
+type MessageProps = {
+    text: string,
+}
