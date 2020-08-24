@@ -1,0 +1,23 @@
+.message {
+    background-color: HONEYDEW;
+    align-self: flex-end;
+
+    padding: 5px 15px;
+    border-radius: 20px;    
+    margin: 5px;
+}
+  
+.message_auto {
+    background-color: IVORY;
+    align-self: flex-start;
+}
+  
+.message_text {
+    margin: 0;
+}
+  
+.message__caption {
+    width: 100%;
+    display: inline-block;
+    text-align: right;
+}
