@@ -1,0 +1,13 @@
+.messenger {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  // &__list {
+  //   flex: 1 0 auto;
+  // }
+
+  &__message-form {
+    flex-shrink: 0;
+  }
+}

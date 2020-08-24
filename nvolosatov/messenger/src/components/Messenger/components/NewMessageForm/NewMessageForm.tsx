@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./NewMessageForm.scss";
 
 type NewMessage = {
   text: string;
@@ -10,7 +11,7 @@ const emptyMessage: NewMessage = {
   text: "",
 };
 
-export function NewMessage(props: NewMessageProps) {
+export function NewMessageForm(props: NewMessageProps) {
   const [message, setMessage] = useState<NewMessage>(emptyMessage);
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
 
@@ -29,13 +30,22 @@ export function NewMessage(props: NewMessageProps) {
     setBtnDisabled(canPost);
   };
 
+  const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>): void => {
+    if (event.ctrlKey && event.key === "Enter") {
+      tryTocreateMessage();
+    }
+  };
+
   const onClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
+    tryTocreateMessage();
+  };
+
+  const tryTocreateMessage = (): void => {
     if (btnDisabled) {
       return;
     }
-
     const newMess: MessageEntity = {
       text: message.text,
       author: message.author,
@@ -44,20 +54,20 @@ export function NewMessage(props: NewMessageProps) {
     props.createdMessage(newMess);
 
     setMessage({
-        ...emptyMessage,
-        author: newMess.author
+      ...emptyMessage,
+      author: newMess.author,
     });
     setBtnDisabled(true);
   };
 
   return (
-    <div className="form">
-      <div className="form__item">
-        <label className="form__label_required" htmlFor="author">
+    <div className="new-message-form">
+      <div className="form-group">
+        <label className="new-message-form__label" htmlFor="author">
           Автор
         </label>
         <input
-          className="form__input"
+          className="form-control form-control-sm"
           id="author"
           onChange={onChange}
           value={message.author}
@@ -65,20 +75,25 @@ export function NewMessage(props: NewMessageProps) {
           required
         />
       </div>
-      <div className="form__item">
-        <label className="form__label_required" htmlFor="text">
+      <div className="form-group">
+        <label className="new-message-form__label" htmlFor="text">
           Сообщение
         </label>
         <textarea
           value={message.text}
           onChange={onChange}
-          className="form__input"
+          onKeyDown={onKeyDown}
+          className="form-control form-control-sm"
           id="text"
           required
           placeholder="Напиши что-нибудь"
         />
       </div>
-      <button className="form__button" onClick={onClick} disabled={btnDisabled}>
+      <button
+        className="btn btn-primary btn-sm btn-block"
+        onClick={onClick}
+        disabled={btnDisabled}
+      >
         Создать
       </button>
     </div>
