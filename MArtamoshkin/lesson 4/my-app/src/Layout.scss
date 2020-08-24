@@ -1,0 +1,7 @@
+@import './styles/variables.scss';
+@import './styles/index.scss';
+
+body {
+    margin-top: .625rem;
+    background: $background-color;
+}
