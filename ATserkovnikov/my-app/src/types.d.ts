@@ -49,3 +49,14 @@ type MessagesBlockProps = {
 type MessageProps = {
     messages: MessageData[];
 }
+
+
+
+
+
+
+
+type MessagesListProps = {
+    messages: MessageData[];
+    authors: string[]
+}
