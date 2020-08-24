@@ -1,0 +1,13 @@
+.chat {
+    height: 600px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+  }
+  .message-form > input {
+    width: 370px !important;
+  }
+ 

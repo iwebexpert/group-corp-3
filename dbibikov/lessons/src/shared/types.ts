@@ -17,3 +17,15 @@ export interface TodoListState {
 export interface TaskListProps extends TodoListState {
     onChangeTaskList?: (tasks: SimpleTask[]) => void;
 }
+
+export enum MessageAuthor {
+    User,
+    Bot
+}
+export interface Message {
+    author: MessageAuthor;
+    content: string;
+}
+export interface MessagesAreaProps {
+    messages: Message[];
+}
