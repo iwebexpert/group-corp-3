@@ -1,0 +1,57 @@
+@import '../../styles/variables.scss';
+
+.chat-box {
+    height: 100%;
+    width: 100%;
+    background-color: $white;
+    overflow: hidden;
+    border-color: $gray;
+}
+
+.chats {
+    min-height: $chat-height;
+    max-height: $chat-height;
+    overflow-y: auto;
+    padding: 1.875rem 1rem
+}
+
+
+.chat-body {
+    display: block;
+    margin: .625rem 1.875rem 0 0;
+    overflow: hidden
+}
+
+.chat-body:first-child {
+    margin-top: 0
+}
+
+.typing {
+    height: 1rem;
+}
+
+.panel-footer {
+    background-color: transparent;
+    border-top: 1px solid transparent;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chat-avatar .avatar {
+    width: 1.875rem;
+}
+
+.avatar {
+    position: relative;
+    display: inline-block;
+    width: 2.5rem;
+    white-space: nowrap;
+    vertical-align: bottom;
+
+    img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border: 0 none;
+    }
+}
