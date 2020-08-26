@@ -12,7 +12,7 @@ export function MessageList(props: MessageListProps) {
   });
 
   const messages = props.messages.map((m, index) => {
-    return <Message message={m} key={index} />;
+    return <Message message={m} key={m.id} removedMessage = {() => {props.removedMessage(index)}} />;
   });
 
   return messages.length ? (

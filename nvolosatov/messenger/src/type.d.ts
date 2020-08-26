@@ -1,20 +1,21 @@
 type MessageEntity = {
-    text: string;
-    author: string;
-    created: Date;
-    fromBot?: boolean;
-}
+  id: string;
+  text: string;
+  author: string;
+  created: Date;
+  fromBot?: boolean;
+};
 
 type MessageListProps = {
-    messages: MessageEntity[];
-}
-
+  messages: MessageEntity[];
+  removedMessage: (index: number) => void;
+};
 
 type NewMessageProps = {
-    createdMessage: (MessageEntity) => void;
-}
+  createdMessage: (MessageEntity) => void;
+};
 
 type MessageProps = {
-    message: MessageEntity;
-    
-}
+  message: MessageEntity;
+  removedMessage: () => void;
+};

@@ -5,6 +5,10 @@ import { Footer } from "../Footer";
 import { Messenger } from "../Messenger";
 import { MessengerList } from "../MessengerList";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
 export function Layout() {
   return (
     <div className="layout">
@@ -12,12 +16,16 @@ export function Layout() {
         <Header />
       </div>
       <div className="layout__body">
-        <div className="layout__messenger-list">
-          <MessengerList />
-        </div>
-        <div className="layout__current-messenger">
-          <Messenger />
-        </div>
+        <Container fluid={true}>
+          <Row>
+            <Col xs={4}>
+              <MessengerList />
+            </Col>
+            <Col xs={8}>
+              <Messenger />
+            </Col>
+          </Row>
+        </Container>
       </div>
       <div className="layout__footer">
         <Footer />
