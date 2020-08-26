@@ -27,9 +27,10 @@ export const MessageForm: FC<MessageFormProps> = ({ onMessageSend }) => {
   };
 
   return (
-    <Row className="p-3">
+    <Row className="custom-shadow pt-3 m-0">
       <Col md="8">
         <Form.Control
+          className="mb-3"
           name="text"
           value={text}
           placeholder="Enter message"
@@ -40,7 +41,7 @@ export const MessageForm: FC<MessageFormProps> = ({ onMessageSend }) => {
 
       <Col md="4">
         <Button
-          className="w-100"
+          className="mb-3 w-100"
           variant="warning"
           onClick={handleSubmit}
           disabled={!text.length}

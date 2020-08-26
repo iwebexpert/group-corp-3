@@ -1,4 +1,4 @@
-@import 'node_modules/bootstrap/scss/bootstrap';
+@import "node_modules/bootstrap/scss/bootstrap";
 
 .message {
   position: relative;
@@ -12,7 +12,7 @@
     position: absolute;
     top: 2px;
     right: 4px;
-    font-size: 12px;
+    font-size: 10px;
     cursor: pointer;
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC, useContext, useRef } from 'react';
+import React, { useEffect, FC, useContext, useRef } from 'react';
 import { generate } from 'shortid';
 import './Messenger.scss';
 
@@ -9,13 +9,20 @@ import { AuthUser } from '../../context/AuthUser';
 
 export type MessengerProps = {
   messages: Message[];
+  isTyping: boolean;
   onMessagesChange: (messages: Message[]) => void;
+  onIsTypingChange: (isTyping: boolean) => void;
 };
 
 export const Messenger: FC<MessengerProps> = ({
   messages,
+  isTyping,
   onMessagesChange,
+  onIsTypingChange,
 }) => {
+  const user = useContext(AuthUser); // Fetch user from context
+  let timer = useRef<number>(); // We mutate timer -> we use useRef
+
   useEffect(() => {
     if (!messages.length) {
       return;
@@ -23,7 +30,7 @@ export const Messenger: FC<MessengerProps> = ({
 
     const { author, date } = messages[messages.length - 1];
     if (author !== 'Bot' && Date.now() - date.getTime() < 1000) {
-      setIsTyping(true);
+      onIsTypingChange(true);
 
       // We clear timeout if user posted several messages within 1.5s
       clearTimeout(timer.current);
@@ -35,16 +42,11 @@ export const Messenger: FC<MessengerProps> = ({
           date: new Date(),
           closable: true,
         };
-        setIsTyping(false);
+        onIsTypingChange(false);
         onMessagesChange(messages.concat(newMessage));
       }, 1500);
     }
-  }, [messages]);
-
-  const [isTyping, setIsTyping] = useState<boolean>(false);
-
-  const user = useContext(AuthUser); // Fetch user from context
-  let timer = useRef<number>(); // We mutate timer -> we use useRef
+  }, [messages, onIsTypingChange, onMessagesChange]); // Need to include callback because of warning
 
   const handleMessageSend = (text: string): void => {
     const newMessage: Message = {

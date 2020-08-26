@@ -12,7 +12,7 @@ export type Chat = {
 export type ChatListProps = {
   chats: Chat[];
   activeChatId: string;
-  onChatSelect: (id: string) => () => void;
+  onChatSelect: (chat: Chat) => () => void;
 };
 
 export const ChatList: FC<ChatListProps> = ({
@@ -29,7 +29,7 @@ export const ChatList: FC<ChatListProps> = ({
             variant="dark"
             key={chat.id}
             active={chat.id === activeChatId}
-            onClick={onChatSelect(chat.id)}
+            onClick={onChatSelect(chat)}
           >
             {chat.title}
           </ListGroup.Item>

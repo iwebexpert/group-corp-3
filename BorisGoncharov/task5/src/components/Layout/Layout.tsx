@@ -16,12 +16,15 @@ export const Layout: FC<{}> = () => {
     { title: 'Chat 4', id: generate(), messages: [] },
   ]);
   const [activeChat, setActiveChat] = useState<Chat>(chats[0]);
+  const [isTyping, setIsTyping] = useState<boolean>(false);
 
-  const handleChatSelect = (id: string) => () => {
-    const activeChat = chats.find((chat) => chat.id === id);
-    if (activeChat) {
-      setActiveChat(activeChat);
-    }
+  const handleChatSelect = (chat: Chat) => () => {
+    setActiveChat(chat);
+    setIsTyping(false);
+  };
+
+  const handleIsTypingChange = (isTyping: boolean): void => {
+    setIsTyping(isTyping);
   };
 
   const handleMessagesChange = (messages: Message[]): void => {
@@ -33,7 +36,7 @@ export const Layout: FC<{}> = () => {
         return chat;
       })
     );
-    handleChatSelect(activeChat.id);
+    handleChatSelect(activeChat);
   };
 
   return (
@@ -54,7 +57,9 @@ export const Layout: FC<{}> = () => {
             <Col md="9">
               <Messenger
                 messages={activeChat.messages}
+                isTyping={isTyping}
                 onMessagesChange={handleMessagesChange}
+                onIsTypingChange={handleIsTypingChange}
               />
             </Col>
           </Row>
