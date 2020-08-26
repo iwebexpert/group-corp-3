@@ -40,18 +40,3 @@
 .chat-avatar .avatar {
     width: 1.875rem;
 }
-
-.avatar {
-    position: relative;
-    display: inline-block;
-    width: 2.5rem;
-    white-space: nowrap;
-    vertical-align: bottom;
-
-    img {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-        border: 0 none;
-    }
-}

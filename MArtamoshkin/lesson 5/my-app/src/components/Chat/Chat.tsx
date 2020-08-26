@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { CreateMessage } from "../CreateMessage/CreateMessage";
-
-import './Chat.scss';
 import { MessagesList } from '../MessagesList/MessagesList';
 import useDebounce from "../../hooks/useDebounce";
 import { UserContext } from "../../contexts/UserContext";
 import { fakeUser, getFakeResponse } from '../../common/fakeResponse';
-import { ChatList } from "../ChatList";
-import { Col, Row } from 'react-bootstrap';
+import { Row } from "react-bootstrap";
+
+import './Chat.scss';
 
 const Chat = () => {
     const typingTimeout = 3 * 1000;
@@ -78,28 +77,23 @@ const Chat = () => {
 
     return (
         <>
-            <Col md={3} className="border-right p-0">
-                <ChatList />
-            </Col>
-            <Col md={9}>
-                <Row>
-                    <div className="p-3 text-right w-100" id="chat">
-                        <div className="panel-body">
-                            <div ref={chatsRef} className="chats">
-                                <MessagesList messages={messages} />
-                            </div>
+            <Row>
+                <div className="p-3 text-right w-100" id="chat">
+                    <div className="panel-body">
+                        <div ref={chatsRef} className="chats">
+                            <MessagesList messages={messages} />
                         </div>
-                        <span className="typing text-muted"> {isTyping && <>{contactPerson.name} набирает
+                    </div>
+                    <span className="typing text-muted"> {isTyping && <>{contactPerson.name} набирает
                         сообщение...</>}&nbsp; </span>
-                    </div>
-                </Row>
+                </div>
+            </Row>
 
-                <Row>
-                    <div className="panel-footer pt-2 w-100">
-                        <CreateMessage onSend={onSendHandler} />
-                    </div>
-                </Row>
-            </Col>
+            <Row>
+                <div className="panel-footer pt-2 w-100">
+                    <CreateMessage onSend={onSendHandler} />
+                </div>
+            </Row>
         </>
     );
 };
