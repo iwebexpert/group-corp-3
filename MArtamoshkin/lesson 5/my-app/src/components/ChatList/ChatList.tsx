@@ -5,7 +5,7 @@ import { Image } from 'react-bootstrap';
 import './ChatList.scss';
 
 const ChatList = () => {
-    const [activeChat, setActiveChat] = useState(1);
+    const [activeChat, setActiveChat] = useState<number>(1);
 
     const usersStub: Author[] = [
         {
