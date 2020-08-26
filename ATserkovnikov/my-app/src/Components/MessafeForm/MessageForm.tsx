@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Button, Form} from "react-bootstrap";
 
 import './MessageForm.scss'
 
@@ -18,15 +19,17 @@ export const MessageForm: React.FC<MessageFormProps> = ({ MessageFormData, AddMe
 
     const handleMessageSend = () => addMessageHandler();
 
-    return (<>
-        <div className="message-form">
-            <div>
-                <input onChange={(event) => setMessageData({Author: event.target.value, MessageText: messagedData.MessageText})} type="text" placeholder="Автор" />
-            </div>
-            <div>
-                <textarea onKeyDown={handleTextareaEnter} onChange={(event => setMessageData({MessageText: event.target.value, Author: messagedData.Author}))} rows={10} value={messagedData.MessageText} placeholder="Сообщение"/>
-            </div>
-            <button disabled={!messagedData.MessageText.length} onClick={handleMessageSend}>Добавить</button>
-        </div>
-    </>)
+    return (
+        <Form>
+            <Form.Group>
+                <Form.Control type="input" onChange={(event) => setMessageData({Author: event.target.value, MessageText: messagedData.MessageText})} placeholder="Автор" />
+            </Form.Group>
+
+            <Form.Group>
+                <Form.Control as="textarea" rows={3} onKeyDown={handleTextareaEnter} onChange={(event => setMessageData({MessageText: event.target.value, Author: messagedData.Author}))} value={messagedData.MessageText} placeholder="Сообщение" />
+            </Form.Group>
+
+            <Button variant="primary" disabled={!messagedData.MessageText.length} onClick={handleMessageSend}>Добавить</Button>
+        </Form>
+    );
 };

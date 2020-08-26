@@ -1,8 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Messages} from '../Messages';
 import {MessageForm} from '../MessafeForm';
+import {Container, Row} from "react-bootstrap";
 
 import './MessageList.scss'
+
 
 export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) => {
     const [curMessages, setMessage] = useState(messages);
@@ -27,15 +29,15 @@ export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) =>
          const timer = setTimeout(() => {
             setMessage(curMessagesRef.current.concat({Author: "Бот", MessageText: "Привет! " + curAuthor}));
             setAuthor(curAuthors.concat(curAuthor));
-         }, 5000);
+         }, 2000);
 
          return () => clearTimeout(timer);
     }, [curAuthor]);
 
     return (
-        <div className="message-list-block">
-            <Messages messages={curMessages} />
-            <MessageForm MessageFormData={{Author: "", MessageText: ""}} AddMessageHandler={addMessageHandler} />
-        </div>
+        <Container className="p-4 message-list-block">
+            <Row as={Messages} messages={curMessages} />
+            <Row as={MessageForm} MessageFormData={{Author: "", MessageText: ""}} AddMessageHandler={addMessageHandler}/>
+        </Container>
     );
 };
