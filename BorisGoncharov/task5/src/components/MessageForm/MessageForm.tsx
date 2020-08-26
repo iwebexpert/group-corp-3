@@ -21,7 +21,7 @@ export const MessageForm: FC<MessageFormProps> = ({ onMessageSend }) => {
   };
 
   const handleKeyPress = (event: React.KeyboardEvent): void => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && text) {
       handleSubmit();
     }
   };
