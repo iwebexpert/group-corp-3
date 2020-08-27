@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./NewMessageForm.scss";
+import * as Bootstrap from "react-bootstrap";
+import { generateId } from "../../../../utility";
 
 type NewMessage = {
   text: string;
@@ -50,6 +52,8 @@ export function NewMessageForm(props: NewMessageProps) {
       text: message.text,
       author: message.author,
       created: new Date(),
+      id: generateId(),
+      fromBot: false
     };
     props.createdMessage(newMess);
 
@@ -62,40 +66,52 @@ export function NewMessageForm(props: NewMessageProps) {
 
   return (
     <div className="new-message-form">
-      <div className="form-group">
-        <label className="new-message-form__label" htmlFor="author">
-          Автор
-        </label>
-        <input
-          className="form-control form-control-sm"
-          id="author"
-          onChange={onChange}
-          value={message.author}
-          placeholder="Имя"
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label className="new-message-form__label" htmlFor="text">
-          Сообщение
-        </label>
-        <textarea
-          value={message.text}
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          className="form-control form-control-sm"
-          id="text"
-          required
-          placeholder="Напиши что-нибудь"
-        />
-      </div>
-      <button
-        className="btn btn-primary btn-sm btn-block"
-        onClick={onClick}
-        disabled={btnDisabled}
-      >
-        Создать
-      </button>
+      <Bootstrap.Form>
+        <Bootstrap.FormGroup>
+          <Bootstrap.FormLabel
+            htmlFor="author"
+            aria-required="true"
+            className="new-message-form__label"
+          >
+            Автор
+          </Bootstrap.FormLabel>
+          <Bootstrap.FormControl
+            id="author"
+            size={"sm"}
+            onChange={onChange}
+            value={message.author}
+            placeholder="Имя"
+            required={true}
+          ></Bootstrap.FormControl>
+        </Bootstrap.FormGroup>
+        <Bootstrap.FormGroup>
+          <Bootstrap.FormLabel
+            htmlFor="text"
+            aria-required="true"
+            className="new-message-form__label"
+          >
+            Сообщение
+          </Bootstrap.FormLabel>
+          <Bootstrap.FormControl
+            as="textarea"
+            id="text"
+            size={"sm"}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+            value={message.text}
+            placeholder="Напиши что-нибудь"
+            required={true}
+          ></Bootstrap.FormControl>
+        </Bootstrap.FormGroup>
+        <Bootstrap.Button
+          block={true}
+          variant={"primary"}
+          onClick={onClick}
+          disabled={btnDisabled}
+        >
+          Создать
+        </Bootstrap.Button>
+      </Bootstrap.Form>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-$chat-background-color:  #f3f2f1;
+$chat-background-color:  #fff;
 $chat-height: 30rem;
 
 .message-list {
@@ -16,4 +16,5 @@ $chat-height: 30rem;
   justify-content: center;
   height: $chat-height;
   background-color: $chat-background-color;
+  margin: 0;
 }

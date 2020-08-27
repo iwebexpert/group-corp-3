@@ -3,9 +3,14 @@
   flex-direction: column;
   height: 100%;
 
-  // &__list {
-  //   flex: 1 0 auto;
-  // }
+  &__name {
+    text-align: center;
+  }
+
+  &__list {
+    border-radius: 0.2rem;
+    border: 1px solid #ced4da;
+  }
 
   &__message-form {
     flex-shrink: 0;
