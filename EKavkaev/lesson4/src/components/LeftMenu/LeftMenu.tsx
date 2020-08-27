@@ -14,18 +14,27 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LeftMenu() {
     const classes = useStyles();
-    const elements = [1, 2, 3];
-    const listItems = elements.map(s => 
-    <ListItem button divider>
-        <ListItemIcon>
-            <Chat />
-        </ListItemIcon>
-        <ListItemText primary={`Chat ${s}`} />
-    </ListItem>);
-    
+
     return(
         <List component="nav" className={classes.leftMenu}>
-            {listItems}
+            <ListItem button>
+                <ListItemIcon>
+                    <Chat />
+                </ListItemIcon>
+                <ListItemText primary="Chat 1" />
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
+                    <Chat />
+                </ListItemIcon>
+                <ListItemText primary="Chat 2" />
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
+                    <Chat />
+                </ListItemIcon>
+                <ListItemText primary="Chat 3" />
+            </ListItem>
         </List>
       );
 }
