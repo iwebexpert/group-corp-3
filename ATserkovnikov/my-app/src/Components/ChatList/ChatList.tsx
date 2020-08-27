@@ -16,7 +16,15 @@ export const ChatList: React.FC = () => {
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
-
+                                    <Card style={{ width: '18rem' }}>
+                                        <Card.Img variant="top" src="holder.js/100px180" />
+                                        <Card.Body>
+                                            <Card.Title>Чат 1</Card.Title>
+                                            <Card.Text>
+                                                Описание..
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
@@ -28,7 +36,15 @@ export const ChatList: React.FC = () => {
                             </Card.Header>
                             <Accordion.Collapse eventKey="1">
                                 <Card.Body>
-
+                                    <Card style={{ width: '18rem' }}>
+                                        <Card.Img variant="top" src="holder.js/100px180" />
+                                        <Card.Body>
+                                            <Card.Title>Чат 2</Card.Title>
+                                            <Card.Text>
+                                                Описание..
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>

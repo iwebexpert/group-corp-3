@@ -3,60 +3,50 @@ type ConfigApp = {
 }
 
 type TaskData = {
-    TaskId: string;
-    IsReady: boolean;
-    Title: string;
+    taskId: string;
+    isReady: boolean;
+    title: string;
 }
 
 type TasksBlockState = {
-    Tasks: TaskData[];
+    tasks: TaskData[];
 }
 
 type TaskItemsProps = {
-    Tasks: TaskData[];
-    DeleteHandler: any;
+    tasks: TaskData[];
+    deleteHandler: any;
 }
 
 type TaskItemProps = {
-    TaskItem: TaskData
-    DeleteHandler: any;
+    taskItem: TaskData
+    deleteHandler: any;
 }
 
 type TaskFormProps = {
-    TaskText: string;
-    AddHandler: any;
+    taskText: string;
+    addHandler: any;
 }
 
 type TaskFormState = {
-    TaskText: string;
+    taskText: string;
 }
 
 type MessageFormProps = {
-    MessageFormData: MessageData;
-    AddMessageHandler: any;
+    messageFormData: MessageData;
+    addMessageHandler: any;
 }
 
 type MessageData = {
-    Author: string;
-    MessageText: string;
-}
-
-type MessagesBlockProps = {
-    messages: MessageData[];
-    authors: string[]
+    key: string
+    author: string;
+    messageText: string;
 }
 
 type MessageProps = {
     messages: MessageData[];
 }
 
-
-
-
-
-
-
 type MessagesListProps = {
     messages: MessageData[];
-    authors: string[]
+    authors: string[];
 }

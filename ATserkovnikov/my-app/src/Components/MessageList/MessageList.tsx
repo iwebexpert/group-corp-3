@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Messages} from '../Messages';
 import {MessageForm} from '../MessafeForm';
 import {Container, Row} from "react-bootstrap";
+import { generate } from 'shortid';
 
 import './MessageList.scss'
 
@@ -17,19 +18,30 @@ export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) =>
     const [curAuthor, setNewAuthor] = useState(newAuthor);
 
     const addMessageHandler = (newData: MessageData) => {
-        if (curAuthors.find(c => c === newData.Author) === undefined)
-            setNewAuthor(newData.Author);
+        if (curAuthors.find(c => c === newData.author) === undefined)
+            setNewAuthor(newData.author);
 
+        newData.key = generate();
         setMessage(curMessages.concat(newData));
     };
 
      useEffect(() => {
          if (curAuthor === "") return;
 
+         const newKey = generate();
+         setMessage(curMessages.concat({author: "Бот", messageText: "", key: newKey}));
+         setAuthor(curAuthors.concat(curAuthor));
+
          const timer = setTimeout(() => {
-            setMessage(curMessagesRef.current.concat({Author: "Бот", MessageText: "Привет! " + curAuthor}));
-            setAuthor(curAuthors.concat(curAuthor));
-         }, 2000);
+             const newMessages = curMessagesRef.current.map(item => {
+                 if (item.key === newKey){
+                     item.messageText = "Привет! " + curAuthor;
+                 }
+                 return item;
+             });
+
+             setMessage(newMessages);
+        }, 2000);
 
          return () => clearTimeout(timer);
     }, [curAuthor]);
@@ -37,7 +49,7 @@ export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) =>
     return (
         <Container className="p-4 message-list-block">
             <Row as={Messages} messages={curMessages} />
-            <Row as={MessageForm} MessageFormData={{Author: "", MessageText: ""}} AddMessageHandler={addMessageHandler}/>
+            <Row as={MessageForm} messageFormData={{author: "", messageText: "", key: ""}} addMessageHandler={addMessageHandler}/>
         </Container>
     );
 };

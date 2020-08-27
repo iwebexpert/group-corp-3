@@ -5,24 +5,41 @@ import {Col, Container, Row} from "react-bootstrap";
 import './Message.scss';
 
 
-export const Message: React.FC<MessageData> = ({Author, MessageText}) => {
+export const Message: React.FC<MessageData> = ({author, messageText}) => {
     const rowClasses = classNames({
-        'justify-content-end': Author === 'Бот',
-        'justify-content-start': Author !== 'Бот',
+        'justify-content-end': author === 'Бот',
+        'justify-content-start': author !== 'Бот',
     });
 
     const classes = classNames('message', {
-        'message-bot': Author === 'Бот',
-        'message-user': Author !== 'Бот',
+        'message-bot': author === 'Бот',
+        'message-user': author !== 'Бот',
     });
+
+    let messageContent;
+
+    if (messageText === "") {
+        messageContent = (
+            <div className="spinner-border text-primary" role="status">
+                <span className="sr-only">Loading...</span>
+            </div>
+        );
+    } else {
+        messageContent = (
+            <>
+                <b>{author}</b>&nbsp;
+                <span>{messageText}</span>
+            </>
+        )
+    }
 
     return (
         <Container>
             <Row className={rowClasses}>
                 <Col md={5} className={classes}>
-                    <b>{Author}</b>&nbsp;
-                    <span>{MessageText}</span>
+                    {messageContent}
                 </Col>
             </Row>
-        </Container>);
+        </Container>
+    );
 };
