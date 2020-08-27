@@ -1,15 +1,16 @@
 import React from 'react';
+import { Console } from 'console';
 
 
 
-class TodoItem extends React.Component<MessageProps> {
+class TodoItem extends React.Component<MessageProps, MessageState> {
 
-  public state = {
+  public state: MessageState = {
     isDone: false,
   };
 
   protected handleChangeDone = () => {
-    this.state.isDone = !this.state.isDone;
+    this.setState({isDone: !this.state.isDone})
   }
 
     public render() {
@@ -20,10 +21,7 @@ class TodoItem extends React.Component<MessageProps> {
               }}/>
            
            <div>
-             Text: {this.props.text}
-           </div>
-           <div>
-             {this.state.isDone}
+             Text: {this.props.text} | {this.state.isDone ? 'Готово!' : ' - '}
            </div>
           </>
       );

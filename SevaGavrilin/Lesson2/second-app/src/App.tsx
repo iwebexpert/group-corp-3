@@ -1,18 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, ReactElement } from 'react';
 import './App.css';
 
 import { Todos } from './components/todos';
 import { Todo } from './components/todo';
 
-
-
 function App() {
+
+  const [messages, setMessage] = useState<string[]>([]);
+
+  var handleMessageAdd = (message: TodoFormState) =>{
+    setMessage([...messages, message.text]);
+  };
+
   return (
       <>
-        <Todos/>
+        <Todos items={messages}/>
         <hr/> 
-        <Todo />
+        <Todo handlerOnAdd={handleMessageAdd}/>
       </>
   );
 }
