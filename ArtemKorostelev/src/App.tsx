@@ -7,6 +7,7 @@ import {
     useLocation,
     Link
 } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -30,6 +31,11 @@ function App() {
             path: "/lesson04",
             title: "Lesson #4",
             content: lazy(() => import('./components/lesson-4/Lesson4'))
+        },
+        {
+            path: "/lesson05",
+            title: "Lesson #5",
+            content: lazy(() => import('./components/lesson-5/Lesson5'))
         }
     ];
 
@@ -47,13 +53,8 @@ function App() {
 
     return (
         <Router>
-            <div style={{ display: "flex" }}>
-                <div
-                    style={{
-                        padding: "10px",
-                        width: "15%",
-                    }}
-                >
+            <Row>
+                <Col md={2} className='text-center'>
                     <ul style={{ listStyleType: "none", padding: 0 }}>
                         {
                             routes.map(route => <li key={route.path}>
@@ -61,14 +62,14 @@ function App() {
                                 </li>)
                         }
                     </ul>
-                </div>
+                </Col>
 
-                <div style={{ flex: 1, padding: "10px" }}>
+                <Col md={10}>
                     <Switch>
                         <Route
                             exact
                             path="/"
-                            render={() => <Redirect to="/lesson04" /> }
+                            render={() => <Redirect to="/lesson05" /> }
                         />
                         <Suspense fallback={<>azaza</>}>
                         {
@@ -81,8 +82,8 @@ function App() {
                             <NoMatch />
                         </Route>
                     </Switch>
-                </div>
-            </div>
+                </Col>
+            </Row>
         </Router>
     );
 }
