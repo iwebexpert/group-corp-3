@@ -1,0 +1,42 @@
+@import '../../styles/variables.scss';
+.chat-list {
+    max-height: $chat-height;
+    overflow-y: auto;
+    .chat-field {
+        border-bottom: 1px solid $gray;
+        margin: 0;
+        padding: 1.125rem 1rem .625rem;
+        cursor: pointer;
+        &.active-chat {
+            background: $gray;
+        }
+        .chat-ib {
+            float: left;
+            padding: 0 0 0 15px;
+            width: 85%;
+            h5 {
+                font-size: 15px;
+                color: $primary-color;
+                margin: 0 0 8px 0;
+            }
+            h5 span {
+                font-size: 11px;
+                float: right;
+            }
+            p {
+                font-size: 14px;
+                color: $gray-dark;
+                margin: auto
+            }
+        }
+        .avatar {
+            float: left;
+            width: 15%;
+        }
+        .chat-people {
+            overflow: hidden;
+            clear: both;
+        }
+
+    }
+}
