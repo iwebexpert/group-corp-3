@@ -14,7 +14,7 @@ const Message: React.FC<MessageProps> = ({item}) => {
     const isAuthor = item.author?.length;
     return (
         <Box my={1} display='flex' justifyContent={isAuthor ? 'flex-end': 'flex-start'}>
-            <Paper elevation={1} >
+            <Paper>
                 <Box py={1} px={2} display='flex' flexDirection={isAuthor ? 'row-reverse' : 'row'}>
                     <Grid container>
                       <Grid xs={12}>

@@ -17,9 +17,8 @@ const MessageForm: React.FC<MessageFormProps> = (props) => {
     };
 
     return(
-        <Paper>
             <Box p={1}>
-        <form onSubmit={addItem}>
+                <form onSubmit={addItem}>
                     <Grid container spacing={1}>
                         <Grid item sm={12}>
                             <TextField fullWidth size='small' value={text} onChange={(e)=>setText(e.target.value)} autoComplete='off' inputRef={textRef} id="outlined-basic" label="Text" variant="outlined" />
@@ -33,9 +32,8 @@ const MessageForm: React.FC<MessageFormProps> = (props) => {
                             </Button>
                         </Grid>
                     </Grid>
-        </form>
+                </form>
         </Box>
-        </Paper>
     );
 }
 

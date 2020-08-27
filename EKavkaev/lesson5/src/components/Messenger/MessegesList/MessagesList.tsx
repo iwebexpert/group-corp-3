@@ -25,7 +25,7 @@ function MessagesList({items, sendMessage}: MessagesListProps): ReactElement{
     useEffect(()=> {
         scrollToBottom();
         if(items.length && items[items.length-1].author){
-            timeOut = window.setTimeout(() => sendMessage({text:`Эй, ${items[items.length-1].author}! Что случилось?`}), 2000);
+            timeOut = window.setTimeout(() => sendMessage({text:`Эй, ${items[items.length-1].author}! Что случилось?`}), 2500);
         }
     return () => {
         clearTimeout(timeOut);

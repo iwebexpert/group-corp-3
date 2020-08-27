@@ -22,10 +22,14 @@ function MessengerContainer() {
   };
   
   return (
-      <Box display='flex' flexDirection='column' height='100%' maxWidth={500}>
-            <MessagesList items={items} sendMessage={sendMessage} />
-            <MessageForm sendMessage={sendMessage} />
-      </Box>
+    <Box pt={2} height='100%' maxWidth={500}>
+      <Paper>
+        <Box display='flex' flexDirection='column' >
+              <MessagesList items={items} sendMessage={sendMessage} />
+              <MessageForm sendMessage={sendMessage} />
+        </Box>
+      </Paper>
+    </Box>
   );
 }
 
