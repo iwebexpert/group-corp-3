@@ -1,13 +1,14 @@
 import React, {useState} from "react";
+import {Button, Form} from "react-bootstrap";
 
 import './MessageForm.scss'
 
-export const MessageForm: React.FC<MessageFormProps> = ({ MessageFormData, AddMessageHandler}) => {
-    const [messagedData, setMessageData] = useState(MessageFormData);
+export const MessageForm: React.FC<MessageFormProps> = ({ messageFormData, addMessageHandler}) => {
+    const [messagedData, setMessageData] = useState(messageFormData);
 
-    const addMessageHandler = () => {
-        AddMessageHandler(messagedData);
-        setMessageData({...messagedData, MessageText: ''});
+    const addMessageHandlerClick = () => {
+        addMessageHandler(messagedData);
+        setMessageData({...messagedData, messageText: ''});
     };
 
     const handleTextareaEnter = (event: React.KeyboardEvent) =>{
@@ -16,17 +17,17 @@ export const MessageForm: React.FC<MessageFormProps> = ({ MessageFormData, AddMe
         }
     };
 
-    const handleMessageSend = () => addMessageHandler();
+    return (
+        <Form>
+            <Form.Group>
+                <Form.Control type="input" onChange={(event) => setMessageData({author: event.target.value, messageText: messagedData.messageText, key: ""})} placeholder="Автор" />
+            </Form.Group>
 
-    return (<>
-        <div className="message-form">
-            <div>
-                <input onChange={(event) => setMessageData({Author: event.target.value, MessageText: messagedData.MessageText})} type="text" placeholder="Автор" />
-            </div>
-            <div>
-                <textarea onKeyDown={handleTextareaEnter} onChange={(event => setMessageData({MessageText: event.target.value, Author: messagedData.Author}))} rows={10} value={messagedData.MessageText} placeholder="Сообщение"/>
-            </div>
-            <button disabled={!messagedData.MessageText.length} onClick={handleMessageSend}>Добавить</button>
-        </div>
-    </>)
+            <Form.Group>
+                <Form.Control as="textarea" rows={3} onKeyDown={handleTextareaEnter} onChange={(event => setMessageData({messageText: event.target.value, author: messagedData.author, key: ""}))} value={messagedData.messageText} placeholder="Сообщение" />
+            </Form.Group>
+
+            <Button variant="primary" disabled={!messagedData.messageText.length} onClick={addMessageHandlerClick}>Добавить</Button>
+        </Form>
+    );
 };

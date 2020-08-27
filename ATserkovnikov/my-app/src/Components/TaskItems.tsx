@@ -3,19 +3,19 @@ import {TaskItem} from "./TaskItem";
 
 export class TasksItems extends React.Component<TaskItemsProps>{
     static defaultProps: TaskItemsProps = {
-        Tasks: [],
-        DeleteHandler: () => void {}
+        tasks: [],
+        deleteHandler: () => void {}
     };
 
     public render(): React.ReactElement {
 
-        const { Tasks } = this.props;
+        const { tasks } = this.props;
 
-        const tasksItems = Tasks
+        const tasksItems = tasks
             .map((item, index) =>
                 <TaskItem
-                    TaskItem={item}
-                    DeleteHandler={this.props.DeleteHandler}
+                    taskItem={item}
+                    deleteHandler={this.props.deleteHandler}
                     key={index}
                 />);
 

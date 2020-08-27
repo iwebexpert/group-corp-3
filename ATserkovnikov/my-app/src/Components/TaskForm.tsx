@@ -3,7 +3,7 @@ import {ConfigContextConsumer} from "../App";
 
 export class TaskForm extends React.Component<TaskFormProps, TaskFormState>{
     public state: TaskFormState = {
-        TaskText: ""
+        taskText: ""
     };
 
     protected handlerInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -12,8 +12,8 @@ export class TaskForm extends React.Component<TaskFormProps, TaskFormState>{
     };
 
     protected handleTaskSend = () => {
-        this.props.AddHandler(this.state);
-        this.setState({ TaskText: ""});
+        this.props.addHandler(this.state);
+        this.setState({ taskText: ""});
     };
 
     public render(): React.ReactElement {
@@ -23,8 +23,8 @@ export class TaskForm extends React.Component<TaskFormProps, TaskFormState>{
                 {
                     globalOptions => globalOptions && (
                         <>
-                            <textarea name="TaskText" placeholder={globalOptions.lang === 'ru'? "Введите задание" : "Set task" } value={this.state.TaskText} onChange={this.handlerInputChange}/>
-                            <button onClick={this.handleTaskSend} disabled={this.state.TaskText === ""}>
+                            <textarea name="TaskText" placeholder={globalOptions.lang === 'ru'? "Введите задание" : "Set task" } value={this.state.taskText} onChange={this.handlerInputChange}/>
+                            <button onClick={this.handleTaskSend} disabled={this.state.taskText === ""}>
                                 {globalOptions.lang === 'ru'? "Сохранить" : "Save" }
                             </button>
                         </>
