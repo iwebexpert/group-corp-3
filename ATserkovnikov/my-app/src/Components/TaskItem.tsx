@@ -1,5 +1,6 @@
 import React from "react";
 import {ConfigContextConsumer} from "../App";
+import {LangEnum} from "../Models/Enums";
 
 export class TaskItem extends React.Component<TaskItemProps, TaskData>{
     public state = {
@@ -31,7 +32,7 @@ export class TaskItem extends React.Component<TaskItemProps, TaskData>{
                             <input type="checkbox" checked={this.state.isReady} onChange={this.readyHandle}/>
                             <span>{this.props.taskItem.title}</span>
                             <button onClick={this.handleTaskDelete} disabled={!this.state.isReady}>
-                                {globalOptions.lang === 'ru'? "Удалить" : "Delete" }
+                                {globalOptions.options.lang === LangEnum.rus? "Удалить" : "Delete" }
                             </button>
                         </div>
                     )}

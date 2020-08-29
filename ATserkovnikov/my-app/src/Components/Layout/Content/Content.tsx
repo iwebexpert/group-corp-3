@@ -1,6 +1,6 @@
 import React from 'react';
-import {ChatList} from '../ChatList';
-import {MessageList} from '../MessageList';
+import {ChatList} from '../../ChatList';
+import {MessageList} from '../../MessageBlock/MessageList';
 import {Col, Container, Row} from "react-bootstrap";
 
 import './Content.scss'
@@ -12,7 +12,7 @@ export class Content extends React.Component {
         return (
             <Container>
                 <Row>
-                    <Col md={4} className="p-0 chat-block">
+                    <Col md={4} className="p-0">
                         <ChatList/>
                     </Col>
                     <Col md={8} className="p-0">

@@ -1,15 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Messages} from '../Messages';
-import {MessageForm} from '../MessafeForm';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import {Messages} from './Messages';
+import {MessageForm} from './MessafeForm';
 import {Container, Row} from "react-bootstrap";
-import { generate } from 'shortid';
+import {generate} from 'shortid';
+import {ConfigContext} from "../../../App";
 
 import './MessageList.scss'
-
 
 export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) => {
     const [curMessages, setMessage] = useState(messages);
     const [curAuthors, setAuthor] = useState(authors);
+    const {options} = useContext(ConfigContext);
 
     const curMessagesRef = useRef(curMessages);
     curMessagesRef.current = curMessages;
@@ -21,7 +22,6 @@ export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) =>
         if (curAuthors.find(c => c === newData.author) === undefined)
             setNewAuthor(newData.author);
 
-        newData.key = generate();
         setMessage(curMessages.concat(newData));
     };
 
@@ -47,9 +47,13 @@ export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) =>
     }, [curAuthor]);
 
     return (
-        <Container className="p-4 message-list-block">
+        <Container className="p-4">
             <Row as={Messages} messages={curMessages} />
-            <Row as={MessageForm} messageFormData={{author: "", messageText: "", key: ""}} addMessageHandler={addMessageHandler}/>
+            <Row as={MessageForm}
+                 messageFormData={{author: options.author, messageText: "", key: ""}}
+                 addMessageHandler={addMessageHandler}
+                 checkCondition={options.confirmCondition}
+            />
         </Container>
     );
 };

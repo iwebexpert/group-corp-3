@@ -1,5 +1,5 @@
 import React from 'react';
-import {Message} from '../Message';
+import {Message} from './Message';
 import {Container, Row} from "react-bootstrap";
 
 import './Messages.scss';

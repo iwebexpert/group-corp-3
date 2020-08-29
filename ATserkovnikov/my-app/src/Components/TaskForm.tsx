@@ -1,5 +1,6 @@
 import React from "react";
 import {ConfigContextConsumer} from "../App";
+import {LangEnum} from "../Models/Enums";
 
 export class TaskForm extends React.Component<TaskFormProps, TaskFormState>{
     public state: TaskFormState = {
@@ -23,9 +24,9 @@ export class TaskForm extends React.Component<TaskFormProps, TaskFormState>{
                 {
                     globalOptions => globalOptions && (
                         <>
-                            <textarea name="TaskText" placeholder={globalOptions.lang === 'ru'? "Введите задание" : "Set task" } value={this.state.taskText} onChange={this.handlerInputChange}/>
+                            <textarea name="TaskText" placeholder={globalOptions.options.lang === LangEnum.rus ? "Введите задание" : "Set task" } value={this.state.taskText} onChange={this.handlerInputChange}/>
                             <button onClick={this.handleTaskSend} disabled={this.state.taskText === ""}>
-                                {globalOptions.lang === 'ru'? "Сохранить" : "Save" }
+                                {globalOptions.options.lang === LangEnum.rus? "Сохранить" : "Save" }
                             </button>
                         </>
                     )
