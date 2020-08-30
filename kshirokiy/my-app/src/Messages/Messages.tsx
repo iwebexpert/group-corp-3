@@ -1,6 +1,6 @@
 import React from 'react';
 import {ItemWithId, MessagesProps} from '../types/types';
-import {Message} from "../Message/Message";
+import {Message} from '../Message/Message';
 
 export const Messages: React.FC<MessagesProps> = ({items}) => {
 
