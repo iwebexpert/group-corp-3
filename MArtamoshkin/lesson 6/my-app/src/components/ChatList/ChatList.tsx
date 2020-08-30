@@ -68,7 +68,7 @@ const ChatList = () => {
         },
     ];
 
-    const onClickChatHandler = (id: number) => {
+    const onClickChatHandler = (id: number): void => {
         setActiveChat(id);
     };
 

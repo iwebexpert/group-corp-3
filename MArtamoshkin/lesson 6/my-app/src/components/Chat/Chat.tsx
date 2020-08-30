@@ -7,12 +7,16 @@ import { fakeUser, getFakeResponse } from '../../common/fakeResponse';
 import { Row } from "react-bootstrap";
 
 import './Chat.scss';
+import { SettingsContext } from "../../contexts/SettingsContext";
+import { useTranslation } from "react-i18next";
 
 const Chat = () => {
+    const { t } = useTranslation();
     const typingTimeout = 3 * 1000;
     const responseTimeout = (Math.random() * 5) * 1000 + typingTimeout;
 
     const currentUser: User = useContext(UserContext);
+    const settings = useContext(SettingsContext);
     const contactPerson: User = fakeUser;
 
     const [messages, setMessages] = useState<Message[]>([getFakeResponse(0)]);
@@ -31,14 +35,14 @@ const Chat = () => {
         }
     };
 
-    const onSendHandler = (message: string) => {
+    const onSendHandler = (message: string): void => {
         const newMessage: Message = {
             text: message,
             date: new Date(),
             author: {
                 avatar: currentUser.avatar,
                 id: currentUser.id,
-                name: currentUser.name
+                name: settings.name
             }
         };
 
@@ -84,8 +88,7 @@ const Chat = () => {
                             <MessagesList messages={messages} />
                         </div>
                     </div>
-                    <span className="typing text-muted"> {isTyping && <>{contactPerson.name} набирает
-                        сообщение...</>}&nbsp; </span>
+    <span className="typing text-muted"> {isTyping && <>{contactPerson.name} {t('TYPING')}</>}&nbsp; </span>
                 </div>
             </Row>
 

@@ -7,11 +7,11 @@ import { Footer } from "./components/Footer"
 import './Layout.scss';
 import { Row, Container, Col } from 'react-bootstrap';
 import { ChatList } from "./components/ChatList"
-import { SettingsProvider } from "./contexts/SettingsContext"
+import { UserSettingsProvider } from "./providers/UserSettingsProvider"
 
 const Layout = () => {
     return <AuthProvider>
-        <SettingsProvider value={{} as Settings}>
+        <UserSettingsProvider>
             <Container>
                 <Row>
                     <Header />
@@ -28,7 +28,7 @@ const Layout = () => {
                     <Footer />
                 </Row>
             </Container>
-        </SettingsProvider>
+        </UserSettingsProvider>
     </AuthProvider>
 }
 

@@ -1,0 +1,19 @@
+{
+    "SEND": "Отправить",
+    "ENTER_MESSAGE": "Введите сообщение",
+    "SAVE": "Сохранить",
+    "CLOSE": "Закрыть",
+    "USER_NAME": "Имя пользователя",
+    "USER_NAME_NOT_SET_WARN": "Перед отправкой сообщения задайте имя пользователя",
+    "AUTHOR": "Автор",
+    "SETTINGS": "Настройки",
+    "TYPING": "набирает сообщение...",
+    "THEME_HEADING": "Тема",
+    "THEME_DARK": "Темная",
+    "THEME_LIGHT": "Светлая",
+    "THEME_SELECT": "Выберите тему",
+    "LANGUAGE_HEADING": "Язык",
+    "LANGUAGE_SELECT": "Выберите язык",
+    "LANGUAGE_RU": "Русский",
+    "LANGUAGE_EN": "Английский"
+}

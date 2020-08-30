@@ -37,6 +37,19 @@ type Chat = {
 
 type Settings = {
     language: string;
+    setLanguage: (value: string) => void;
     theme: string;
-    author: string;
+    setTheme: (value: string) => void;
+    name: string;
+    setName: (value: string) => void;
+}
+
+enum Theme {
+    Light = 'light',
+    Dark = 'dark'
+}
+
+enum language {
+    Russian = 'ru',
+    English = 'en'
 }

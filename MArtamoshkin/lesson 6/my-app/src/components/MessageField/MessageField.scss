@@ -78,3 +78,15 @@
         color: rgba(0, 0, 0, .8);
     }
 }
+
+.theme-dark {
+    .chat-left {
+        .chat-content {
+            background-color: $dark-secondary;
+            color: $white;
+            &:before {
+                border-right-color: $dark-secondary;
+            }
+        }
+    }
+}

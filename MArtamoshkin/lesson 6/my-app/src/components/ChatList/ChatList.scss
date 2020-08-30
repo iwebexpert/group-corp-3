@@ -40,3 +40,19 @@
 
     }
 }
+
+.theme-dark {
+    .chat-field {
+        border-bottom-color: $dark-lighten;
+
+        &.active-chat {
+            background-color: #36404a;
+        }
+
+        .chat-ib {
+            h5 {
+                color: #e1e9f1;
+            }
+        }
+    }
+}
