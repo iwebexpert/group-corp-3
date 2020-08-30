@@ -27,7 +27,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   const themeField = useFormField(theme);
   const languageField = useFormField(language);
 
-  const [formValid, setFormValid] = useState<boolean>(false);
+  const [validated, setValidated] = useState<boolean>(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
     event.preventDefault();
@@ -40,18 +40,23 @@ export const SettingsModal: FC<SettingsModalProps> = ({
       });
     }
 
-    setFormValid(true);
+    setValidated(true);
+  };
+
+  const handleModalClose = () => {
+    setValidated(false);
+    onSettingsModalClose();
   };
 
   return (
-    <Modal show={visible} onHide={onSettingsModalClose}>
+    <Modal show={visible} onHide={handleModalClose}>
       <Modal.Header closeButton>
         <Modal.Title>Settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form
           noValidate
-          validated={formValid}
+          validated={validated}
           method="POST"
           onSubmit={handleSubmit}
         >
