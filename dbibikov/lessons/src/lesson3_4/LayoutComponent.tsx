@@ -3,19 +3,19 @@ import './layout.css';
 import { HeaderComponent } from './components/HeaderComponent';
 import { ChatListComponent } from './components/ChatListComponent';
 import { ChatComponent } from './components/ChatComponent';
-
+import {Container, Row, Col, Spinner} from 'react-bootstrap';
  
  function LayoutComponent(){
 
      return (
      <>
         <HeaderComponent />
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-4"><ChatListComponent/></div>
-                <div className="col-8"><ChatComponent/></div>
-            </div>
-        </div>
+        <Container>
+            <Row>
+                <Col md={4}> <ChatListComponent/></Col>
+                <Col md={8}><ChatComponent/></Col>
+            </Row>
+        </Container>
      </>
      );
  };

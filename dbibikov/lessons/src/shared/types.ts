@@ -25,7 +25,22 @@ export enum MessageAuthor {
 export interface Message {
     author: MessageAuthor;
     content: string;
+    authorName?: string;
 }
 export interface MessagesAreaProps {
     messages: Message[];
+}
+export enum AppLang {
+    RU,
+    EN
+}
+
+export enum AppTheme {
+    Dark,
+    Light
+}
+export interface AppSettings {
+    userName: string;
+    lang: AppLang;
+    theme: AppTheme;
 }
