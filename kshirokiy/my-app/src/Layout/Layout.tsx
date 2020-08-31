@@ -6,14 +6,14 @@ import {Messenger} from '../Messenger/Messenger';
 export const Layout: React.FC<{}> = ({children}) => {
     return (
         <>
-            <Header></Header>
+            <Header/>
             <div className='container-fluid'>
                 <div className='row'>
                     <div className='col-md-4'>
-                        <ChatList></ChatList>
+                        <ChatList/>
                     </div>
                     <div className='col-md-8'>
-                        <Messenger></Messenger>
+                        <Messenger/>
                     </div>
                 </div>
             </div>

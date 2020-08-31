@@ -1,7 +1,7 @@
 import {MessageProps, MessageWithId} from "../../../../../../4_lesson/lesson4/lesson4/my-app/src/components/Message";
 
 export type ToDoListFormState = {
-    name: string
+    name: string;
 };
 
 export type ToDoListFormProps = {
@@ -9,7 +9,7 @@ export type ToDoListFormProps = {
 }
 
 export type ToDoListProps = {
-    tasks: ToDoListFormState[]
+    tasks: ToDoListFormState[];
 }
 
 export type Item = {
@@ -33,5 +33,11 @@ export type ItemFormState = {
 };
 
 type MessagesProps = {
-    items: ItemWithId[],
+    items: ItemWithId[];
+};
+
+export type ConfigApp = {
+    lang: string | null;
+    theme: string | null;
+    author: string;
 };
