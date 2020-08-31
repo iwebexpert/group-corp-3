@@ -3,6 +3,8 @@ import logo from './logo.svg';
 //import './App.css';
 
 import { Messages } from './components/Messages';
+import { Message } from './components/Message';
+import { Button } from './components/Button';
 
 const items = ['text1','text2','text3']
 

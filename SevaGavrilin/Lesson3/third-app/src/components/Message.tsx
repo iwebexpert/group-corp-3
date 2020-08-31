@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
 
-type Props = {
-    text: string;
-}
 
-function Message( {text}: Props){
+function Message( {author, text}: MessageProps){
     return(<>
         <hr/>
-        Text: {text} !
+        Author {author}
+        <br/>
+        Text: {text} 
     </>);
 }
 

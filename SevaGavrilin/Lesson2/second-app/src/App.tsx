@@ -9,7 +9,10 @@ function App() {
   const [messages, setMessage] = useState<string[]>([]);
 
   var handleMessageAdd = (message: TodoFormState) =>{
-    setMessage([...messages, message.text]);
+    if (message.text.length > 0)
+    {
+      setMessage([...messages, message.text]);
+    }
   };
 
   return (
