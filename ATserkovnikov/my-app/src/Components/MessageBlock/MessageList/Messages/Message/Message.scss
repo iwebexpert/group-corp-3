@@ -1,11 +1,11 @@
 .message {
-  background-color: aquamarine;
   padding: 5px 15px;
   border-radius: 20px;
   font-size: 22px;
   margin: 5px;
 
   &-user {
+    background-color: aquamarine;
     align-self: flex-start;
   }
 

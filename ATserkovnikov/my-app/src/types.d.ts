@@ -1,5 +1,6 @@
-type ConfigApp = {
-    lang: string;
+type themeProp ={
+    foreground: string,
+    background: string,
 }
 
 type TaskData = {
@@ -34,6 +35,7 @@ type TaskFormState = {
 type MessageFormProps = {
     messageFormData: MessageData;
     addMessageHandler: any;
+    checkCondition: boolean;
 }
 
 type MessageData = {
@@ -50,3 +52,4 @@ type MessagesListProps = {
     messages: MessageData[];
     authors: string[];
 }
+
