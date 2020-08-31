@@ -1,0 +1,53 @@
+@import './styles/index.scss';
+
+.theme-light {
+    padding-top: .625rem;
+    height: 100vh;
+    background: $background-color;
+}
+
+.theme-dark {
+    padding-top: .625rem;
+    height: 100vh;
+    background: $dark-background-color;
+
+    .form-control {
+        background-color: $dark-gray;
+        color: $white;
+        border:0;
+    }
+
+    .modal-content {
+        background-color: $dark-primary;
+        color: $white;
+    }
+
+    .modal-header {
+        border-bottom-color: $dark-gray;
+    }
+
+    .modal-footer {
+        border-top-color: $dark-gray;
+    }
+
+    .btn-secondary {
+        background-color: $dark-secondary;
+        color: $white;
+        border-color: $dark-secondary;
+    }
+}
+
+.avatar {
+    position: relative;
+    display: inline-block;
+    width: 2.5rem;
+    white-space: nowrap;
+    vertical-align: bottom;
+
+    img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border: 0 none;
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "SEND": "Send",
+    "ENTER_MESSAGE": "Enter message",
+    "SAVE": "Save",
+    "CLOSE": "Close",
+    "USER_NAME": "User name",
+    "USER_NAME_NOT_SET_WARN": "Set name before send message",
+    "AUTHOR": "Author",
+    "THEME_HEADING": "Theme",
+    "THEME_DARK": "Dark",
+    "THEME_LIGHT": "Light",
+    "SETTINGS": "Settings",
+    "TYPING": "is typing...",
+    "LANGUAGE_HEADING": "Language",
+    "LANGUAGE_RU": "Russian",
+    "LANGUAGE_EN": "English"
+}
