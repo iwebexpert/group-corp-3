@@ -36,6 +36,11 @@ function App() {
             path: "/lesson05",
             title: "Lesson #5",
             content: lazy(() => import('./components/lesson-5/Lesson5'))
+        },
+        {
+            path: "/lesson06",
+            title: "Lesson #6",
+            content: lazy(() => import('./components/lesson-6/Lesson6'))
         }
     ];
 
@@ -69,7 +74,7 @@ function App() {
                         <Route
                             exact
                             path="/"
-                            render={() => <Redirect to="/lesson05" /> }
+                            render={() => <Redirect to="/lesson06" /> }
                         />
                         <Suspense fallback={<>azaza</>}>
                         {
