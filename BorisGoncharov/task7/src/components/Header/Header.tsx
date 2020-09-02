@@ -1,5 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { SettingsContext } from '../../contexts/SettingsContext';
 import './Header.scss';
 
@@ -9,10 +10,12 @@ export type HeaderProps = {
 
 export const Header: FC<HeaderProps> = ({ onSettingsButtonClick }) => {
   const { version } = useContext(SettingsContext);
-
+  const { t } = useTranslation();
   return (
     <Row className="bg-dark px-5 py-3 m-0 justify-content-between">
-      <h5 className="text-white m-0">Chat v{version}</h5>
+      <h5 className="text-white m-0">
+        {t('CHAT')} v{version}
+      </h5>
 
       <svg
         width="1.25em"

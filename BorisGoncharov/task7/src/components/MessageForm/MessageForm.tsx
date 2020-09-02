@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import './MessageForm.scss';
 
 type MessageFormProps = {
@@ -8,6 +9,7 @@ type MessageFormProps = {
 
 export const MessageForm: FC<MessageFormProps> = ({ onMessageSend }) => {
   const [text, setText] = useState<string>('');
+  const { t } = useTranslation();
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -33,7 +35,7 @@ export const MessageForm: FC<MessageFormProps> = ({ onMessageSend }) => {
           className="mb-3"
           name="text"
           value={text}
-          placeholder="Enter message"
+          placeholder={t('ENTER_MESSAGE')}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
         />
@@ -46,7 +48,7 @@ export const MessageForm: FC<MessageFormProps> = ({ onMessageSend }) => {
           onClick={handleSubmit}
           disabled={!text.length}
         >
-          Send
+          {t('SEND')}
         </Button>
       </Col>
     </Row>

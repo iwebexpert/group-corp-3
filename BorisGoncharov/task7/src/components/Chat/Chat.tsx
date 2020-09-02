@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import './Chat.scss';
 import { Header } from '../Header';
 import { ChatList } from '../ChatList';
@@ -6,8 +6,10 @@ import { Messenger } from '../Messenger';
 import { Col, Container, Row } from 'react-bootstrap';
 import { SettingsModal } from '../SettingsModal';
 import { chatsData } from '../../helpers/chatsData';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { SettingsProviderWrapper } from '../../providers/SettingsProvider';
+import { SettingsContext } from '../../contexts/SettingsContext';
+import classNames from 'classnames';
 
 export const Chat: FC<{}> = () => {
   const [chats, setChats] = useState<Chat[]>(chatsData);
@@ -16,6 +18,12 @@ export const Chat: FC<{}> = () => {
   const [settingsModalVisible, setSettingsModalVisible] = useState<boolean>(
     false
   );
+  const { theme } = useContext(SettingsContext);
+
+  const classes = classNames({
+    'bg-secondary': theme === 'Light',
+    'bg-dark': theme === 'Dark',
+  });
 
   useEffect(() => {
     const foundMessages =
@@ -64,7 +72,7 @@ export const Chat: FC<{}> = () => {
             <Header onSettingsButtonClick={handleSettingsButtonClick} />
 
             <Row noGutters>
-              <Col md="3" className="bg-secondary">
+              <Col md="3" className={classes}>
                 <ChatList
                   chats={chats}
                   onChatSelect={handleChatSelect}
@@ -80,6 +88,9 @@ export const Chat: FC<{}> = () => {
                       onMessageSend={handleMessageSend}
                       onMessageClose={handleMessageClose}
                     />
+                  </Route>
+                  <Route path="">
+                    <Redirect to={`/${activeChatId}`}></Redirect>
                   </Route>
                 </Switch>
               </Col>

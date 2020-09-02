@@ -1,5 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { SettingsContext } from '../../contexts/SettingsContext';
 import { useFormField } from '../../hooks/useFormField';
 import './SettingsModal.scss';
@@ -17,6 +18,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     SettingsContext
   );
 
+  const { t } = useTranslation();
   const authorField = useFormField(name);
   const themeField = useFormField(theme);
   const languageField = useFormField(language);
@@ -29,7 +31,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     if (form.checkValidity()) {
       setName(authorField.value);
       setTheme(themeField.value);
-      setLanguage(languageField.value);
+      setLanguage(languageField.value.toLowerCase());
       handleModalClose();
     } else {
       setValidated(true);
@@ -44,7 +46,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   return (
     <Modal show={visible} onHide={handleModalClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Settings</Modal.Title>
+        <Modal.Title>{t('SETTINGS')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form
@@ -54,7 +56,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
           onSubmit={handleSubmit}
         >
           <Form.Group controlId="author">
-            <Form.Label>Author</Form.Label>
+            <Form.Label>{t('AUTHOR')}</Form.Label>
             <Form.Control
               type="text"
               name="author"
@@ -66,38 +68,36 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               {...authorField}
             />
             <Form.Control.Feedback type="invalid">
-              This field is required
+              {t('INVALID_FIELD')}
             </Form.Control.Feedback>
-            <Form.Text className="text-muted">Input author's name</Form.Text>
+            <Form.Text className="text-muted">{t('AUTHOR_SUBTEXT')}</Form.Text>
           </Form.Group>
 
           <Form.Group controlId="theme">
-            <Form.Label>Theme</Form.Label>
+            <Form.Label>{t('THEME')}</Form.Label>
             <Form.Control as="select" required {...themeField}>
               <option>Light</option>
               <option>Dark</option>
             </Form.Control>
             <Form.Control.Feedback type="invalid">
-              This field is required
+              {t('INVALID_FIELD')}
             </Form.Control.Feedback>
-            <Form.Text className="text-muted">
-              Selected theme will be applied on restart application
-            </Form.Text>
+            <Form.Text className="text-muted">{t('THEME_SUBTEXT')}</Form.Text>
           </Form.Group>
 
           <Form.Group controlId="language">
-            <Form.Label>Language</Form.Label>
+            <Form.Label>{t('LANGUAGE')}</Form.Label>
             <Form.Control as="select" required {...languageField}>
               <option>En</option>
               <option>Ru</option>
             </Form.Control>
             <Form.Text className="text-muted">
-              Select preferred language
+              {t('LANGUAGE_SUBTEXT')}
             </Form.Text>
           </Form.Group>
 
           <Button variant="warning" type="submit">
-            Apply
+            {t('APPLY')}
           </Button>
         </Form>
       </Modal.Body>

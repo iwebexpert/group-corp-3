@@ -16,6 +16,7 @@ type Message = {
     date: string;
     closable: boolean;
     chatId: string;
+    isBot?: boolean;
 };
 
 type Chat = {
