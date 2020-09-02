@@ -25,6 +25,7 @@ export type ItemWithId = {
     id: string;
     message: string;
     author: string;
+    chatId?: number;
 };
 
 export type ItemFormState = {
@@ -36,8 +37,15 @@ type MessagesProps = {
     items: ItemWithId[];
 };
 
+type Chat = {
+    id: number,
+    title: string,
+    messages: ItemWithId[]
+}
+
 export type ConfigApp = {
     lang: string | null;
     theme: string | null;
     author: string;
+    Chats: Chat[]
 };

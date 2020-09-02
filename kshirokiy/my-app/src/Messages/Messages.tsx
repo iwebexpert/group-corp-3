@@ -18,7 +18,7 @@ export const Messages: React.FC<MessagesProps> = ({items}) => {
     }
     return (
         <React.Fragment>
-            <ul className="list-group mb-4">
+            <ul className="list-group mb-4 mt-3">
                 {renderMessages(items)}
             </ul>
         </React.Fragment>
