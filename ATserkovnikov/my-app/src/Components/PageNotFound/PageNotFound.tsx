@@ -1,14 +1,13 @@
-import React from "react";
-
-import './Footer.scss'
+import React from 'react';
+import './PageNotFound.scss'
 import {Col, Container, Row} from "react-bootstrap";
 
-export const Footer: React.FC = () => {
+export const PageNotFound: React.FC= () => {
     return (
-        <Container className="footer" fluid>
+        <Container>
             <Row>
                 <Col>
-                    Футер
+                    Чат не найден
                 </Col>
             </Row>
         </Container>

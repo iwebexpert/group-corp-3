@@ -16,7 +16,7 @@ export const MessageForm: React.FC<MessageFormProps> = ({ messageFormData, addMe
 
         if (form.checkValidity()) {
             addMessageHandler({key: generate(), author: authorField.value, messageText: messageTextField.value});
-            messageTextField.setValue("");
+            messageTextField.setValues("");
         }
 
         event.stopPropagation();

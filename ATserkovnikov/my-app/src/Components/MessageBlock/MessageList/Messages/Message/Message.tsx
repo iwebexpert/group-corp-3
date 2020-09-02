@@ -20,8 +20,11 @@ export const Message: React.FC<MessageData> = ({author, messageText}) => {
 
     if (messageText === "") {
         messageContent = (
-            <div className="spinner-border text-primary" role="status">
-                <span className="sr-only">Loading...</span>
+            <div>
+                <b>{author}</b>&nbsp;
+                <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
             </div>
         );
     } else {
