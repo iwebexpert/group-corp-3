@@ -5,6 +5,7 @@ import {Footer} from './Footer';
 import {Col, Container, Row} from "react-bootstrap";
 import {ConfigContext} from "../../App";
 import {themes} from "../../theme";
+
 import './Layout.scss'
 
 export const Layout: React.FC = () => {
@@ -14,17 +15,19 @@ export const Layout: React.FC = () => {
     return (
         <Container fluid>
             <Row className="justify-content-sm-center">
-                <Col lg={10} md={12}>
+                <Col md={2}/>
+                <Col>
                     <Row>
                         <Header/>
                     </Row>
                     <Row style={{backgroundColor: curTheme.background}}>
-                        <Content/>
+                        <Content />
                     </Row>
                     <Row>
                         <Footer/>
                     </Row>
                 </Col>
+                <Col md={2}/>
             </Row>
         </Container>
     );

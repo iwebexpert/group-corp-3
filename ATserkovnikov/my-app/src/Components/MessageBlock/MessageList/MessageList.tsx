@@ -7,40 +7,46 @@ import {ConfigContext} from "../../../App";
 
 import './MessageList.scss'
 
-export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) => {
-    const [curMessages, setMessage] = useState(messages);
-    const [curAuthors, setAuthor] = useState(authors);
+export const MessageList: React.FC<MessagesListProps> = ({messages, updateChatDB}) => {
     const {options} = useContext(ConfigContext);
+
+    const [curMessages, setMessage] = useState(messages);
+    const [curAuthor, setNewAuthor] = useState("");
+
+    if (messages.chatId !== curMessages.chatId){
+        updateChatDB(curMessages);
+
+        setMessage(messages);
+        setNewAuthor("");
+    }
 
     const curMessagesRef = useRef(curMessages);
     curMessagesRef.current = curMessages;
 
-    let newAuthor: string = "";
-    const [curAuthor, setNewAuthor] = useState(newAuthor);
-
     const addMessageHandler = (newData: MessageData) => {
-        if (curAuthors.find(c => c === newData.author) === undefined)
+        if (curMessages.authors.find(c => c === newData.author) === undefined)
             setNewAuthor(newData.author);
 
-        setMessage(curMessages.concat(newData));
+        setMessage({...curMessages, messages: curMessages.messages.concat(newData)});
     };
 
      useEffect(() => {
          if (curAuthor === "") return;
 
          const newKey = generate();
-         setMessage(curMessages.concat({author: "Бот", messageText: "", key: newKey}));
-         setAuthor(curAuthors.concat(curAuthor));
+         setMessage({...curMessages,
+             messages: curMessages.messages.concat({author: "Бот", messageText: "", key: newKey}),
+             authors: curMessages.authors.concat(curAuthor)});
 
          const timer = setTimeout(() => {
-             const newMessages = curMessagesRef.current.map(item => {
+             const newMessages = curMessagesRef.current.messages.map(item => {
                  if (item.key === newKey){
                      item.messageText = "Привет! " + curAuthor;
                  }
                  return item;
              });
 
-             setMessage(newMessages);
+             setMessage({...curMessages, messages: newMessages});
         }, 2000);
 
          return () => clearTimeout(timer);
@@ -48,7 +54,7 @@ export const MessageList: React.FC<MessagesListProps> = ({messages, authors}) =>
 
     return (
         <Container className="p-4">
-            <Row as={Messages} messages={curMessages} />
+            <Row as={Messages} messages={curMessages.messages} />
             <Row as={MessageForm}
                  messageFormData={{author: options.author, messageText: "", key: ""}}
                  addMessageHandler={addMessageHandler}

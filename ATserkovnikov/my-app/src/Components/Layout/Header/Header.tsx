@@ -9,7 +9,7 @@ export const Header: React.FC = () => {
     const {options, changeContextHandle} = useContext(ConfigContext);
 
     return (
-        <Container className="header">
+        <Container className="header" fluid>
             <Row>
                 <Col/>
                 <Col>

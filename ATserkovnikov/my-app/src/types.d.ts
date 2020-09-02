@@ -1,8 +1,3 @@
-type themeProp ={
-    foreground: string,
-    background: string,
-}
-
 type TaskData = {
     taskId: string;
     isReady: boolean;
@@ -48,8 +43,21 @@ type MessageProps = {
     messages: MessageData[];
 }
 
-type MessagesListProps = {
+type MessagesListData = {
     messages: MessageData[];
     authors: string[];
+    chatId: number;
+}
+
+type MessagesListProps = {
+    messages: MessagesListData;
+    updateChatDB: (data: messagesListData) => void;
+}
+
+type Chat = {
+    id: number;
+    title: string,
+    description: string;
+    messages: MessagesListData
 }
 
