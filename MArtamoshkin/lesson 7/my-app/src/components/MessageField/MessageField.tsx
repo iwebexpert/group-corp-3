@@ -2,19 +2,21 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { Image } from 'react-bootstrap';
 import './MessageField.scss';
+import { SettingsContext } from '../../contexts/SettingsContext';
 
 const MessageField = (props: MessageItemProps) => {
-    const {message, contactPerson} = props;
+    const { message, contactPerson } = props;
     const currentUser: User = useContext(UserContext);
-    
+    const { name }: Settings = useContext(SettingsContext);
+
     const isCurrentUser = message.author === currentUser.id;
     const messageClasses = !isCurrentUser ? 'chat' : 'chat chat-left';
-    const author = isCurrentUser ? currentUser : contactPerson;
+    const author = isCurrentUser ? {...currentUser, name} : contactPerson;
 
     return <div className={messageClasses}>
         <div className="chat-avatar">
             <div className="avatar avatar-online">
-                <Image src={author.avatar} alt="Avatar" rounded/>
+                <Image src={author.avatar} alt="Avatar" rounded />
                 <i></i>
             </div>
         </div>

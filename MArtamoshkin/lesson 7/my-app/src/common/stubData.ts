@@ -39,35 +39,30 @@ export const addChatMessage = (id: number, message: Message) => {
 export let chatsStub: Chat[] = [
     {
         id: 1,
-        text: 'Тестовый текст от бота в списке чатов',
         author: usersStub[0],
         messages: [{ "text": "Hello", "date": "2020-09-01T19:44:00.350Z", "author": 0 }, { "text": "Здравствуйте! Я виртуальный помощник. \n\r Удовольствием отвечу на ваши вопросы.", "date": "2020-09-01T19:44:09.847Z", "author": 1 }, { "text": "How are you?", "date": "2020-09-01T19:44:10.296Z", "author": 0 }, { "text": "Я не понял ваш вопрос.\n Сформулируйте его в нескольких словах.", "date": "2020-09-01T19:44:20.544Z", "author": 1 }],
         date: new Date()
     },
     {
         id: 2,
-        text: 'Тестовый текст от бота в списке чатов',
         author: usersStub[1],
-        messages: [],
+        messages: [{"text":"Здравствуйте!","date":"2020-09-02T18:55:22.745Z","author":0},{"text":"Приветствуем вас в чате! Здесь вы можете задать все интересующие вас вопросы.","date":"2020-09-02T18:55:29.017Z","author":2}],
         date: new Date()
     },
     {
         id: 3,
-        text: 'Тестовый текст от бота в списке чатов',
         author: usersStub[2],
-        messages: [],
+        messages: [{"text":"Привет","date":"2020-09-02T19:08:24.061Z","author":0},{"text":"Приветствуем вас в чате! Здесь вы можете задать все интересующие вас вопросы.","date":"2020-09-02T19:08:30.305Z","author":3},{"text":"12345","date":"2020-09-02T19:09:22.048Z","author":0},{"text":"Тестовый текст","date":"2020-09-02T19:09:44.280Z","author":0}],
         date: new Date()
     },
     {
         id: 4,
-        text: 'Тестовый текст от бота в списке чатов',
         author: usersStub[3],
-        messages: [],
+        messages: [{"text":"Тестовый текст сообщения","date":"2020-09-02T19:36:19.949Z","author":0}],
         date: new Date()
     },
     {
         id: 5,
-        text: 'Тестовый текст от бота в списке чатов',
         author: usersStub[4],
         messages: [],
         date: new Date()

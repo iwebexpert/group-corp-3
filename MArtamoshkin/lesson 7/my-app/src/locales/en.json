@@ -13,5 +13,7 @@
     "TYPING": "is typing...",
     "LANGUAGE_HEADING": "Language",
     "LANGUAGE_RU": "Russian",
-    "LANGUAGE_EN": "English"
+    "LANGUAGE_EN": "English",
+    "NO_MESSAGES": "No Messages",
+    "NOT_SELECTED_CHAT_TEXT": "Select chat and let start conversation"
 }

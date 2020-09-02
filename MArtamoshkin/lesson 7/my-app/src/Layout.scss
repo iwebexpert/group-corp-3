@@ -51,3 +51,13 @@
         border: 0 none;
     }
 }
+
+.chat-container {
+    min-height: $chat-height + 105px;
+    max-height: $chat-height + 130px;
+
+    .not-selected-chat-text {
+        color: #e1e9f1;
+        padding: 1.875rem 1rem;
+    }
+}

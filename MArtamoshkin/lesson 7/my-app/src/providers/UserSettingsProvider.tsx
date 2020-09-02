@@ -3,7 +3,7 @@ import { SettingsProvider } from '../contexts/SettingsContext';
 import i18n from '../common/i18n';
 
 const UserSettingsProvider: React.FC = ({ children }) => {
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string>('JohnDoe');
   const [theme, setTheme] = useState<string>('dark');
   const [language, setLanguage] = useState<string>('ru');
   const settings: Settings = {

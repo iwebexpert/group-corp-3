@@ -34,7 +34,7 @@ const Settings = () => {
     const { language, setLanguage, name, setName, theme, setTheme } = useContext(SettingsContext);
 
     return <>
-        <div className="d-flex align-items-baseline">
+        <div className="d-flex align-items-center">
             <BootstrapForm onSubmit={handleSubmit} className="mr-2">{name ? <b className="text-muted">{name}</b> :
                 <BootstrapForm.Control name="name" type="input" autoComplete='off'
                     value={userName} onChange={handleChange} placeholder={t('USER_NAME')}></BootstrapForm.Control>}</BootstrapForm>

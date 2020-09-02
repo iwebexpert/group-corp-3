@@ -7,13 +7,12 @@ import { getFakeResponse } from '../../common/fakeResponse';
 import { Row } from "react-bootstrap";
 
 import './Chat.scss';
-import { SettingsContext } from "../../contexts/SettingsContext";
 import { useTranslation } from "react-i18next";
-import { usersStub, chatsStub, addChatMessage } from "../../common/stubData";
+import { usersStub } from "../../common/stubData";
 
 const Chat = (props: ChatProps) => {
-    const { activeChatId } = props;
-    const activeChat = chatsStub.filter((c: Chat) => c.id === activeChatId)[0];
+    const { activeChatId, handleSend, chats } = props;
+    const activeChat = chats.filter((c: Chat) => c.id === activeChatId)[0];
     const contactPerson = usersStub.filter((u: User) => u.id === activeChat.author.id)[0];
 
     const { t } = useTranslation();
@@ -52,7 +51,7 @@ const Chat = (props: ChatProps) => {
         };
 
         setMessages([...messages, newMessage]);
-        addChatMessage(activeChatId, newMessage);
+        handleSend(activeChatId, newMessage);
         setHasResponse(false);
     };
 
@@ -62,7 +61,7 @@ const Chat = (props: ChatProps) => {
                 const newResponse: Message = getFakeResponse(responseStep, contactPerson.id);
 
                 setMessages([...messages, newResponse]);
-                addChatMessage(activeChatId, newResponse);
+                handleSend(activeChatId, newResponse);
                 setHasResponse(true);
                 setResponseStep(responseStep + 1);
                 setIsTyping(false);

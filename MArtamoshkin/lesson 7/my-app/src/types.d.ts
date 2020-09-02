@@ -32,7 +32,6 @@ type MessageItemProps = {
 
 type Chat = {
     id: number;
-    text: string;
     author: Author;
     messages: Message[];
     date: Date;
@@ -40,10 +39,13 @@ type Chat = {
 
 type ChatProps = {
     activeChatId: number;
+    chats: Chat[];
+    handleSend: (chatId: number, message: Message) => void;
 }
 
 type ChatListProps = {
     activeChatId: number | null;
+    chats: Chat[];
 }
 
 type Settings = {
