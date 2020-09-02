@@ -4,10 +4,13 @@ import { Chat } from './components/Chat';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { SettingsProviderWrapper } from './providers/SettingsProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Chat />
+    <SettingsProviderWrapper>
+      <Chat />
+    </SettingsProviderWrapper>
   </React.StrictMode>,
   document.getElementById('root')
 );

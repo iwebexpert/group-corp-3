@@ -7,7 +7,6 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { SettingsModal } from '../SettingsModal';
 import { chatsData } from '../../helpers/chatsData';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { SettingsProviderWrapper } from '../../providers/SettingsProvider';
 import { SettingsContext } from '../../contexts/SettingsContext';
 import classNames from 'classnames';
 
@@ -20,7 +19,7 @@ export const Chat: FC<{}> = () => {
   );
   const { theme } = useContext(SettingsContext);
 
-  const classes = classNames({
+  const chatListClasses = classNames({
     'bg-secondary': theme === 'Light',
     'bg-dark': theme === 'Dark',
   });
@@ -65,44 +64,42 @@ export const Chat: FC<{}> = () => {
   };
 
   return (
-    <SettingsProviderWrapper>
-      <BrowserRouter>
-        <Container>
-          <Col className="p-0 shadow-lg">
-            <Header onSettingsButtonClick={handleSettingsButtonClick} />
+    <BrowserRouter>
+      <Container>
+        <Col className="p-0 shadow-lg">
+          <Header onSettingsButtonClick={handleSettingsButtonClick} />
 
-            <Row noGutters>
-              <Col md="3" className={classes}>
-                <ChatList
-                  chats={chats}
-                  onChatSelect={handleChatSelect}
-                  activeChatId={activeChatId}
-                />
-              </Col>
+          <Row noGutters>
+            <Col md="3" className={chatListClasses}>
+              <ChatList
+                chats={chats}
+                onChatSelect={handleChatSelect}
+                activeChatId={activeChatId}
+              />
+            </Col>
 
-              <Col md="9">
-                <Switch>
-                  <Route path={`/:chatId`} exact>
-                    <Messenger
-                      messages={messages}
-                      onMessageSend={handleMessageSend}
-                      onMessageClose={handleMessageClose}
-                    />
-                  </Route>
-                  <Route path="">
-                    <Redirect to={`/${activeChatId}`}></Redirect>
-                  </Route>
-                </Switch>
-              </Col>
-            </Row>
-          </Col>
-        </Container>
+            <Col md="9">
+              <Switch>
+                <Route path={`/:chatId`} exact>
+                  <Messenger
+                    messages={messages}
+                    onMessageSend={handleMessageSend}
+                    onMessageClose={handleMessageClose}
+                  />
+                </Route>
+                <Route path="">
+                  <Redirect to={`/${activeChatId}`}></Redirect>
+                </Route>
+              </Switch>
+            </Col>
+          </Row>
+        </Col>
+      </Container>
 
-        <SettingsModal
-          visible={settingsModalVisible}
-          onSettingsModalClose={handleSettingsModalClose}
-        ></SettingsModal>
-      </BrowserRouter>
-    </SettingsProviderWrapper>
+      <SettingsModal
+        visible={settingsModalVisible}
+        onSettingsModalClose={handleSettingsModalClose}
+      ></SettingsModal>
+    </BrowserRouter>
   );
 };
