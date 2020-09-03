@@ -2,6 +2,7 @@ import React from 'react';
 import {Header} from '../Header/Header';
 import {ChatList} from '../ChatList/ChatList';
 import {Messenger} from '../Messenger/Messenger';
+import {Switch, Route} from 'react-router-dom';
 
 export const Layout: React.FC<{}> = ({children}) => {
     return (
@@ -13,7 +14,10 @@ export const Layout: React.FC<{}> = ({children}) => {
                         <ChatList/>
                     </div>
                     <div className='col-md-8'>
-                        <Messenger/>
+                        {/*<Messenger/>*/}
+                        <Switch>
+                            <Route path="/chats/:id" children={<Messenger/>}/>
+                        </Switch>
                     </div>
                 </div>
             </div>
