@@ -41,6 +41,18 @@ function App() {
             path: "/lesson06",
             title: "Lesson #6",
             content: lazy(() => import('./components/lesson-6/Lesson6'))
+        },
+        {
+            path: "/lesson07",
+            title: "Lesson #7",
+            content: lazy(() => import('./components/lesson-7/Lesson7'))
+        },
+        {
+            path: "/lesson07/:id",
+            title: "Lesson #7",
+            hidden: true,
+            notExact: true,
+            content: lazy(() => import('./components/lesson-7/Lesson7'))
         }
     ];
 
@@ -62,9 +74,9 @@ function App() {
                 <Col md={2} className='text-center'>
                     <ul style={{ listStyleType: "none", padding: 0 }}>
                         {
-                            routes.map(route => <li key={route.path}>
+                            routes.map(route => (!route.hidden) ? <li key={route.path}>
                                     <Link to={route.path}>{route.title}</Link>
-                                </li>)
+                                </li> : false)
                         }
                     </ul>
                 </Col>
@@ -74,12 +86,13 @@ function App() {
                         <Route
                             exact
                             path="/"
-                            render={() => <Redirect to="/lesson06" /> }
+                            render={() => <Redirect to="/lesson07" /> }
                         />
                         <Suspense fallback={<>azaza</>}>
                         {
                             routes.map(route =>
-                                    <Route key={route.path} exact path={route.path} component={route.content} />
+                                    <Route key={route.path} exact={!route.notExact}
+                                           path={route.path} component={route.content} />
                            )
                         }
                         </Suspense>
