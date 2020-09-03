@@ -1,0 +1,20 @@
+body {
+    font-family: helvetica;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chats {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30%;
+    height: 100%;
+}
+
+.messenger {
+    width: 1310px;
+    margin-left: 30%;
+    margin-top: 0;
+}
