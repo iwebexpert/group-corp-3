@@ -5,15 +5,15 @@ import { messagesReducer, MessagesReducerState } from "./messages/messagesReduce
 import { settingsReducer, SettingsReducerState } from "./settings/settingsReducer";
 
 export type AppState = {
-    chats: ChatsReducerState;
-    messages: MessagesReducerState;
-    settings: SettingsReducerState;
+  chats: ChatsReducerState;
+  messages: MessagesReducerState;
+  settings: SettingsReducerState;
 };
 
 export const rootReducer = combineReducers<AppState>({
-    chats: chatsReducer,
-    messages: messagesReducer,
-    settings: settingsReducer,
+  chats: chatsReducer,
+  messages: messagesReducer,
+  settings: settingsReducer,
 });
 
 export const store: Store = createStore(rootReducer, composeWithDevTools());

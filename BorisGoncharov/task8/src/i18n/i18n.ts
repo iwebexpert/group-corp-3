@@ -5,21 +5,21 @@ import translationEN from './en.json';
 import translationRU from './ru.json';
 
 const resources = {
-    en: { translation: translationEN },
-    ru: { translation: translationRU }
+  en: { translation: translationEN },
+  ru: { translation: translationRU }
 };
 
 i18n
-    .use(initReactI18next)
-    .init({
-        resources,
-        lng: "en",
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: "en",
 
-        keySeparator: false,
-        compatibilityJSON: 'v1',
-        interpolation: {
-            escapeValue: false
-        }
-    });
+    keySeparator: false,
+    compatibilityJSON: 'v1',
+    interpolation: {
+      escapeValue: false
+    }
+  });
 
 export default i18n;
