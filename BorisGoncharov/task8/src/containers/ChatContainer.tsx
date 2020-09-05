@@ -30,11 +30,11 @@ export const ChatContainer: FC<{}> = () => {
     // Emulating different loading speed
     setTimeout(() => {
       dispatch(chatsLoadSuccess(db.chats));
-    }, 3000);
+    }, 2000);
 
     setTimeout(() => {
       dispatch(messagesLoadSuccess(db.messages));
-    }, 5000);
+    }, 3000);
 
     setTimeout(() => {
       dispatch(settingsLoadSuccess(db.settings));

@@ -20,11 +20,14 @@ export const Message: FC<MessageProps> = ({
     _yellow: author !== 'Bot',
   });
 
+  const dateObj = new Date(date);
+
   return (
     <div className={classes}>
       <div>{text}</div>
       <small className="float-right">
-        {author}, {new Date(date).toDateString()}
+        {author}, {dateObj.getDate()}/{dateObj.getMonth()}/
+        {dateObj.getFullYear()}&nbsp;{dateObj.getHours()}:{dateObj.getMinutes()}
       </small>
 
       {closable && (

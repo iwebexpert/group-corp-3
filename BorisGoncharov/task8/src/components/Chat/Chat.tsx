@@ -19,7 +19,7 @@ export const Chat: FC<ChatProps> = ({
   messagesLoading,
   theme,
 }) => {
-  const chatListClasses = classNames({
+  const chatListClasses = classNames('justify-content-center', {
     'bg-secondary': theme === 'light',
     'bg-dark': theme === 'dark',
   });
@@ -32,18 +32,22 @@ export const Chat: FC<ChatProps> = ({
 
           <Switch>
             <Route path={`/:chatId`} exact>
-              <Row noGutters>
+              <Row noGutters className="chat">
                 <Col md="3" className={chatListClasses}>
                   {chatsLoading ? (
-                    <Spinner animation="border" variant="secondary" />
+                    <div className="chat__spinner-container">
+                      <Spinner animation="border" variant="light" />
+                    </div>
                   ) : (
                     <ChatListContainer />
                   )}
                 </Col>
 
-                <Col md="9">
+                <Col md="9" className="d-flex flex-column flex-grow-1">
                   {messagesLoading ? (
-                    <Spinner animation="border" variant="secondary" />
+                    <div className="chat__spinner-container">
+                      <Spinner animation="border" variant="secondary" />
+                    </div>
                   ) : (
                     <MessengerContainer />
                   )}

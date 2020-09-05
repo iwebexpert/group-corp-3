@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SettingsModal } from '../components/SettingsModal';
 import {
@@ -14,18 +14,20 @@ export const SettingsModalContainer: FC<{}> = () => {
   const settings = useSelector((state: AppState) => state.settings.settings);
   const visible = useSelector((state: AppState) => state.settings.modalVisible);
 
+  useEffect(() => {
+    i18n.changeLanguage(settings.language);
+    document.body.className = '';
+    document.body.className = `${
+      settings.theme === 'dark' ? 'bg-dark' : 'bg-white'
+    }`;
+  }, [settings]);
+
   const handleSettingsModalClose = () => {
     dispatch(settingsModalClose());
   };
 
   const handleSettingsChange = (settings: Settings) => {
     dispatch(settingsChange(settings));
-    i18n.changeLanguage(settings.language);
-
-    document.body.className = '';
-    document.body.className = `${
-      settings.theme === 'dark' ? 'bg-dark' : 'bg-white'
-    }`;
   };
 
   return (

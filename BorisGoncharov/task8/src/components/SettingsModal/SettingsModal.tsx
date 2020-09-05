@@ -48,12 +48,18 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   };
 
   const classes = classNames({
-    'bg-dark text-light': theme === 'dark',
+    'bg-white': theme === 'light',
+    'bg-dark text-white': theme === 'dark',
+  });
+
+  const suggestionsClasses = classNames({
+    'text-muted': theme === 'light',
+    'text-light': theme === 'dark',
   });
 
   return (
     <Modal show={visible} onHide={handleModalClose}>
-      <Modal.Header closeButton className={classes}>
+      <Modal.Header className={classes}>
         <Modal.Title>{t('SETTINGS')}</Modal.Title>
       </Modal.Header>
       <Modal.Body className={classes}>
@@ -78,7 +84,9 @@ export const SettingsModal: FC<SettingsModalProps> = ({
             <Form.Control.Feedback type="invalid">
               {t('INVALID_FIELD')}
             </Form.Control.Feedback>
-            <Form.Text className="text-muted">{t('AUTHOR_SUBTEXT')}</Form.Text>
+            <Form.Text className={suggestionsClasses}>
+              {t('AUTHOR_SUBTEXT')}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="theme">
@@ -90,7 +98,9 @@ export const SettingsModal: FC<SettingsModalProps> = ({
             <Form.Control.Feedback type="invalid">
               {t('INVALID_FIELD')}
             </Form.Control.Feedback>
-            <Form.Text className="text-muted">{t('THEME_SUBTEXT')}</Form.Text>
+            <Form.Text className={suggestionsClasses}>
+              {t('THEME_SUBTEXT')}
+            </Form.Text>
           </Form.Group>
 
           <Form.Group controlId="language">
@@ -99,7 +109,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               <option value="en">{t('ENGLISH')}</option>
               <option value="ru">{t('RUSSIAN')}</option>
             </Form.Control>
-            <Form.Text className="text-muted">
+            <Form.Text className={suggestionsClasses}>
               {t('LANGUAGE_SUBTEXT')}
             </Form.Text>
           </Form.Group>

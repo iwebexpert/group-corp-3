@@ -1,8 +1,8 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
 .message-list {
-  height: 60vh;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
   overflow: auto;
   padding: $spacer;
