@@ -4,11 +4,8 @@ import { ActionCreator } from 'redux';
 export enum MessagesActionTypes {
     // Loading actions
     MESSAGES_LOAD = 'MESSAGES_LOAD',
-
-    // TODO Add loading logic
-    // MESSAGES_LOAD_START = 'MESSAGES_LOAD_START',
-    // MESSAGES_LOAD_SUCCESS = 'MESSAGES_LOAD_SUCCESS',
-    // MESSAGES_LOAD_ERROR = 'MESSAGES_LOAD_ERROR',
+    MESSAGES_LOAD_SUCCESS = 'MESSAGES_LOAD_SUCCESS',
+    MESSAGES_LOAD_ERROR = 'MESSAGES_LOAD_ERROR',
 
     // Main actions
     MESSAGES_ADD = 'MESSAGES_ADD',
@@ -21,30 +18,50 @@ export type MessagesLoadAction = {
     type: MessagesActionTypes.MESSAGES_LOAD;
 };
 
+export type MessagesLoadSuccessAction = {
+    type: MessagesActionTypes.MESSAGES_LOAD_SUCCESS;
+    payload: Message[];
+};
+
+export type MessagesLoadErrorAction = {
+    type: MessagesActionTypes.MESSAGES_LOAD_ERROR;
+    payload: string;
+};
+
 export type MessagesAddAction = {
     type: MessagesActionTypes.MESSAGES_ADD;
-    message: Message;
+    payload: Message;
 };
 
 export type MessagesDeleteAction = {
     type: MessagesActionTypes.MESSAGES_DELETE;
-    id: string;
+    payload: string;
 };
 
 // All actions
-export type MessagesActions = MessagesLoadAction | MessagesAddAction | MessagesDeleteAction;
+export type MessagesActions = MessagesLoadAction | MessagesLoadSuccessAction | MessagesLoadErrorAction | MessagesAddAction | MessagesDeleteAction;
 
 // Exporting actions
 export const messagesLoad: ActionCreator<MessagesLoadAction> = () => ({
     type: MessagesActionTypes.MESSAGES_LOAD,
 });
 
-export const messagesAdd: ActionCreator<MessagesAddAction> = (message: Message) => ({
-    type: MessagesActionTypes.MESSAGES_ADD,
-    message
+export const messagesLoadSuccess: ActionCreator<MessagesLoadSuccessAction> = (payload: Message[]) => ({
+    type: MessagesActionTypes.MESSAGES_LOAD_SUCCESS,
+    payload
 });
 
-export const messagesDelete: ActionCreator<MessagesDeleteAction> = (id: string) => ({
+export const chatsLoadError: ActionCreator<MessagesLoadErrorAction> = (payload: string) => ({
+    type: MessagesActionTypes.MESSAGES_LOAD_ERROR,
+    payload
+});
+
+export const messagesAdd: ActionCreator<MessagesAddAction> = (payload: Message) => ({
+    type: MessagesActionTypes.MESSAGES_ADD,
+    payload
+});
+
+export const messagesDelete: ActionCreator<MessagesDeleteAction> = (payload: string) => ({
     type: MessagesActionTypes.MESSAGES_DELETE,
-    id
+    payload
 });

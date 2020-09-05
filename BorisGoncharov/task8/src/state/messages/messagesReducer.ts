@@ -1,7 +1,6 @@
 import update from 'immutability-helper';
 import { Reducer } from 'redux';
 import { MessagesActions, MessagesActionTypes } from './messagesActions';
-import * as db from '../../db.json';
 
 export type MessagesReducerState = {
     loading: boolean;
@@ -18,20 +17,35 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
         case MessagesActionTypes.MESSAGES_LOAD:
             return {
                 ...state,
-                messages: db.messages,
+                loading: true,
+            };
+
+
+        case MessagesActionTypes.MESSAGES_LOAD_SUCCESS:
+            return {
+                ...state,
+                messages: action.payload,
+                loading: false,
+            };
+
+        case MessagesActionTypes.MESSAGES_LOAD_ERROR:
+            console.warn(action.payload);
+            return {
+                ...state,
+                messages: [],
+                loading: false,
             };
 
         case MessagesActionTypes.MESSAGES_ADD:
-            const message = action.message;
             return update(state, {
                 messages: {
-                    $push: [message]
+                    $push: [action.payload]
                 },
             });
 
         case MessagesActionTypes.MESSAGES_DELETE:
             // Getting message array id
-            let id = state.messages.findIndex(message => message.id === action.id);
+            let id = state.messages.findIndex(message => message.id === action.payload);
             if (id !== -1) {
                 return update(state, {
                     messages: {

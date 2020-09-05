@@ -45,5 +45,10 @@
       "closable": false,
       "chatId": "2"
     }
-  ]
+  ],
+  "settings": {
+    "name": "User",
+    "theme": "light",
+    "language": "en"
+  }
 }

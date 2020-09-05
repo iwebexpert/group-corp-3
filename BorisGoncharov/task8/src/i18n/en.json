@@ -13,5 +13,9 @@
   "LANGUAGE_SUBTEXT": "Select preferred language",
   "INVALID_FIELD": "This field is invalid",
   "BOT": "Bot",
-  "BOT_MESSAGE": "Hello, {{author}}!"
+  "BOT_MESSAGE": "Hello, {{author}}!",
+  "LIGHT": "Light",
+  "DARK": "Dark",
+  "ENGLISH": "English",
+  "RUSSIAN": "Russian"
 }

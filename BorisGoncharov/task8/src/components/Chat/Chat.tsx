@@ -1,48 +1,52 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC } from 'react';
 import './Chat.scss';
-import { Header } from '../Header';
-import { Col, Container, Row } from 'react-bootstrap';
-import { SettingsModal } from '../SettingsModal';
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { SettingsContext } from '../../contexts/SettingsContext';
 import classNames from 'classnames';
 import { MessengerContainer } from '../../containers/MessagerContainer';
 import { ChatListContainer } from '../../containers/ChatListContainer';
+import { SettingsModalContainer } from '../../containers/SettingsModalContainer';
+import { HeaderContainer } from '../../containers/HeaderContainer';
 
-export const Chat: FC<{}> = () => {
-  const [settingsModalVisible, setSettingsModalVisible] = useState<boolean>(
-    false
-  );
-  const { theme } = useContext(SettingsContext);
+export type ChatProps = {
+  chatsLoading: boolean;
+  messagesLoading: boolean;
+  theme: Theme;
+};
 
+export const Chat: FC<ChatProps> = ({
+  chatsLoading,
+  messagesLoading,
+  theme,
+}) => {
   const chatListClasses = classNames({
-    'bg-secondary': theme === 'Light',
-    'bg-dark': theme === 'Dark',
+    'bg-secondary': theme === 'light',
+    'bg-dark': theme === 'dark',
   });
-
-  const handleSettingsButtonClick = (): void => {
-    setSettingsModalVisible(true);
-  };
-
-  const handleSettingsModalClose = (): void => {
-    setSettingsModalVisible(false);
-  };
 
   return (
     <>
       <Container>
         <Col className="p-0 shadow-lg">
-          <Header onSettingsButtonClick={handleSettingsButtonClick} />
+          <HeaderContainer />
 
           <Switch>
             <Route path={`/:chatId`} exact>
               <Row noGutters>
                 <Col md="3" className={chatListClasses}>
-                  <ChatListContainer />
+                  {chatsLoading ? (
+                    <Spinner animation="border" variant="secondary" />
+                  ) : (
+                    <ChatListContainer />
+                  )}
                 </Col>
 
                 <Col md="9">
-                  <MessengerContainer />
+                  {messagesLoading ? (
+                    <Spinner animation="border" variant="secondary" />
+                  ) : (
+                    <MessengerContainer />
+                  )}
                 </Col>
               </Row>
             </Route>
@@ -53,10 +57,7 @@ export const Chat: FC<{}> = () => {
         </Col>
       </Container>
 
-      <SettingsModal
-        visible={settingsModalVisible}
-        onSettingsModalClose={handleSettingsModalClose}
-      ></SettingsModal>
+      <SettingsModalContainer />
     </>
   );
 };

@@ -1,27 +1,29 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { SettingsContext } from '../../contexts/SettingsContext';
 import { useFormField } from '../../hooks/useFormField';
 import './SettingsModal.scss';
+import classNames from 'classnames';
 
 export type SettingsModalProps = {
+  settings: Settings;
   visible: boolean;
+  theme?: Theme;
   onSettingsModalClose: () => void;
+  onSettingsChange: (settings: Settings) => void;
 };
 
 export const SettingsModal: FC<SettingsModalProps> = ({
+  settings,
   visible,
+  theme = 'light',
   onSettingsModalClose,
+  onSettingsChange,
 }) => {
-  const { name, setName, theme, setTheme, language, setLanguage } = useContext(
-    SettingsContext
-  );
-
   const { t } = useTranslation();
-  const authorField = useFormField(name);
-  const themeField = useFormField(theme);
-  const languageField = useFormField(language);
+  const authorField = useFormField(settings.name);
+  const themeField = useFormField(settings.theme);
+  const languageField = useFormField(settings.language);
 
   const [validated, setValidated] = useState<boolean>(false);
 
@@ -29,9 +31,11 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     event.preventDefault();
     const form = event.currentTarget as HTMLFormElement;
     if (form.checkValidity()) {
-      setName(authorField.value);
-      setTheme(themeField.value);
-      setLanguage(languageField.value.toLowerCase());
+      onSettingsChange({
+        name: authorField.value,
+        theme: themeField.value,
+        language: languageField.value,
+      });
       handleModalClose();
     } else {
       setValidated(true);
@@ -43,12 +47,16 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     onSettingsModalClose();
   };
 
+  const classes = classNames({
+    'bg-dark text-light': theme === 'dark',
+  });
+
   return (
     <Modal show={visible} onHide={handleModalClose}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton className={classes}>
         <Modal.Title>{t('SETTINGS')}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className={classes}>
         <Form
           noValidate
           validated={validated}
@@ -76,8 +84,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
           <Form.Group controlId="theme">
             <Form.Label>{t('THEME')}</Form.Label>
             <Form.Control as="select" required {...themeField}>
-              <option>Light</option>
-              <option>Dark</option>
+              <option value="light">{t('LIGHT')}</option>
+              <option value="dark">{t('DARK')}</option>
             </Form.Control>
             <Form.Control.Feedback type="invalid">
               {t('INVALID_FIELD')}
@@ -88,8 +96,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
           <Form.Group controlId="language">
             <Form.Label>{t('LANGUAGE')}</Form.Label>
             <Form.Control as="select" required {...languageField}>
-              <option>En</option>
-              <option>Ru</option>
+              <option value="en">{t('ENGLISH')}</option>
+              <option value="ru">{t('RUSSIAN')}</option>
             </Form.Control>
             <Form.Text className="text-muted">
               {t('LANGUAGE_SUBTEXT')}

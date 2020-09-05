@@ -1,14 +1,3 @@
-type Settings = {
-    name: string;
-    setName: (value: string) => void;
-    theme: string;
-    setTheme: (value: string) => void;
-    language: string;
-    setLanguage: (value: string) => void;
-    version: string;
-    setVersion: (value: string) => void;
-};
-
 type Message = {
     id: string;
     text: string;
@@ -22,4 +11,14 @@ type Message = {
 type Chat = {
     title: string;
     id: string;
+};
+
+type Theme = 'light' | 'dark';
+
+type Language = 'en' | 'ru';
+
+type Settings = {
+    name: string;
+    theme: Theme;
+    language: Language;
 };

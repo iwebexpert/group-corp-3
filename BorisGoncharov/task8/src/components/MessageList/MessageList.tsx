@@ -1,7 +1,6 @@
-import React, { FC, useContext, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { Col, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { SettingsContext } from '../../contexts/SettingsContext';
 import { Message } from '../Message';
 import classNames from 'classnames';
 import './MessageList.scss';
@@ -9,18 +8,18 @@ import './MessageList.scss';
 type MessageListProps = {
   items: Message[];
   isTyping: boolean;
+  theme?: Theme;
   onMessageClose: (id: string) => void;
 };
 
 export const MessageList: FC<MessageListProps> = ({
   items,
   isTyping,
+  theme = 'light',
   onMessageClose,
 }) => {
   const { t } = useTranslation();
   const blockRef = useRef<HTMLDivElement>(null);
-
-  const { theme } = useContext(SettingsContext);
 
   useEffect(() => {
     if (blockRef.current) {
@@ -29,8 +28,8 @@ export const MessageList: FC<MessageListProps> = ({
   });
 
   const classes = classNames('message-list', {
-    'bg-white': theme === 'Light',
-    'bg-secondary': theme === 'Dark',
+    'bg-white': theme === 'light',
+    'bg-secondary': theme === 'dark',
   });
 
   return (

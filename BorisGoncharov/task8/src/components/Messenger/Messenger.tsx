@@ -1,21 +1,24 @@
-import React, { useEffect, FC, useContext, useRef, useState } from 'react';
+import React, { useEffect, FC, useRef, useState } from 'react';
 import { generate } from 'shortid';
 import './Messenger.scss';
 
 import { MessageList } from '../MessageList';
 import { MessageForm } from '../MessageForm';
-import { SettingsContext } from '../../contexts/SettingsContext';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 export type MessengerProps = {
   messages: Message[];
+  author: string;
+  theme?: Theme;
   onMessageSend: (message: Message) => void;
   onMessageClose: (id: string) => void;
 };
 
 export const Messenger: FC<MessengerProps> = ({
   messages,
+  author,
+  theme = 'light',
   onMessageSend,
   onMessageClose,
 }) => {
@@ -23,9 +26,6 @@ export const Messenger: FC<MessengerProps> = ({
 
   // Active chat id
   let { chatId } = useParams<{ chatId: string }>();
-
-  // Fetch author from context
-  const { name } = useContext(SettingsContext);
 
   // We mutate timer -> we use useRef
   let timer = useRef<number>();
@@ -67,7 +67,7 @@ export const Messenger: FC<MessengerProps> = ({
   const handleMessageSend = (text: string): void => {
     const newMessage: Message = {
       text,
-      author: name,
+      author,
       id: generate(),
       date: new Date().toISOString(),
       closable: false,
@@ -83,6 +83,7 @@ export const Messenger: FC<MessengerProps> = ({
         items={messages}
         isTyping={isTyping}
         onMessageClose={onMessageClose}
+        theme={theme}
       />
       <MessageForm onMessageSend={handleMessageSend} />
     </>

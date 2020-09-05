@@ -1,21 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Chat } from './components/Chat';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { SettingsProviderWrapper } from './providers/SettingsProvider';
 import { store } from './state/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { ChatContainer } from './containers/ChatContainer';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <SettingsProviderWrapper>
-          <Chat />
-        </SettingsProviderWrapper>
+        <ChatContainer />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

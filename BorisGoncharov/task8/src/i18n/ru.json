@@ -13,5 +13,9 @@
   "LANGUAGE_SUBTEXT": "Выберите язык",
   "INVALID_FIELD": "Поле заполнено некорректно",
   "BOT": "Бот",
-  "BOT_MESSAGE": "Привет, {{author}}!"
+  "BOT_MESSAGE": "Привет, {{author}}!",
+  "LIGHT": "Светлая",
+  "DARK": "Тёмная",
+  "ENGLISH": "Английский",
+  "RUSSIAN": "Русский"
 }

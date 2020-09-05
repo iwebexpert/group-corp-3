@@ -4,11 +4,8 @@ import { ActionCreator } from 'redux';
 export enum ChatsActionTypes {
     // Loading actions
     CHATS_LOAD = 'CHATS_LOAD',
-
-    // TODO Add loading logic
-    // CHATS_LOAD_START = 'CHATS_LOAD_START',
-    // CHATS_LOAD_SUCCESS = 'CHATS_LOAD_SUCCESS',
-    // CHATS_LOAD_ERROR = 'CHATS_LOAD_ERROR',
+    CHATS_LOAD_SUCCESS = 'CHATS_LOAD_SUCCESS',
+    CHATS_LOAD_ERROR = 'CHATS_LOAD_ERROR',
 
     // Main actions
     CHATS_ADD = 'CHATS_ADD',
@@ -21,30 +18,50 @@ export type ChatsLoadAction = {
     type: ChatsActionTypes.CHATS_LOAD;
 };
 
+export type ChatsLoadSuccessAction = {
+    type: ChatsActionTypes.CHATS_LOAD_SUCCESS;
+    payload: Chat[];
+};
+
+export type ChatsLoadErrorAction = {
+    type: ChatsActionTypes.CHATS_LOAD_ERROR;
+    payload: string;
+};
+
 export type ChatsAddAction = {
     type: ChatsActionTypes.CHATS_ADD;
-    chat: Chat;
+    payload: Chat;
 };
 
 export type ChatsDeleteAction = {
     type: ChatsActionTypes.CHATS_DELETE;
-    id: string;
+    payload: string;
 };
 
 // All actions
-export type ChatsActions = ChatsLoadAction | ChatsAddAction | ChatsDeleteAction;
+export type ChatsActions = ChatsLoadAction | ChatsLoadSuccessAction | ChatsLoadErrorAction | ChatsAddAction | ChatsDeleteAction;
 
 // Exporting actions
 export const chatsLoad: ActionCreator<ChatsLoadAction> = () => ({
     type: ChatsActionTypes.CHATS_LOAD,
 });
 
-export const chatsAdd: ActionCreator<ChatsAddAction> = (chat: Chat) => ({
-    type: ChatsActionTypes.CHATS_ADD,
-    chat
+export const chatsLoadSuccess: ActionCreator<ChatsLoadSuccessAction> = (payload: Chat[]) => ({
+    type: ChatsActionTypes.CHATS_LOAD_SUCCESS,
+    payload
 });
 
-export const chatsDelete: ActionCreator<ChatsDeleteAction> = (id: string) => ({
+export const chatsLoadError: ActionCreator<ChatsLoadErrorAction> = (payload: string) => ({
+    type: ChatsActionTypes.CHATS_LOAD_ERROR,
+    payload
+});
+
+export const chatsAdd: ActionCreator<ChatsAddAction> = (payload: Chat) => ({
+    type: ChatsActionTypes.CHATS_ADD,
+    payload
+});
+
+export const chatsDelete: ActionCreator<ChatsDeleteAction> = (payload: string) => ({
     type: ChatsActionTypes.CHATS_DELETE,
-    id
+    payload
 });
