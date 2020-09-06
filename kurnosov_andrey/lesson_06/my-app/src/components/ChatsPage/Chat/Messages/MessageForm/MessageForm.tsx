@@ -10,12 +10,16 @@ type Props = {
 export function MessageForm(props: Props) {
 
     const [text, setText] = useState('');
+    const [validated, setValidated] = useState(false);
     const clearText = () => setText('');
 
     const send = () => {
         if (text) {
+            setValidated(false);
             props.onSend(text);
             clearText();
+        } else {
+            setValidated(true);
         }
     }
 
@@ -30,20 +34,32 @@ export function MessageForm(props: Props) {
         }
     }
 
-    const buttonDisabled = !text;
-
     const textarea = {
         onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value || ''),
-        value: text
+        value: text,
+        id: "inputGroupPrepend",
+        required: true
     }
     return (
-        <Form onSubmit={onSubmitHandler} onKeyUp={onSendKeyPressHandler} className="mt-3">
+        <Form 
+            onSubmit={onSubmitHandler} 
+            onKeyUp={onSendKeyPressHandler} 
+            validated={validated}
+            className="mt-3"
+        >
             <Form.Group>
-                <Textarea  {...textarea} />
+                <Textarea  {...textarea}/>
+
+                <Form.Control.Feedback 
+                    type="invalid" 
+                    aria-describedby="inputGroupPrepend"
+                >
+                    Пожалуйста, введите сообщение.
+                </Form.Control.Feedback>
             </Form.Group>
             
             <small className="text-muted"> cntrl+enter для отправки </small>
-            <Button disabled={buttonDisabled} className="float-right"> Отправить </Button>
+            <Button type="submit" className="float-right"> Отправить </Button>
         </Form>
     )
 }
