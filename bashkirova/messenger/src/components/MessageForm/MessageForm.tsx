@@ -1,5 +1,22 @@
 import React, {useState} from 'react';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import {createStyles, Theme, makeStyles} from '@material-ui/core/styles';
+import {TextField} from "@material-ui/core";
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            margin: theme.spacing(1),
+            width: '100%',
+        },
+        paper: {
+            margin: theme.spacing(1),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+    }),
+);
 
 type MessageFormProps = {
     onSendHandler: (data: MessageFormState) => void;
@@ -11,6 +28,7 @@ type MessageFormState = {
 };
 
 export const MessageForm: React.FC<MessageFormProps> = ({onSendHandler}) => {
+    const classes = useStyles();
     const [dataForm, setDataForm] = useState<MessageFormState>({author: '', text: ''});
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -23,16 +41,23 @@ export const MessageForm: React.FC<MessageFormProps> = ({onSendHandler}) => {
         setDataForm({...dataForm, text: ''});
     };
 
-    return (<>
-        <div>
-            <input name="author" type="text" value={dataForm.author} onChange={handleInputChange}
-                   placeholder="Введите имя"/>
-        </div>
-        <div>
-            <textarea name="text" value={dataForm.text} onChange={handleInputChange} placeholder="Введите текст"/>
-        </div>
-        <div>
-            <button onClick={handleMessageSend} disabled={!dataForm.text.length}>Отправить сообщение</button>
-        </div>
-    </>);
+    return (
+        <form className={classes.root} noValidate autoComplete="off">
+            <div>
+                <Input placeholder="Введите имя" inputProps={{'aria-label': 'description'}}
+                       name="author" type="text" value={dataForm.author} onChange={handleInputChange}/>
+            </div>
+            <div>
+                <TextField label="Введите текст"
+                           multiline
+                           name="text" value={dataForm.text} onChange={handleInputChange}/>
+            </div>
+            <div>
+                <Button onClick={handleMessageSend} disabled={!dataForm.text.length} variant="contained"
+                        color="primary">
+                    Отправить сообщение
+                </Button>
+            </div>
+        </form>
+    );
 }
