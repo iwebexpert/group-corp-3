@@ -8,6 +8,7 @@ import { Header } from './components/Header/Header';
 import { ChatsPage } from './components/ChatsPage/ChatsPage';
 import { Langs, LangContext, mixinLangContextValue } from './Langs';
 import { Themes, ThemeContext } from './Theme';
+import { AuthContext } from './Auth';
 
 function App() {
 
@@ -21,15 +22,17 @@ function App() {
     const themeContextValue = {theme, change: setTheme};
 
     return <>
-        <LangContext.Provider value={langContextValue}>
-            <ThemeContext.Provider value={themeContextValue}>
-                <Layout
-                    header={<Header />}
-                    body={<ChatsPage />}
-                    footer={<Footer />}  
-                /> 
-            </ThemeContext.Provider>
-        </LangContext.Provider>
+        <AuthContext.Provider value={{user : {id: '1', name:'User'}}}>
+            <LangContext.Provider value={langContextValue}>
+                <ThemeContext.Provider value={themeContextValue}>
+                    <Layout
+                        header={<Header />}
+                        body={<ChatsPage />}
+                        footer={<Footer />}  
+                    /> 
+                </ThemeContext.Provider>
+            </LangContext.Provider>
+        </AuthContext.Provider>
     </>;
 }
 

@@ -7,6 +7,7 @@ import { Delay } from '../../../logic/utils/Delay';
 import { LangText } from '../../../Langs';
 import { ThemeContext } from '../../../Theme';
 import classnames from 'classnames'
+import { AuthContext } from '../../../Auth';
 
 enum AnswerStatus {
     Typing,
@@ -41,6 +42,7 @@ export function Chat() {
         }
     }, [messages]);
 
+    const authCtx = useContext(AuthContext);
     const themeCtx = useContext(ThemeContext);
     const className = classnames('chat', 'theme-'+themeCtx.theme);
     return <div className={className}>
@@ -50,7 +52,7 @@ export function Chat() {
                 <span> &nbsp; </span>
         }
         <Messages items={messages} />
-        <MessageForm onSend={(message) => addMessage(MessageData.fromUser(message))} />
+        <MessageForm onSend={(message) => addMessage(new MessageData(message, authCtx.user.name))} />
     </div>
 }
 

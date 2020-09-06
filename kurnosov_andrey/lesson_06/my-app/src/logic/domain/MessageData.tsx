@@ -14,9 +14,6 @@ export class MessageData {
 
     private static readonly botName = 'Голливуд';
     private static readonly userName = 'Вы';
-    public static fromUser(message: string) {
-        return new MessageData(message, this.userName);
-    }
 
 
     public static answerFromBot() {
