@@ -1,7 +1,8 @@
 import './Header.scss'
 import React from 'react'
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Form, FormControl } from 'react-bootstrap';
 import { LangPicker } from '../../Langs';
+import { ThemeContext, Themes } from '../../Theme';
 
 
 export const Header = () => {
@@ -17,5 +18,11 @@ export const Header = () => {
                 </div>
             </Navbar.Brand>
             <LangPicker />
+            <ThemeContext.Consumer children={ (ctx) =>
+                <FormControl as="select" value={ctx.theme} onChange={e => ctx.change(e.target.value as Themes)} >
+                    <option value={Themes.light}> Светлая </option>
+                    <option value={Themes.dark}> Тёмная </option>
+                </FormControl>
+            } />
         </Navbar> 
 )}

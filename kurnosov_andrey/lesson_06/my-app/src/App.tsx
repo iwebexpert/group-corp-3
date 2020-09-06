@@ -7,6 +7,7 @@ import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { ChatsPage } from './components/ChatsPage/ChatsPage';
 import { Langs, LangContext, mixinLangContextValue } from './Langs';
+import { Themes, ThemeContext } from './Theme';
 
 function App() {
 
@@ -16,13 +17,18 @@ function App() {
         change: setLang
     });
 
+    const [theme, setTheme] = useState<Themes>(Themes.light);
+    const themeContextValue = {theme, change: setTheme};
+
     return <>
         <LangContext.Provider value={langContextValue}>
-            <Layout
-                header={<Header />}
-                body={<ChatsPage />}
-                footer={<Footer />}  
-            /> 
+            <ThemeContext.Provider value={themeContextValue}>
+                <Layout
+                    header={<Header />}
+                    body={<ChatsPage />}
+                    footer={<Footer />}  
+                /> 
+            </ThemeContext.Provider>
         </LangContext.Provider>
     </>;
 }

@@ -1,11 +1,12 @@
 import './Chat.scss'
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Messages } from './Messages/Messages';
 import { MessageForm } from './Messages/MessageForm/MessageForm';
 import { MessageData } from '../../../logic/domain/MessageData';
 import { Delay } from '../../../logic/utils/Delay';
 import { LangText } from '../../../Langs';
-
+import { ThemeContext } from '../../../Theme';
+import classnames from 'classnames'
 
 enum AnswerStatus {
     Typing,
@@ -40,8 +41,9 @@ export function Chat() {
         }
     }, [messages]);
 
-
-    return <div className="chat">
+    const themeCtx = useContext(ThemeContext);
+    const className = classnames('chat', 'theme-'+themeCtx.theme);
+    return <div className={className}>
         { 
             answerStatus === AnswerStatus.Typing ? 
                 <span> <LangText text={{RU:'Собеседник печатает...',EN: 'Interlocutor is printing'}} /> </span> : 

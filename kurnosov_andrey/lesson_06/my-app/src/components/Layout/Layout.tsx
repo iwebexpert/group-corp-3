@@ -2,6 +2,8 @@ import './Layout.scss'
 
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import classnames from 'classnames'
+import { ThemeContext } from '../../Theme';
 
 type Props = {
     header: JSX.Element;
@@ -10,11 +12,16 @@ type Props = {
 }
 
 export const Layout = (props: Props) => {
-    return ( <div className="layout-container">
-        {props.header}
-        <Container fluid="md" className="layout-body mt-3 mb-2">
-            {props.body}
-        </Container>
-        {props.footer}
-   </div>);
+    return <ThemeContext.Consumer children={ (ctx) => {
+        const className = classnames(['layout-container', 'theme-' + ctx.theme])    
+        return (
+            <div className={className}>
+                {props.header}
+                <Container fluid="md" className="layout-body mt-3 mb-2">
+                    {props.body}
+                </Container>
+                {props.footer}
+            </div>
+        );
+    }}/>;
 }

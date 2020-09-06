@@ -1,6 +1,7 @@
 $user-message-color : lightgreen;
 $other-message-color :#66c2f4 ;
-$chat-background: white;
+$chat-background-light: white;
+$chat-background-dark: darkslategray;
 
 // TODO: Разобраться, как работает scroll во flex-ах
 // Сломалась прокрутка, крутится вся строка вместо чата
@@ -10,8 +11,19 @@ $chat-background: white;
   justify-content: space-between;
 
   border: 1px solid steelblue;
-  background-color: $chat-background;
 
+  &.theme-dark {
+    background-color: $chat-background-dark;
+    .message-container::after {
+        background-color: $chat-background-dark;
+    }
+  }
+  &.theme-light {
+      background-color: $chat-background-light;
+      .message-container::after {
+        background-color: $chat-background-light;
+      }
+  }
   padding: 10px;
 
   height: 100%;
@@ -60,7 +72,6 @@ $chat-background: white;
             right: 0px;
             width: 10px;
             height: 100%;
-            background: $chat-background;
             border-bottom-left-radius: 10px;
           }
         }
@@ -82,7 +93,6 @@ $chat-background: white;
             left: 0px;
             width: 10px;
             height: 100%;
-            background: $chat-background;
             border-bottom-right-radius: 10px;
           }
       

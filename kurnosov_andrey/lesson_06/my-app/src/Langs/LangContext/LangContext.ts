@@ -3,7 +3,7 @@ import { LangString } from "../LangString/LangString";
 import { Langs } from "../Langs/Langs";
 
 
-interface ILangContextInit {
+export interface ILangContextInit {
     lang: Langs,
     change: (lang: Langs) => void;
 }

@@ -1,4 +1,4 @@
-export type { ILangContext, ILangContextMod } from "./LangContext/LangContext";
+export type { ILangContext, ILangContextMod, ILangContextInit } from "./LangContext/LangContext";
 export type { LangString } from "./LangString/LangString";
 export { mixinLangContextValue, LangContext } from "./LangContext/LangContext";
 export { LangPicker } from "./LangPicker/LangPicker";
