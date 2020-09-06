@@ -1,6 +1,6 @@
 import React from "react";
 import {ConfigContextConsumer} from "../App";
-import {LangEnum} from "../Models/Enums";
+import {LangEnum} from "../models/enums";
 
 export class TaskItem extends React.Component<TaskItemProps, TaskData>{
     public state = {

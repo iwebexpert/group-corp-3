@@ -29,7 +29,7 @@ type TaskFormState = {
 
 type MessageFormProps = {
     messageFormData: MessageData;
-    addMessageHandler: any;
+    addMessageHandler: (data: MessageData) => void;
     checkCondition: boolean;
 }
 
@@ -51,7 +51,7 @@ type MessagesListData = {
 
 type MessagesListProps = {
     messages: MessagesListData;
-    updateChatDB: (data: messagesListData) => void;
+    updateChatDB: (data: MessagesListData) => void;
 }
 
 type Chat = {

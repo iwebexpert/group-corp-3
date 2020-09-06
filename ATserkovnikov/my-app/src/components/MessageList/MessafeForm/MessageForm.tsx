@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, Form} from "react-bootstrap";
-import {useFormValue} from "../../../../Hooks/useFormValue";
+import {useFormValue} from "../../../hooks/useFormValue";
 import {generate} from "shortid";
 import './MessageForm.scss'
 
@@ -16,6 +16,7 @@ export const MessageForm: React.FC<MessageFormProps> = ({ messageFormData, addMe
 
         if (form.checkValidity()) {
             addMessageHandler({key: generate(), author: authorField.value, messageText: messageTextField.value});
+
             messageTextField.setValues("");
         }
 

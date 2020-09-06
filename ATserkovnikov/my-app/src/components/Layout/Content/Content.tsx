@@ -1,11 +1,11 @@
 import React from 'react';
-import {ChatList} from '../../ChatList';
 import {Col, Container, Row} from "react-bootstrap";
 import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
-import {ChatContent} from "../../ChatContent";
+import {ChatContentContainer} from "../../../containers/ChatContentContainer";
+import {ChatList} from "../../ChatList";
+import {PageNotFound} from "../../PageNotFound";
 
 import './Content.scss'
-import {PageNotFound} from "../../PageNotFound";
 
 export const Content: React.FC = () => {
     return (
@@ -20,7 +20,7 @@ export const Content: React.FC = () => {
                              <Route path="/" exact>
                                  <Redirect to="/chat/0" />
                              </Route>
-                             <Route path="/chat/:id" component={ChatContent} />
+                             <Route path="/chat/:id" component={ChatContentContainer} />
                              <Route path="*" component={PageNotFound}/>
                          </Switch>
                      </Col>

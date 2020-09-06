@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ChatThemeEnum, LangEnum, OptionsContext} from "../../../Models";
+import {ChatThemeEnum, LangEnum, OptionsContext} from "../../../models";
 import {Button, Form, Modal} from "react-bootstrap";
 import {GearFill} from 'react-bootstrap-icons';
 
