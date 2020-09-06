@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Textarea } from "../../../../Common/Textarea";
 import { Form, Button } from "react-bootstrap";
+import { LangText, LangString } from "../../../../../Langs";
 
 
 type Props = {
@@ -52,14 +53,19 @@ export function MessageForm(props: Props) {
 
                 <Form.Control.Feedback 
                     type="invalid" 
-                    aria-describedby="inputGroupPrepend"
+                    aria-describedby={textarea.id}
                 >
-                    Пожалуйста, введите сообщение.
+                    <LangText text={{RU:'Пожалуйста, введите сообщение.', EN: 'Please, print message'}} />
                 </Form.Control.Feedback>
             </Form.Group>
             
-            <small className="text-muted"> cntrl+enter для отправки </small>
-            <Button type="submit" className="float-right"> Отправить </Button>
+            <small className="text-muted">
+                <span>cntrl+enter </span> 
+                <LangText text={{RU:'для отправки',EN: 'for send'}} /> 
+            </small>
+            <Button type="submit" className="float-right"> 
+                <LangText text={{RU: 'Отправить', EN: 'Send'}}/> 
+            </Button>
         </Form>
     )
 }

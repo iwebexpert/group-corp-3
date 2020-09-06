@@ -1,6 +1,7 @@
 import './Header.scss'
 import React from 'react'
 import { Navbar } from 'react-bootstrap';
+import { LangPicker } from '../../Langs';
 
 
 export const Header = () => {
@@ -15,5 +16,6 @@ export const Header = () => {
                     <div className="page-header-logo-text"> Answering machine </div>
                 </div>
             </Navbar.Brand>
+            <LangPicker />
         </Navbar> 
 )}

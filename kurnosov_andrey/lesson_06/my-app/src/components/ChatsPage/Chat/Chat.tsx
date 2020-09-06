@@ -4,6 +4,7 @@ import { Messages } from './Messages/Messages';
 import { MessageForm } from './Messages/MessageForm/MessageForm';
 import { MessageData } from '../../../logic/domain/MessageData';
 import { Delay } from '../../../logic/utils/Delay';
+import { LangText } from '../../../Langs';
 
 
 enum AnswerStatus {
@@ -41,7 +42,11 @@ export function Chat() {
 
 
     return <div className="chat">
-        { answerStatus === AnswerStatus.Typing ? <span> Собеседник печатает... </span> : <span> &nbsp; </span>}
+        { 
+            answerStatus === AnswerStatus.Typing ? 
+                <span> <LangText text={{RU:'Собеседник печатает...',EN: 'Interlocutor is printing'}} /> </span> : 
+                <span> &nbsp; </span>
+        }
         <Messages items={messages} />
         <MessageForm onSend={(message) => addMessage(MessageData.fromUser(message))} />
     </div>

@@ -15,7 +15,7 @@ export const ChatsList = (props: ChatsListProps) => {
     
     const list = props.list.map( (el, i) => {
         const className = classnames(
-            { 'border-top' : i != 0}
+            { 'border-top' : i !== 0}
         )
         return (
             <Nav.Item className={className}
