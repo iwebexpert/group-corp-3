@@ -1,0 +1,61 @@
+{
+    "authors": [
+        {
+            "name": "Bot 1",
+            "id": 1,
+            "avatar": "https://html5css.ru/w3images/avatar2.png"
+        },
+        {
+            "name": "Bot 2",
+            "id": 2,
+            "avatar": "https://html5css.ru/w3images/avatar3.png"
+        },
+        {
+            "name": "Bot 3",
+            "id": 3,
+            "avatar": "https://html5css.ru/w3images/avatar4.png"
+        },
+        {
+            "name": "Bot 4",
+            "id": 4,
+            "avatar": "https://html5css.ru/w3images/avatar5.png"
+        },
+        {
+            "name": "Bot 5",
+            "id": 5,
+            "avatar": "https://html5css.ru/w3images/avatar6.png"
+        }
+    ],
+    "chats": [
+        {
+            "id": 1,
+            "text": "Тестовый текст от бота в списке чатов",
+            "author": 1,
+            "date": 123
+        },
+        {
+            "id": 2,
+            "text": "Тестовый текст от бота в списке чатов",
+            "author": 2,
+            "date": 123
+        },
+        {
+            "id": 3,
+            "text": "Тестовый текст от бота в списке чатов",
+            "autho": 3,
+            "date": 123
+        },
+        {
+            "id": 4,
+            "text": "Тестовый текст от бота в списке чатов",
+            "author": 4,
+            "date": 123
+        },
+        {
+            "id": 5,
+            "text": "Тестовый текст от бота в списке чатов",
+            "author": 5,
+            "date": 123
+        }
+    ]
+}

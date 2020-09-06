@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+.badge.badge-chat {
+    background-color: $primary-color;
+    color: $white;
+}
+
+.theme-dark {
+    .navbar {
+        // background-color: $dark-primary;
+        color: $white;
+        .navbar-brand, .nav-item, .settings-btn {
+            color: $white;
+        }
+        .badge.badge-chat {
+            background-color: $dark-secondary;
+            color: $black
+        }
+    }
+}
