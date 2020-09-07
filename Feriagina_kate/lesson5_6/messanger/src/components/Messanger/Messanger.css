@@ -1,0 +1,12 @@
+.messenger {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    width: 70%;
+    
+}
+
+.messenger_list {
+    min-height: 300px;
+    border: 1px solid lightgray;
+}
