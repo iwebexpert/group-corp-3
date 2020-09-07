@@ -5,15 +5,15 @@ import { MessageFormEntity, MessageEntity } from './entities';
 import './Messenger.css'
 
 let id = 0;
+let timer: number;
 
 const Messenger: React.FC<{}> = () => {
     const [messages, setMessages] = useState<MessageEntity[]>([]);
-    const [timer, setTimer] = useState<number>();
 
     const addMessage = (messageForm: MessageFormEntity) => {
         setMessages([...messages, {...messageForm, id: id++}])
         clearTimeout(timer);
-        setTimer(window.setTimeout(() => addBotMessage(), 5000));
+        timer = window.setTimeout(() => addBotMessage(), 5000);
     }
 
     useEffect(() => () => clearTimeout(timer), [])
