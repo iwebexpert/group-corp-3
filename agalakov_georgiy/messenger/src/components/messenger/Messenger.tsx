@@ -16,6 +16,8 @@ const Messenger: React.FC<{}> = () => {
         setTimer(window.setTimeout(() => addBotMessage(), 5000));
     }
 
+    useEffect(() => () => clearTimeout(timer))
+
     const addBotMessage = () => setMessages((prevState) => [...prevState, {author: 'naruto', body: 'rasengan', bot: true, id: id++}])
 
     return (
