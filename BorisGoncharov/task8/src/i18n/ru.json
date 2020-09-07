@@ -1,0 +1,21 @@
+{
+  "CHAT": "Чат",
+  "SEND": "Отправить",
+  "ENTER_MESSAGE": "Введите сообщение",
+  "APPLY": "Принять",
+  "WRITING": "Печатает",
+  "SETTINGS": "Настройки",
+  "AUTHOR": "Автор",
+  "AUTHOR_SUBTEXT": "Введите имя автора",
+  "THEME": "Тема",
+  "THEME_SUBTEXT": "Выберите тему",
+  "LANGUAGE": "Язык",
+  "LANGUAGE_SUBTEXT": "Выберите язык",
+  "INVALID_FIELD": "Поле заполнено некорректно",
+  "BOT": "Бот",
+  "BOT_MESSAGE": "Привет, {{author}}!",
+  "LIGHT": "Светлая",
+  "DARK": "Тёмная",
+  "ENGLISH": "Английский",
+  "RUSSIAN": "Русский"
+}

@@ -1,0 +1,72 @@
+{
+  "chats": [
+    { "id": "0", "title": "Friends" },
+    { "id": "1", "title": "Work" },
+    { "id": "2", "title": "Family" },
+    { "id": "3", "title": "Football" },
+    { "id": "4", "title": "Web Courses" }
+  ],
+  "messages": [
+    {
+      "id": "0",
+      "text": "Hello",
+      "author": "John Doe",
+      "date": "2020-09-01T07:58:08.573Z",
+      "closable": false,
+      "chatId": "0"
+    },
+    {
+      "id": "1",
+      "text": "How are you?",
+      "author": "John Doe",
+      "date": "2020-09-01T07:58:08.573Z",
+      "closable": false,
+      "chatId": "0"
+    },
+    {
+      "id": "2",
+      "text": "Meeting will be tomorrow at 11:00",
+      "author": "John",
+      "date": "2020-09-01T07:58:08.573Z",
+      "closable": false,
+      "chatId": "1"
+    },
+    {
+      "id": "3",
+      "text": "Don't be late",
+      "author": "Steve",
+      "date": "2020-09-01T07:58:08.573Z",
+      "closable": false,
+      "chatId": "1"
+    },
+    {
+      "id": "4",
+      "text": "Please feed the dog",
+      "author": "Mom",
+      "date": "2020-09-01T07:58:08.573Z",
+      "closable": false,
+      "chatId": "2"
+    },
+    {
+      "id": "5",
+      "text": "Germany - Brazil 1 : 7",
+      "author": "Peter",
+      "date": "2020-09-01T07:58:08.573Z",
+      "closable": false,
+      "chatId": "3"
+    },
+    {
+      "id": "5",
+      "text": "New task is available on the platform. If you have any questions feel free to contact me:)",
+      "author": "Igor",
+      "date": "2020-09-01T07:58:08.573Z",
+      "closable": false,
+      "chatId": "4"
+    }
+  ],
+  "settings": {
+    "name": "User",
+    "theme": "light",
+    "language": "en"
+  }
+}

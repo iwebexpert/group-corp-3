@@ -1,0 +1,21 @@
+{
+  "CHAT": "Chat",
+  "SEND": "Send",
+  "ENTER_MESSAGE": "Enter message",
+  "APPLY": "Apply",
+  "WRITING": "Writing",
+  "SETTINGS": "Settings",
+  "AUTHOR": "Author",
+  "AUTHOR_SUBTEXT": "Input Author's name",
+  "THEME": "Theme",
+  "THEME_SUBTEXT": "Select preferred theme",
+  "LANGUAGE": "Language",
+  "LANGUAGE_SUBTEXT": "Select preferred language",
+  "INVALID_FIELD": "This field is invalid",
+  "BOT": "Bot",
+  "BOT_MESSAGE": "Hello, {{author}}!",
+  "LIGHT": "Light",
+  "DARK": "Dark",
+  "ENGLISH": "English",
+  "RUSSIAN": "Russian"
+}
