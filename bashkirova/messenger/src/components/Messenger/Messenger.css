@@ -1,14 +1,4 @@
-.messenger {
-    margin-top: 0;
-    height: 100%;
-    width: 60%;
-}
-
-.chat {
-    width: 60%;
-    height: 60%;
-    border: solid 1px #EEE;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+.MessageList{
+    background-color: #cfe8fc;
+    height: 100vh;
 }

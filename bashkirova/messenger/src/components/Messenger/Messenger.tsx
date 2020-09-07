@@ -5,9 +5,26 @@ import {MessageList} from '../MessageList';
 import {MessageForm} from '../MessageForm';
 import {MessageProps, MessageWithId} from '../Message';
 
-import './Messenger.css'
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import './Messenger.css';
+import Container from "@material-ui/core/Container";
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            margin: theme.spacing(1),
+            width: '100%',
+        },
+        paper: {
+            margin: theme.spacing(1),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+    }),
+);
 
 export const Messenger: React.FC<{}> = () => {
+    const classes = useStyles();
     const [messages, setMessages] = useState<MessageWithId[]>([]);
 
     const handleMessageSend = (message: MessageProps) => {
@@ -30,8 +47,13 @@ export const Messenger: React.FC<{}> = () => {
 
     }, [messages]);
 
-    return (<div className="massenger">
-        <div className="chat"><MessageList items={messages}/></div>
-        <MessageForm onSendHandler={handleMessageSend}/>
-    </div>);
+    return (
+        <>
+            <Container maxWidth="sm">
+                <MessageList items={messages}/>
+            </Container>
+            <Container maxWidth="sm">
+                <MessageForm onSendHandler={handleMessageSend}/>
+            </Container>
+        </>);
 }

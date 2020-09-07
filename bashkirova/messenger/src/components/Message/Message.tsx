@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import './Message.scss';
+import Container from "@material-ui/core/Container";
 
 export type MessageProps = {
     text: string;
@@ -19,7 +20,7 @@ export const Message: React.FC<MessageProps> = ({text, author}) => {
     });
 
     return (
-        <div className={classes}>
-            <div className="message">{text}</div>
-        </div>);
+            <Container maxWidth="sm" className={classes}>
+                <Container maxWidth="sm" className="message">{text}</Container>
+            </Container>);
 }
