@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { Image } from 'react-bootstrap';
 import './MessageField.scss';
-import { SettingsContext } from '../../contexts/SettingsContext';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../reducers';
 
 const MessageField = (props: MessageItemProps) => {
     const { message, contactPerson } = props;
     const currentUser: User = useContext(UserContext);
-    const { name }: Settings = useContext(SettingsContext);
+    const { name }: Settings = useSelector((state: AppState) => state.appSettings.settings);
 
     const isCurrentUser = message.author === currentUser.id;
     const messageClasses = !isCurrentUser ? 'chat' : 'chat chat-left';

@@ -17,5 +17,7 @@
     "LANGUAGE_RU": "Русский",
     "LANGUAGE_EN": "Английский",
     "NO_MESSAGES": "Сообщений нет",
-    "NOT_SELECTED_CHAT_TEXT": "Выберите чат и начните общение"
+    "NOT_SELECTED_CHAT_TEXT": "Выберите чат и начните общение",
+    "NEW_CHAT": "Новый чат",
+    "ALL_CHATS_IS_ACTIVE": "Все чаты активны"
 }

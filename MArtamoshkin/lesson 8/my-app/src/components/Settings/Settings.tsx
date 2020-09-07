@@ -1,9 +1,11 @@
 import { Button, Modal, FormGroup, FormLabel, Form as BootstrapForm } from "react-bootstrap";
-import React, { useState, useContext, FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { SettingsContext } from "../../contexts/SettingsContext";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { editSettings } from "../../actions/settings";
+import { AppState } from "../../reducers";
 
 const SettingsSchema = Yup.object().shape({
     name: Yup.string()
@@ -17,12 +19,16 @@ const SettingsSchema = Yup.object().shape({
 
 const Settings = () => {
     const { t } = useTranslation();
+   
+    const dispatch = useDispatch();
+    const { name, theme, language } = useSelector((state: AppState) => state.appSettings.settings)
 
     const [show, setShow] = useState<boolean>(false);
     const [userName, setUserName] = useState<string>('');
+  
     const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        setName(userName);
+        dispatch(editSettings({ name: userName }));
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -31,7 +37,6 @@ const Settings = () => {
 
     const closeHandler = (): void => setShow(false);
     const showHandler = (): void => setShow(true);
-    const { language, setLanguage, name, setName, theme, setTheme } = useContext(SettingsContext);
 
     return <>
         <div className="d-flex align-items-center">
@@ -52,9 +57,7 @@ const Settings = () => {
                 initialValues={{ name, language, theme }}
                 validationSchema={SettingsSchema}
                 onSubmit={(values: { name: string, theme: string, language: string }) => {
-                    setName(values.name);
-                    setTheme(values.theme);
-                    setLanguage(values.language);
+                    dispatch(editSettings({ ...values }))
                     closeHandler();
                 }}
             >

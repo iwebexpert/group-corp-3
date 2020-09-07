@@ -1,14 +1,15 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 
 import './CreateMessage.scss';
 import { Button, Form, InputGroup, Popover, Overlay } from 'react-bootstrap';
-import { SettingsContext } from "../../contexts/SettingsContext";
 import { useTranslation } from "react-i18next";
+import { AppState } from "../../reducers";
+import { useSelector } from "react-redux";
 
 const CreateMessage = (props: CreateMessageProps) => {
     const { t } = useTranslation();
 
-    const { name } = useContext(SettingsContext);
+    const { name } = useSelector((state: AppState) => state.appSettings.settings);
     const [message, setMessage] = useState<string>('');
     const { onSend } = props;
 

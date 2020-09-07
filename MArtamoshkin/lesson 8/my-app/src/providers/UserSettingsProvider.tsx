@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { SettingsProvider } from '../contexts/SettingsContext';
+import React, { useEffect } from 'react';
 import i18n from '../common/i18n';
+import { useSelector } from 'react-redux';
+import { AppState } from '../reducers';
 
 const UserSettingsProvider: React.FC = ({ children }) => {
-  const [name, setName] = useState<string>('JohnDoe');
-  const [theme, setTheme] = useState<string>('dark');
-  const [language, setLanguage] = useState<string>('ru');
-  const settings: Settings = {
-    name,
-    theme,
-    language,
-    setName,
-    setTheme,
-    setLanguage
-  };
+  const { theme, language } = useSelector((state: AppState) => state.appSettings.settings);
 
   useEffect(() => {
     document.body.className = '';
@@ -24,7 +15,7 @@ const UserSettingsProvider: React.FC = ({ children }) => {
     i18n.changeLanguage(language);
   }, [language]);
 
-  return (<SettingsProvider value={settings}>{children}</SettingsProvider>);
+  return (<>{children}</>);
 }
 
 export { UserSettingsProvider };

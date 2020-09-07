@@ -49,11 +49,8 @@ type ChatListProps = {
 
 type Settings = {
     language: string;
-    setLanguage: (value: string) => void;
     theme: string;
-    setTheme: (value: string) => void;
     name: string;
-    setName: (value: string) => void;
 }
 
 enum Theme {

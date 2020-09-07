@@ -3,8 +3,11 @@ import { Popover, Overlay, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { chatsNew } from "../../../actions/chats";
 import { AppState } from "../../../reducers";
+import { useTranslation } from "react-i18next";
 
 export const NewChat = () => {
+    const { t } = useTranslation();
+
     const [showCreateChat, setShowCreateChat] = useState<boolean>(false);
     const [createChatTarget, setCreateChatTarget] = useState<HTMLElement | null>(null);
     const ref = useRef(null);
@@ -38,14 +41,14 @@ export const NewChat = () => {
             <Popover id="popover-contained" className="create-chat-popover">
                 <Popover.Content className="p-0 text-center">
                     {!!authors.length ? authors.map((author: Author) => <div onClick={() => handleCreateChat(author)} className="user py-1 px-2 d-flex align-items-center">
-                        <Image className="avatar" src={author.avatar} rounded/><span className="ml-2">{author.name}</span></div>) : <span className="p-5 text-center">Все чаты активны</span>}
+                        <Image className="avatar" src={author.avatar} rounded /><span className="ml-2">{author.name}</span></div>) : <span className="p-5 text-center">{t('ALL_CHATS_IS_ACTIVE')}</span>}
                 </Popover.Content>
             </Popover>
         </Overlay>
 
         <div className="add-new-chat chat-field text-center d-flex justify-content-between"
             onClick={handleClickCreateChat}>
-            <div><span>Новый чат </span></div>
+            <div><span>{t('NEW_CHAT')}</span></div>
             <div><i className="fas fa-plus"></i></div>
         </div>
     </>;
