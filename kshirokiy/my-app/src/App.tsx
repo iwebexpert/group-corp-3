@@ -13,7 +13,8 @@ class App extends Component {
         lang: null,
         theme: null,
         author: '',
-        Chats: chatsData
+        Chats: chatsData,
+        st: null
     };
 
     changeContext = (data: any): any => {
