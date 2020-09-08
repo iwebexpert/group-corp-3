@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, MouseEvent } from "react";
 import { Popover, Overlay, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { chatsNew } from "../../../actions/chats";
@@ -9,21 +9,21 @@ export const NewChat = () => {
     const { t } = useTranslation();
 
     const [showCreateChat, setShowCreateChat] = useState<boolean>(false);
-    const [createChatTarget, setCreateChatTarget] = useState<HTMLElement | null>(null);
+    const [createChatTarget, setCreateChatTarget] = useState<HTMLDivElement | null>(null);
     const ref = useRef(null);
 
     const dispatch = useDispatch();
 
-    const handleClickCreateChat = (e: any) => { // TODO: type
+    const handleClickCreateChat = (event: MouseEvent<HTMLDivElement>) => {
         if (!createChatTarget) {
-            setCreateChatTarget(e.target);
+            setCreateChatTarget(event.target as HTMLDivElement);
         }
 
         setShowCreateChat(true)
     }
 
-    const chatIds = useSelector((state: AppState) => state.chats.items.map((item: Chat): number => item.author.id));
-    const authors: Author[] = useSelector((state: AppState) => state.users.items.filter((u: User) => !chatIds.includes(u.id)));
+    const chatIds = useSelector<AppState, number[]>((state: AppState) => state.chats.items.map((item: Chat): number => item.author.id));
+    const authors: Author[] = useSelector<AppState, User[]>((state: AppState) => state.users.items.filter((u: User) => !chatIds.includes(u.id)));
 
     const handleCreateChat = (author: Author): void => {
         dispatch(chatsNew(author));

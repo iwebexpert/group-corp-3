@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const CreateMessage = (props: CreateMessageProps) => {
     const { t } = useTranslation();
 
-    const { name } = useSelector((state: AppState) => state.appSettings.settings);
+    const { name } = useSelector<AppState, Settings>((state: AppState) => state.appSettings.settings);
     const [message, setMessage] = useState<string>('');
     const { onSend } = props;
 

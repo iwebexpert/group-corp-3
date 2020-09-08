@@ -8,20 +8,29 @@ import { Row } from "react-bootstrap";
 
 import './Chat.scss';
 import { useTranslation } from "react-i18next";
-import { usersStub } from "../../common/stubData";
+import { chatsMessageSend, ChatsMessageSendAction } from "../../actions/chats";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "../../reducers";
 
 const Chat = (props: ChatProps) => {
-    const { activeChatId, handleSend, chats } = props;
-    const activeChat = chats.filter((c: Chat) => c.id === activeChatId)[0];
-    const contactPerson = usersStub.filter((u: User) => u.id === activeChat.author.id)[0];
+    const { activeChatId } = props;
+
+    const chatsRef = useRef<HTMLDivElement>(null);
 
     const { t } = useTranslation();
+
     const typingTimeout = 3 * 1000;
     const responseTimeout = (Math.random() * 5) * 1000 + typingTimeout;
 
+    const dispatch = useDispatch();
+
+    const chats = useSelector<AppState, Chat[]>((state: AppState) => state.chats.items);
+    const activeChat = chats.filter((chat: Chat) => chat.id === activeChatId)[0];
+    const messages = activeChat.messages;
+    const contactPerson = useSelector<AppState, User>((state: AppState) => state.users.items.filter((u: User) => u.id === activeChat.author.id)[0]);
+
     const currentUser: User = useContext(UserContext);
 
-    const [messages, setMessages] = useState<Message[]>(activeChat.messages);
     const [hasResponse, setHasResponse] = useState<boolean>(true);
     const [responseStep, setResponseStep] = useState<number>(0);
     const [isTyping, setIsTyping] = useState<boolean>(false);
@@ -29,18 +38,17 @@ const Chat = (props: ChatProps) => {
     const debouncedMessage = useDebounce<Message[]>(messages, responseTimeout);
     const debouncedTyping = useDebounce<Message[]>(messages, typingTimeout);
 
-    const chatsRef = useRef<HTMLDivElement>(null);
-
     const scrollToBottom = (): void => {
         if (chatsRef && chatsRef.current) {
             chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
         }
     };
 
+    const handleSend = (chatId: number, message: Message): ChatsMessageSendAction => dispatch(chatsMessageSend(message, chatId));
+
     useEffect(() => {
         setIsTyping(false);
         setHasResponse(true);
-        setMessages(activeChat.messages);
     }, [activeChat])
 
     const onSendHandler = (message: string): void => {
@@ -50,7 +58,6 @@ const Chat = (props: ChatProps) => {
             author: currentUser.id
         };
 
-        setMessages([...messages, newMessage]);
         handleSend(activeChatId, newMessage);
         setHasResponse(false);
     };
@@ -60,7 +67,6 @@ const Chat = (props: ChatProps) => {
             if (!hasResponse) {
                 const newResponse: Message = getFakeResponse(responseStep, contactPerson.id);
 
-                setMessages([...messages, newResponse]);
                 handleSend(activeChatId, newResponse);
                 setHasResponse(true);
                 setResponseStep(responseStep + 1);

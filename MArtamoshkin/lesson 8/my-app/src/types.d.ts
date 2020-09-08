@@ -38,13 +38,10 @@ type Chat = {
 
 type ChatProps = {
     activeChatId: number;
-    chats: Chat[];
-    handleSend: (chatId: number, message: Message) => void;
 }
 
 type ChatListProps = {
     activeChatId: number | null;
-    chats: Chat[];
 }
 
 type Settings = {

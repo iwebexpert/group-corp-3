@@ -30,15 +30,13 @@ export const chatsReducer: Reducer<ChatsReducerState> = (state = initialState, a
             const { chatId, message } = action.payload;
             return {
                 ...state,
-                items: [
-                    ...state.items.map((item: Chat) => {
-                        if (item.id === chatId) {
-                            item.messages = [...item.messages, message];
-                        }
+                items: state.items.map((item: Chat) => {
+                    if (item.id === chatId) {
+                        item.messages = [...item.messages, message];
+                    }
 
-                        return item;
-                    })
-                ]
+                    return item;
+                })
             };
         default:
             return state;

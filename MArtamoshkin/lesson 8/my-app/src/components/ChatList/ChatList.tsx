@@ -5,9 +5,12 @@ import { Image } from 'react-bootstrap';
 import './ChatList.scss';
 import { Link } from "react-router-dom";
 import { NewChat } from "./NewChat/NewChat";
+import { AppState } from "../../reducers";
+import { useSelector } from "react-redux";
 
 const ChatList = (props: ChatListProps) => {
-    const { activeChatId, chats } = props;
+    const { activeChatId } = props;
+    const chats = useSelector<AppState, Chat[]>((state: AppState) => state.chats.items);
 
     return (<div className="d-flex justify-content-between flex-column h-100">
         <div className="chat-list">

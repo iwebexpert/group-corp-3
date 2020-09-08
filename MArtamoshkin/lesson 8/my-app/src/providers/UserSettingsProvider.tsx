@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { AppState } from '../reducers';
 
 const UserSettingsProvider: React.FC = ({ children }) => {
-  const { theme, language } = useSelector((state: AppState) => state.appSettings.settings);
+  const { theme, language } = useSelector<AppState,  Settings>((state: AppState) => state.appSettings.settings);
 
   useEffect(() => {
     document.body.className = '';
