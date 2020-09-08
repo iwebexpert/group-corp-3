@@ -9,6 +9,7 @@ export type HeaderProps = {
 
 export const Header: FC<HeaderProps> = ({ onSettingsButtonClick }) => {
   const { t } = useTranslation();
+
   return (
     <Row className="bg-dark px-5 py-3 m-0 justify-content-between">
       <h5 className="text-white m-0">{t('CHAT')} v0.0.8</h5>
