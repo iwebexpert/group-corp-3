@@ -28,10 +28,7 @@ export const chatReducer: Reducer<ChatsReducerState, ChatsActions>
                 }
             };
 
-            return {
-                ...state,
-                entries: state.entries.concat(newChat)
-            };
+            return Object.assign({}, state, {entries: state.entries.concat(newChat)});
 
         case ChatActionTypes.MESSAGE_ADD:
             const newChatDB = state.entries.map(item => {
@@ -41,10 +38,7 @@ export const chatReducer: Reducer<ChatsReducerState, ChatsActions>
                 return item;
             });
 
-            return {
-                ...state,
-                entries: newChatDB
-            };
+            return Object.assign({}, state, {entries: newChatDB});
 
         case ChatActionTypes.CHATS_LOAD:
             return  {
