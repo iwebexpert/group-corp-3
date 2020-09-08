@@ -1,0 +1,40 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.chat-list {
+  &__list {
+    overflow: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    /* width */
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: $gray-200;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: $gray-500;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: $gray-700;
+    }
+  }
+
+  &__icon-add {
+    fill: $white;
+    cursor: pointer;
+    height: $spacer * 1.5;
+    width: $spacer * 1.5;
+
+    &:hover {
+      fill: $yellow;
+    }
+  }
+}

@@ -2,7 +2,6 @@
 
 .message-list {
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
   overflow: auto;
   padding: $spacer;
@@ -24,6 +23,6 @@
 
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
-    background: $gray-600;
+    background: $gray-700;
   }
 }

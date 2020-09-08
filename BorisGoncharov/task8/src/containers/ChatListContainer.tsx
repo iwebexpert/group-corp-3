@@ -13,8 +13,8 @@ export const ChatListContainer: FC<{}> = () => {
   const chatAddHandler = (title: string) => {
     dispatch(
       chatsAdd({
-        title,
         id: generate(),
+        title,
       })
     );
   };

@@ -55,11 +55,6 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     'bg-dark text-white': theme === 'dark',
   });
 
-  const suggestionsClasses = classNames({
-    'text-muted': theme === 'light',
-    'text-light': theme === 'dark',
-  });
-
   return (
     <Modal show={visible} onHide={handleModalClose}>
       <Modal.Header className={modalClasses}>
@@ -133,7 +128,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
 
             <Modal.Footer className={modalClasses}>
               <Button type="submit" variant="warning">
-                {t('SAVE')}
+                {t('APPLY')}
               </Button>
               <Button variant="secondary" onClick={onSettingsModalClose}>
                 {t('CLOSE')}
