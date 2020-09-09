@@ -22,7 +22,7 @@ type MessagesListProps = {
 type User = {
     id: Brand<number>;
     avatar: string;
-    name: string
+    name: string;
 }
 
 type MessageItemProps = {
