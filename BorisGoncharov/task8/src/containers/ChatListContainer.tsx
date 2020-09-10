@@ -1,10 +1,23 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { generate } from 'shortid';
 import { ChatList } from '../components/ChatList';
+import { chatsAdd } from '../state/chats/chatsActions';
 import { AppState } from '../state/store';
 
 export const ChatListContainer: FC<{}> = () => {
+  const dispatch = useDispatch();
+
   const chats = useSelector((state: AppState) => state.chats.chats);
 
-  return <ChatList chats={chats} />;
+  const chatAddHandler = (title: string) => {
+    dispatch(
+      chatsAdd({
+        id: generate(),
+        title,
+      })
+    );
+  };
+
+  return <ChatList chats={chats} onChatAdd={chatAddHandler} />;
 };

@@ -19,10 +19,13 @@ export const Chat: FC<ChatProps> = ({
   messagesLoading,
   theme,
 }) => {
-  const chatListClasses = classNames('justify-content-center', {
-    'bg-secondary': theme === 'light',
-    'bg-dark': theme === 'dark',
-  });
+  const chatListClasses = classNames(
+    'd-flex flex-column flex-grow-1 justify-content-between',
+    {
+      'bg-secondary': theme === 'light',
+      'bg-dark': theme === 'dark',
+    }
+  );
 
   return (
     <>
