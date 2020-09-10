@@ -13,28 +13,28 @@ export type ToDoListProps = {
 }
 
 export type Item = {
-    message: string;
-    author: string;
+    message: string,
+    author: string
 }
 
 export type ItemFormProps = {
-    onSendHandler: (data: ItemFormState) => void;
+    onSendHandler: (data: ItemFormState) => void,
 };
 
 export type ItemWithId = {
-    id: string;
-    message: string;
-    author: string;
-    chatId?: number;
+    id: string,
+    message: string,
+    author: string,
+    chatId?: number,
 };
 
 export type ItemFormState = {
-    text: string;
-    author: string;
+    text: string,
+    author: string,
 };
 
 type MessagesProps = {
-    items: ItemWithId[];
+    items: ItemWithId[],
 };
 
 type Chat = {
@@ -44,8 +44,15 @@ type Chat = {
 }
 
 export type ConfigApp = {
-    lang: string | null;
-    theme: string | null;
-    author: string;
-    Chats: Chat[]
+    lang: string | null,
+    theme: string | null,
+    author: string,
+    Chats: Chat[],
+    st: any
+};
+
+export type ChatsData = {
+    id: number,
+    title: string,
+    messages: ItemWithId[]
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import {Header} from '../Header/Header';
 import {ChatList} from '../ChatList/ChatList';
-import {Messenger} from '../Messenger/Messenger';
 import {Switch, Route} from 'react-router-dom';
+import {MessengerContainer} from '../MessengerContainer/MessengerContainer';
+import {AddingChatForm} from '../AddingChatForm/AddingChatForm';
 
 export const Layout: React.FC<{}> = ({children}) => {
     return (
@@ -12,11 +13,12 @@ export const Layout: React.FC<{}> = ({children}) => {
                 <div className='row'>
                     <div className='col-md-4'>
                         <ChatList/>
+                        <AddingChatForm/>
                     </div>
                     <div className='col-md-8'>
-                        {/*<Messenger/>*/}
                         <Switch>
-                            <Route path="/chats/:id" children={<Messenger/>}/>
+                            <Route path='/chats/:id' children={<MessengerContainer />} />
+                            <Route path='/' children={<MessengerContainer />} />
                         </Switch>
                     </div>
                 </div>

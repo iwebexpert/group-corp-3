@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import {ConfigAppContext} from '../App';
 
-export const MessageField: React.FC<any> = ({onSendHandler, paramId}) => {
+export const MessageField: React.FC<any> = ({onSendHandler}) => {
     const [message, setMessage] = React.useState<string>('');
     const [author, setAuthor] = React.useState<string>('');
     const [validated, setValidated] = useState<boolean>(false);
@@ -16,7 +16,7 @@ export const MessageField: React.FC<any> = ({onSendHandler, paramId}) => {
 
         if (form.checkValidity()) {
             setValidated(false);
-            onSendHandler({message, author: (!isAuthor() ? author : setting.author)}, paramId);
+            onSendHandler({message, author: (!isAuthor() ? author : setting.author)});
             setAuthor('');
             setMessage('');
         }

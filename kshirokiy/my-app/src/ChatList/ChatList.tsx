@@ -1,8 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Nav} from 'react-bootstrap';
+import {ChatsData} from '../types/types';
+import {useSelector} from "react-redux";
+import {AppState} from "../store/reducers/rootReducer";
 
-export const chatsData = [
+export const chatsData: ChatsData[] = [
     {
         'id': 0,
         'title': 'Чат 0',
@@ -21,9 +24,11 @@ export const chatsData = [
 ]
 
 export const ChatList: React.FC<{}> = ({}) => {
+    const chats = useSelector((state: AppState) => state.chats.chats);
+
     return (<div className={'pt-3'}>
         <Nav className='flex-column'>
-            {chatsData.map((chat) =>
+            {chats.map((chat) =>
                 (<Nav.Link as={Link} to={`/chats/${chat.id}`} key={chat.id}>{chat.title}</Nav.Link>))}
         </Nav>
     </div>);
