@@ -3,7 +3,7 @@ import {Messages} from './Messages';
 import {MessageForm} from './MessafeForm';
 import {Container, Row} from "react-bootstrap";
 import {generate} from 'shortid';
-import {ConfigContext} from "../../../App";
+import {ConfigContext} from "../../App";
 
 import './MessageList.scss'
 

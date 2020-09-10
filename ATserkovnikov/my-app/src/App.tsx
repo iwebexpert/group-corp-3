@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Layout} from "./Components/Layout";
-import {ChatThemeEnum, LangEnum, Options, OptionsContext} from "./Models";
+import {Layout} from "./components/Layout";
+import {ChatThemeEnum, LangEnum, Options, OptionsContext} from "./models";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const initState: Options = {

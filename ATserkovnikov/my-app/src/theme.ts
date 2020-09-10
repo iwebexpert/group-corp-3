@@ -1,4 +1,4 @@
-import {ChatThemeEnum} from "./Models/Enums";
+import {ChatThemeEnum} from "./models/enums";
 
 export const themes = {
     [ChatThemeEnum.light]: {

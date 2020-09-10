@@ -1,4 +1,4 @@
-import {ChatThemeEnum, LangEnum} from "./Enums";
+import {ChatThemeEnum, LangEnum} from "./enums";
 
 export type Options = {
     author: string;

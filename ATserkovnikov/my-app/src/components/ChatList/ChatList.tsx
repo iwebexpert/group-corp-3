@@ -1,11 +1,16 @@
 import React from "react";
 import {Row, Container, Col, Button, Card, Accordion} from "react-bootstrap";
-import './ChatList.scss'
-import {ChatsDB} from "../../Helpers/ChatsDB";
 import {Link} from "react-router-dom";
+import {ChatForm} from "./ChatForm";
+
+import './ChatList.scss'
+import {useSelector} from "react-redux";
+import {AppState} from "../../reducers";
 
 export const ChatList: React.FC = () => {
-    const chats = ChatsDB.map((item: Chat) => {
+    const chatsDB = useSelector((state:AppState) => state.chats);
+
+    const chats = chatsDB.entries.map((item: Chat) => {
         return (<Card key={item.id.toString()}>
             <Card.Header>
                 <Accordion.Toggle as={Button} variant="link" eventKey={item.id.toString()}>
@@ -29,14 +34,19 @@ export const ChatList: React.FC = () => {
     });
 
     return (
-            <Container className="p-0">
-                <Row>
-                    <Col>
-                        <Accordion defaultActiveKey="0">
-                            {chats}
-                        </Accordion>
-                    </Col>
-                </Row>
-            </Container>
+        <Container className="p-0">
+            <Row>
+                <Col>
+                    <Accordion defaultActiveKey="0">
+                        {chats}
+                    </Accordion>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <ChatForm/>
+                </Col>
+            </Row>
+        </Container>
     );
 };
