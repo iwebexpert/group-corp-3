@@ -1,0 +1,21 @@
+.page-header {
+    &-logo {
+        display: flex;
+
+
+        &-img {
+            // Failed to compile.
+            // Can't resolve './logo.svg'
+            // background-image: url('./logo.svg');
+            width: 32px;
+            height: 32px;
+        }
+
+        &-text {
+            font-size: larger;
+            margin: auto;
+        }
+    }
+
+
+}
