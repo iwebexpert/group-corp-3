@@ -17,12 +17,28 @@ $chat-background-dark: darkslategray;
     .message-container::after {
         background-color: $chat-background-dark;
     }
+    
+    textarea,
+    textarea:focus,
+    input,
+    input:focus { 
+      background-color: $chat-background-dark;
+      color: azure;
+    }
   }
   &.theme-light {
       background-color: $chat-background-light;
       .message-container::after {
         background-color: $chat-background-light;
       }
+
+      
+    textarea,
+    textarea:focus,
+    input,
+    input:focus { 
+      background-color: $chat-background-light;
+    }
   }
   padding: 10px;
 

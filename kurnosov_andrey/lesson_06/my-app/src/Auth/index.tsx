@@ -6,10 +6,14 @@ export type User = {
 }
 
 export type AuthContextValue = {
-    user: User
+    user: User,
+    change: (user: User) => void
 };
 
-export const AuthContext = React.createContext<AuthContextValue>({user: {
-    id:'',
-    name:''
-}});
+export const AuthContext = React.createContext<AuthContextValue>({
+    user: {
+        id:'',
+        name:'',
+    },
+    change(user: User) {}
+});

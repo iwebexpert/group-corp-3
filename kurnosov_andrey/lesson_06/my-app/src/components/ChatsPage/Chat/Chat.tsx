@@ -42,7 +42,6 @@ export function Chat() {
         }
     }, [messages]);
 
-    const authCtx = useContext(AuthContext);
     const themeCtx = useContext(ThemeContext);
     const className = classnames('chat', 'theme-'+themeCtx.theme);
     return <div className={className}>
@@ -52,7 +51,7 @@ export function Chat() {
                 <span> &nbsp; </span>
         }
         <Messages items={messages} />
-        <MessageForm onSend={(message) => addMessage(new MessageData(message, authCtx.user.name))} />
+        <MessageForm onSend={(message, userName) => addMessage(new MessageData(message, userName, true))} />
     </div>
 }
 

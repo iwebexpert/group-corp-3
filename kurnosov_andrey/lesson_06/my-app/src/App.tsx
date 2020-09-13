@@ -8,7 +8,7 @@ import { Header } from './components/Header/Header';
 import { ChatsPage } from './components/ChatsPage/ChatsPage';
 import { Langs, LangContext, mixinLangContextValue } from './Langs';
 import { Themes, ThemeContext } from './Theme';
-import { AuthContext } from './Auth';
+import { AuthContext, User } from './Auth';
 
 function App() {
 
@@ -21,8 +21,10 @@ function App() {
     const [theme, setTheme] = useState<Themes>(Themes.light);
     const themeContextValue = {theme, change: setTheme};
 
+    const [user, setUser] = useState<User>({id: '1', name:''})
+    const authContextValue = {user, change: setUser};
     return <>
-        <AuthContext.Provider value={{user : {id: '1', name:'User'}}}>
+        <AuthContext.Provider value={authContextValue}>
             <LangContext.Provider value={langContextValue}>
                 <ThemeContext.Provider value={themeContextValue}>
                     <Layout
