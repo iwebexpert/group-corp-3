@@ -3,11 +3,12 @@ import './ChatsList.scss'
 import React from 'react'
 import classnames from 'classnames'
 import { Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 type ChatsListProps = {
     selectedId?: string
-    onSelect?: (el: {id: string; name: string}) => void
-    list: {id: string; name: string}[]
+    onSelect?: (el: {id: number; name: string}) => void
+    list: {id: number; name: string}[]
 }
 
 export const ChatsList = (props: ChatsListProps) => {
@@ -22,8 +23,12 @@ export const ChatsList = (props: ChatsListProps) => {
                 key={el.id}
                 onClick={ () => props.onSelect && props.onSelect(el) }
             >
-                <Nav.Link active={el.id === props.selectedId}>
-                {el.name}
+                <Nav.Link 
+                    as={Link} 
+                    to={'/chats/'+el.id} 
+                    active={el.id.toString() === props.selectedId}
+                >
+                    {el.name}
                 </Nav.Link>
             </Nav.Item>
         ) 

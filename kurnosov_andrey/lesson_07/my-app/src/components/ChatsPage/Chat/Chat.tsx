@@ -9,21 +9,36 @@ import { ThemeContext } from '../../../Theme';
 import classnames from 'classnames'
 import { AuthContext } from '../../../Auth';
 
-enum AnswerStatus {
+export enum AnswerStatus {
     Typing,
     None
 }
 
-export function Chat() {
-    const [messages, setMessages] = useState<MessageData[]>([]);
-    const [answerStatus, setAnswerStatus] = useState(AnswerStatus.None);
+export type ChatData = {
+    id: number,
+    name: string,
+    messages: MessageData[],
+    answerStatus: AnswerStatus
+};
 
-    const addMessage = (message: MessageData) => setMessages(
-        messages.concat(message)
-    );
+type Props = {
+    chat: ChatData,
+    onChatChanges: (changedChat: ChatData) => void
+}
 
-    const messagesRef = useRef(messages);
-    messagesRef.current = messages;
+export function Chat({chat, onChatChanges} : Props) {
+    
+    const setAnswerStatus = (status: AnswerStatus) => 
+        onChatChanges({
+            ...chat,
+            answerStatus: status
+        });
+
+    const addMessage = (message: MessageData) => 
+        onChatChanges({
+            ...chat,
+            messages: chat.messages.concat(message)
+        });
 
     const [delay] = useState(new Delay(3000));
     
@@ -31,26 +46,26 @@ export function Chat() {
         setAnswerStatus(AnswerStatus.Typing);
         delay.start(() => {
             // состояние messages - состояние на момент старта таймаута
-            setMessages(messagesRef.current.concat(MessageData.answerFromBot()));
+            addMessage(MessageData.answerFromBot());
             setAnswerStatus(AnswerStatus.None);
         }, 'from-last');
     }
 
     useEffect(() => {
-        if (messages.length && messages[messages.length - 1].isFromUser) {
+        if (chat.messages.length && chat.messages[chat.messages.length - 1].isFromUser) {
             answerByBot();
         }
-    }, [messages]);
+    }, [chat.messages]);
 
     const themeCtx = useContext(ThemeContext);
     const className = classnames('chat', 'theme-'+themeCtx.theme);
     return <div className={className}>
         { 
-            answerStatus === AnswerStatus.Typing ? 
+            chat.answerStatus === AnswerStatus.Typing ? 
                 <span> <LangText text={{RU:'Собеседник печатает...',EN: 'Interlocutor is printing'}} /> </span> : 
                 <span> &nbsp; </span>
         }
-        <Messages items={messages} />
+        <Messages items={chat.messages} />
         <MessageForm onSend={(message, userName) => addMessage(new MessageData(message, userName, true))} />
     </div>
 }
