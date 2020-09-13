@@ -33,7 +33,7 @@ const CreateMessage = (props: CreateMessageProps) => {
             setMessage('');
         } else {
             setShowWarning(true);
-            setTimeout(() => setShowWarning(false), 5000)
+            setTimeout(() => setShowWarning(false), 5000);
         }
     };
 

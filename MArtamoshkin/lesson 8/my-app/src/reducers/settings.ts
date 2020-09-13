@@ -7,7 +7,7 @@ export type SettingsReducerState = {
 
 const initialState: SettingsReducerState = {
     settings: { theme: 'dark', language: 'ru', name: 'JohnDoe' }
-}
+};
 
 export const settingsReducer: Reducer<SettingsReducerState> = (state = initialState, action) => {
     switch (action.type) {
@@ -19,4 +19,4 @@ export const settingsReducer: Reducer<SettingsReducerState> = (state = initialSt
         default:
             return state;
     }
-}
+};

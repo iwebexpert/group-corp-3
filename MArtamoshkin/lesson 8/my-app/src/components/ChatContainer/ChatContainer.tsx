@@ -17,4 +17,4 @@ export const ChatContainer = (props: ChatsContainerProps) => {
             {chatId ? <Chat activeChatId={chatId} /> :
                 <h5 className="not-selected-chat-text text-center">{t('NOT_SELECTED_CHAT_TEXT')}</h5>}
         </Col></>
-}
+};

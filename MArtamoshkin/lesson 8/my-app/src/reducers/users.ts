@@ -18,4 +18,4 @@ export const usersReducer: Reducer<UsersReducerState> = (state = initialState, a
         default:
             return state;
     }
-}
+};
