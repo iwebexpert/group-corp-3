@@ -1,50 +1,68 @@
-import React, {useContext, useState} from "react";
-import {useFormValue} from "../../../hooks/useFormValue";
+import React from "react";
 import {Button, Form} from "react-bootstrap";
-import {ConfigContext} from "../../../App";
-import {useDispatch} from "react-redux";
-import {chatAdd} from "../../../actions/chats";
+import {inject, observer} from "mobx-react";
+import {ChatStore} from "../../../stores";
 
 import './ChatForm.scss'
 
-export const ChatForm : React.FC = () => {
-    const {options} = useContext(ConfigContext);
-    const chatNameField = useFormValue("");
-    const [validated, setValidated] = useState(false);
-    const dispatch = useDispatch();
+type  ChatFormProps = {
+    chats?: ChatStore;
+}
 
-    const checkCondition = options.confirmCondition;
+type ChatFormState = {
+    checkCondition: boolean;
+    chatName: string;
+    validated: boolean;
+}
 
-    const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
+@inject('chats')
+@observer
+export default class ChatForm extends React.Component<ChatFormProps, ChatFormState> {
+
+    public state: ChatFormState = {
+        checkCondition: true,
+        chatName: '',
+        validated: false
+    };
+
+    onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({...this.state, chatName: event.target.value});
+    };
+
+    handleSubmit = (event: React.FormEvent<HTMLElement>) => {
         event.preventDefault();
 
         const form = event.currentTarget as HTMLFormElement;
 
         if (form.checkValidity()) {
-            dispatch(chatAdd(chatNameField.value));
-            chatNameField.setValues("");
-        }
+            if (this.props.chats?.addChat) {
+                this.props.chats?.addChat(this.state.chatName);
+            }
 
-        event.stopPropagation();
-        setValidated(true);
+            this.setState({...this.state, chatName: "", validated: false});
+        } else {
+            event.stopPropagation();
+            this.setState({...this.state, validated: true});
+        }
     };
 
-    return (
-        <Form noValidate
-              validated={validated}
-              method="POST"
-              onSubmit={handleSubmit}
+    render() {
+        return <Form noValidate
+                     validated={this.state.validated}
+                     method="POST"
+                     onSubmit={this.handleSubmit}
         >
             <Form.Group>
                 <Form.Control
                     type="input"
-                    {...chatNameField}
-                    disabled={!checkCondition}
+                    disabled={!this.state.checkCondition}
                     placeholder="Введите название чата"
                     required
                     minLength={3}
                     maxLength={30}
                     pattern="[a-zA-Zа-яА-ЯёЁ]*"
+                    value={this.state.chatName}
+                    onChange={this.onChangeHandler}
                 />
                 <Form.Control.Feedback type="invalid">
                     Не заполнено поле название чата
@@ -54,10 +72,10 @@ export const ChatForm : React.FC = () => {
             <Button
                 type="submit"
                 variant="success"
-                disabled={!checkCondition}
+                disabled={!this.state.checkCondition}
             >
                 Добавить
             </Button>
-        </Form>
-    );
+        </Form>;
+    }
 };
