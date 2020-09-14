@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './Messenger.css';
+import './Messenger.scss';
 import { MessageFormEntity } from './entities';
+import { Button, Col, Form } from 'react-bootstrap';
 
 type MessageFormProps = {
     addMessage: (messageForm: MessageFormEntity) => void
@@ -13,49 +14,34 @@ const defaultFormState: MessageFormEntity = {
 
 const MessageForm: React.FC<MessageFormProps> = ({addMessage}) => {
     const [form, setForm] = useState<MessageFormEntity>(defaultFormState);
-    const [showValidationMessage, setShowValidationMessage] = useState<boolean>(false);
 
 
-    const changeBody = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const changeBody = (event: React.ChangeEvent<HTMLInputElement>) => {
         setForm({...form, body: event.target.value})
-    }
-
-    const changeAuthor = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({...form, author: event.target.value})
     }
 
     const sendFormState = () => {
         if (form.body && form.author) {
             addMessage(form)
             setForm({...defaultFormState, author: form.author});
-            setShowValidationMessage(false);
-        } else {
-            setShowValidationMessage(true);
         }
     }
 
     return (
-        <div className="message-form">
-            <form onSubmit={(e) => {e.preventDefault()}} className="message-form-container">
-                <div>
-                    <p>Message</p>
-                    <textarea rows={4} value={form.body} onChange={changeBody}/>
-                </div>
+        <div className="message-form border-top">
+            <form onSubmit={(e) => e.preventDefault()} className="row m-4">
+                <Col>
+                    <Form.Group className="mb-0">
+                        <Form.Control placeholder="Message" value={form.body} onChange={changeBody}/>
+                    </Form.Group>
+                </Col>
 
-                <div>
-                    <p>Author</p>
-                    <input value={form.author} onChange={changeAuthor}/>
-                </div>
-
-                <div className="submit-button-container">
-                    <button type="submit" onClick={sendFormState}>send</button>
-                </div>
-
+                <div className="col-3 d-flex justify-content-center align-items-center">
+                    <Button variant="primary" type="submit" onClick={sendFormState}>
+                        Submit
+                    </Button>
+                </div>                
             </form>
-
-            <div>
-                {showValidationMessage && <h3 className="warning-message">fill in all fields</h3>}
-            </div>
             
         </div>
     )

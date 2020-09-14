@@ -1,4 +1,5 @@
 import React from 'react';
+import Alert from 'react-bootstrap/esm/Alert';
 import { MessageEntity } from './entities';
 
 type MessageProps = {
@@ -8,9 +9,11 @@ type MessageProps = {
 const Message: React.FC<MessageProps> = ({message}) => {
     return (
         <div className={`message ${message.bot ? " block-right" : ""}`}>
-            <div className={`message-area ${message.bot ? "bot-message" : "self-message"}`}>
-                <h4 className="message-author">{message.author}</h4>
-                <h4 className="message-body">{message.body}</h4>
+            <div>
+                <Alert variant={message.bot ? "primary" : "success"}>
+                    <Alert.Link href="#">{message.author}</Alert.Link>
+                    <p className="m-0">{message.body}</p>
+                </Alert>
             </div>
         </div>
     )
