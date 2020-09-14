@@ -19,7 +19,7 @@ export const NewChat = () => {
             setCreateChatTarget(event.target as HTMLDivElement);
         }
 
-        setShowCreateChat(true)
+        setShowCreateChat(true);
     }
 
     const chatIds = useSelector<AppState, number[]>((state: AppState) => state.chats.items.map((item: Chat): number => item.author.id));

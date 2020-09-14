@@ -10,7 +10,7 @@ export type ChatsReducerState = {
 const initialState: ChatsReducerState = {
     loading: false,
     items: chatsStub
-}
+};
 
 export const chatsReducer: Reducer<ChatsReducerState> = (state = initialState, action) => {
     switch (action.type) {
@@ -40,4 +40,4 @@ export const chatsReducer: Reducer<ChatsReducerState> = (state = initialState, a
         default:
             return state;
     }
-}
+};

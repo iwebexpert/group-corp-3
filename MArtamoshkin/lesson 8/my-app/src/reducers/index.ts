@@ -7,7 +7,7 @@ export type AppState = {
     chats: ChatsReducerState;
     users: UsersReducerState;
     appSettings: SettingsReducerState;
-}
+};
 
 export const rootReducer = combineReducers<AppState>({
     chats: chatsReducer,

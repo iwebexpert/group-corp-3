@@ -6,9 +6,9 @@ const AuthProvider: React.FC = ({ children }) => {
         id: 0,
         avatar: 'https://html5css.ru/w3images/avatar1.png', 
         name: 'John Doe'
-      }
+      };
     
       return (<UserProvider value={stubUser}>{children}</UserProvider>);
-}
+};
 
 export { AuthProvider };

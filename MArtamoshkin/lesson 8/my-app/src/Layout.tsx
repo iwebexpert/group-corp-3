@@ -32,6 +32,6 @@ const Layout = () => {
             </Container>
         </UserSettingsProvider>
     </AuthProvider>
-}
+};
 
 export { Layout };

@@ -13,6 +13,6 @@ const Header = () => {
         </Navbar.Brand>
         <Nav.Item><Settings/></Nav.Item>
     </Navbar>);
-}
+};
 
 export { Header };
