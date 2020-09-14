@@ -1,0 +1,17 @@
+.message-list {
+    height: 30rem;
+    overflow: scroll;
+}
+
+.message-form {
+    height: 6rem;
+}
+
+.message {
+    margin-bottom: 0.5rem;
+    display: flex;
+}
+
+.block-right {
+    justify-content: flex-end;
+}

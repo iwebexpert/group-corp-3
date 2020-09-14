@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { MessageEntity } from './entities';
 import Message from './Message';
-import './Messenger.css';
+import './Messenger.scss';
 
 type MessageListProps = {
     messages: MessageEntity[]
@@ -10,7 +10,7 @@ type MessageListProps = {
 const MessageList: React.FC<MessageListProps> = ({messages}) => {
     const messageListBlock = useRef<HTMLInputElement>(null);
 
-    useEffect(() => messageListBlock?.current?.scrollIntoView({ behavior: 'smooth' }))
+    useEffect(() => messageListBlock?.current?.scrollIntoView({ behavior: 'smooth' }), [messages])
 
     return (
         <div className="message-list">
