@@ -1,0 +1,12 @@
+.layout-footer {
+    &-author {
+        font-size: small;
+        color: lightgray;
+        float: right;
+    }
+    &-usage {
+        font-size: small;
+        color: lightgray;
+        float: left;
+    }
+}

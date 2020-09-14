@@ -1,0 +1,22 @@
+.layout-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 960px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    .layout-body {
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+
+    &.theme-dark {
+        background-color: darkslategrey
+    }
+}
+
+
