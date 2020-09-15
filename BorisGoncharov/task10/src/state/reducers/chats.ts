@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 import { Reducer } from 'redux';
-import { ChatsActions, ChatsActionTypes } from '../actions/chats';
+import { ChatsActions, ChatsActionTypes } from '../actions';
 
 export type ChatsReducerState = {
   loading: boolean;

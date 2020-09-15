@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { SettingsActions, SettingsActionTypes } from '../actions/settings';
+import { SettingsActions, SettingsActionTypes } from '../actions';
 
 export type SettingsReducerState = {
   loading: boolean;
@@ -8,7 +8,10 @@ export type SettingsReducerState = {
 };
 
 const defaultSettings: Settings = {
-  name: 'User',
+  user: {
+    id: '00000001',
+    name: 'Boris',
+  },
   theme: 'light',
   language: 'en',
 }

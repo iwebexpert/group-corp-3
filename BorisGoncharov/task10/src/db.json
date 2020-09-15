@@ -10,62 +10,86 @@
     {
       "id": "0",
       "text": "Hello",
-      "author": "John Doe",
+      "author": {
+        "id": "0123123",
+        "name": "John Doe"
+      },
       "date": "2020-09-01T07:58:08.573Z",
-      "closable": false,
+      "closable": true,
       "chatId": "0"
     },
     {
       "id": "1",
       "text": "How are you?",
-      "author": "John Doe",
+      "author": {
+        "id": "0123123",
+        "name": "John Doe"
+      },
       "date": "2020-09-01T07:58:08.573Z",
-      "closable": false,
+      "closable": true,
       "chatId": "0"
     },
     {
       "id": "2",
       "text": "Meeting will be tomorrow at 11:00",
-      "author": "John",
+      "author": {
+        "id": "234534",
+        "name": "Jack"
+      },
       "date": "2020-09-01T07:58:08.573Z",
-      "closable": false,
+      "closable": true,
       "chatId": "1"
     },
     {
       "id": "3",
       "text": "Don't be late",
-      "author": "Steve",
+      "author": {
+        "id": "6546547",
+        "name": "Steve"
+      },
       "date": "2020-09-01T07:58:08.573Z",
-      "closable": false,
+      "closable": true,
       "chatId": "1"
     },
     {
       "id": "4",
       "text": "Please feed the dog",
-      "author": "Mom",
+      "author": {
+        "id": "653453",
+        "name": "Mom"
+      },
       "date": "2020-09-01T07:58:08.573Z",
-      "closable": false,
+      "closable": true,
       "chatId": "2"
     },
     {
       "id": "5",
       "text": "Germany - Brazil 1 : 7",
-      "author": "Peter",
+      "author": {
+        "id": "6541236547",
+        "name": "Peter"
+      },
       "date": "2020-09-01T07:58:08.573Z",
-      "closable": false,
+      "closable": true,
       "chatId": "3"
     },
     {
       "id": "5",
       "text": "New task is available on the platform. If you have any questions feel free to contact me:)",
-      "author": "Igor",
+      "author": {
+        "id": "6546542137",
+        "name": "Igor"
+      },
       "date": "2020-09-01T07:58:08.573Z",
-      "closable": false,
+      "closable": true,
       "chatId": "4"
     }
   ],
   "settings": {
-    "name": "User",
+    "user": {
+      "id": "00000001",
+      "name": "Boris"
+    },
     "theme": "light",
     "language": "en"
   }

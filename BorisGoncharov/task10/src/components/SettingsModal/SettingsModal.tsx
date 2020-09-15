@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Button, Modal, FormGroup, FormLabel } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import './SettingsModal.scss';
 import classNames from 'classnames';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
+import './SettingsModal.scss';
 
 const SettingsSchema = Yup.object().shape({
   author: Yup.string()
@@ -40,7 +40,10 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   }) => {
     handleModalClose();
     onSettingsChange({
-      name: values.author,
+      user: {
+        ...settings.user,
+        name: values.author,
+      },
       theme: values.theme,
       language: values.language,
     });
@@ -64,7 +67,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
       <Formik
         initialValues={
           {
-            author: settings.name,
+            author: settings.user.name,
             theme: settings.theme,
             language: settings.language,
           } as any

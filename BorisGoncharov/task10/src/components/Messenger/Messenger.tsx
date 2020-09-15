@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
 import { generate } from 'shortid';
-import './Messenger.scss';
-
 import { MessageList } from '../MessageList';
 import { MessageForm } from '../MessageForm';
 import { useParams } from 'react-router-dom';
+import './Messenger.scss';
 
 export type MessengerProps = {
   messages: Message[];
-  author: string;
+  user: User;
   theme?: Theme;
   typingAuthor: string;
   onMessageSend: (message: Message) => void;
@@ -17,7 +16,7 @@ export type MessengerProps = {
 
 export const Messenger: FC<MessengerProps> = ({
   messages,
-  author,
+  user,
   theme = 'light',
   typingAuthor,
   onMessageSend,
@@ -29,7 +28,7 @@ export const Messenger: FC<MessengerProps> = ({
   const handleMessageSend = (text: string): void => {
     const newMessage: Message = {
       text,
-      author,
+      author: user,
       id: generate(),
       date: new Date().toISOString(),
       closable: false,
@@ -43,6 +42,7 @@ export const Messenger: FC<MessengerProps> = ({
     <>
       <MessageList
         items={messages}
+        user={user}
         typingAuthor={typingAuthor}
         onMessageClose={onMessageClose}
         theme={theme}

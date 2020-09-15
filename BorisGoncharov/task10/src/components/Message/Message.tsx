@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
-
 import './Message.scss';
 
 export type MessageProps = Message & {
+  user: User;
   onMessageClose: (id: string) => void;
 };
 
@@ -13,11 +13,12 @@ export const Message: FC<MessageProps> = ({
   id,
   date,
   closable,
+  user,
   onMessageClose,
 }) => {
   const classes = classNames('message', {
-    _grey: author === 'Bot',
-    _yellow: author !== 'Bot',
+    _grey: author.id !== user.id,
+    _yellow: author.id === user.id,
   });
 
   const dateObj = new Date(date);
@@ -26,7 +27,7 @@ export const Message: FC<MessageProps> = ({
     <div className={classes}>
       <div>{text}</div>
       <small className="float-right">
-        {author}, {dateObj.getDate()}/{dateObj.getMonth()}/
+        {author.name}, {dateObj.getDate()}/{dateObj.getMonth()}/
         {dateObj.getFullYear()}&nbsp;{dateObj.getHours()}:{dateObj.getMinutes()}
       </small>
 

@@ -7,6 +7,7 @@ import './MessageList.scss';
 
 type MessageListProps = {
   items: Message[];
+  user: User;
   typingAuthor: string;
   theme?: Theme;
   onMessageClose: (id: string) => void;
@@ -14,6 +15,7 @@ type MessageListProps = {
 
 export const MessageList: FC<MessageListProps> = ({
   items,
+  user,
   typingAuthor,
   theme = 'light',
   onMessageClose,
@@ -35,7 +37,12 @@ export const MessageList: FC<MessageListProps> = ({
   return (
     <Col ref={blockRef} className={classes}>
       {items.map((item) => (
-        <Message {...item} onMessageClose={onMessageClose} key={item.id} />
+        <Message
+          {...item}
+          user={user}
+          onMessageClose={onMessageClose}
+          key={item.id}
+        />
       ))}
       {typingAuthor && (
         <div className="text-secondary">

@@ -12,7 +12,7 @@ type MessengerContainerProps = RouteComponentProps<{ chatId: string }>;
 type StateProps = {
   messages: Message[];
   theme: Theme;
-  name: string;
+  user: User;
   typingAuthor: string;
 };
 
@@ -26,7 +26,7 @@ type Props = StateProps & DispatchProps & MessengerContainerProps;
 const MessengerContainer: FC<Props> = ({
   messages,
   theme,
-  name,
+  user,
   typingAuthor,
   onMessageSend,
   onMessageClose,
@@ -36,7 +36,7 @@ const MessengerContainer: FC<Props> = ({
       onMessageSend={onMessageSend}
       onMessageClose={onMessageClose}
       messages={messages}
-      author={name}
+      user={user}
       typingAuthor={typingAuthor}
       theme={theme}
     />
@@ -59,7 +59,7 @@ const mapStateToProps = (
   return {
     messages: messages ? messages : [],
     theme: state.settings.settings.theme,
-    name: state.settings.settings.name,
+    user: state.settings.settings.user,
     typingAuthor: chat?.typingAuthor || '',
   };
 };

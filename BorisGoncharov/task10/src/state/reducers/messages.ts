@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 import { Reducer } from 'redux';
-import { MessagesActions, MessagesActionTypes } from '../actions/messages';
+import { MessagesActions, MessagesActionTypes } from '../actions';
 
 export type MessagesReducerState = {
   loading: boolean;

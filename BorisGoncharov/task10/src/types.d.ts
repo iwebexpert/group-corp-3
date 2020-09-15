@@ -1,11 +1,10 @@
 type Message = {
   id: string;
+  chatId: string;
   text: string;
-  author: string;
+  author: User;
   date: string;
   closable: boolean;
-  chatId: string;
-  isBot?: boolean;
 };
 
 type Chat = {
@@ -19,12 +18,12 @@ type Theme = 'light' | 'dark';
 type Language = 'en' | 'ru';
 
 type Settings = {
-  name: string;
+  user: User;
   theme: Theme;
   language: Language;
 };
 
-type Author = {
+type User = {
   id: string;
   name: string;
 }
