@@ -1,0 +1,20 @@
+@import '../../styles/variables.scss';
+
+.create-message .message-input {
+    border-left: none;
+    border-bottom: none;
+    border-color: $gray;
+
+    &.form-control:focus {
+        box-shadow: none;
+    }
+}
+
+.create-message {
+    .message-submit.btn-light,
+    .message-submit.btn-light:disabled {
+        border-color: $primary-color!important;
+        color: $white;
+        background-color: $primary-color;
+    }
+}
