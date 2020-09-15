@@ -2,15 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { Chat } from '../components/Chat';
 import { AppState } from '../state/store';
-import {
-  chatsLoad,
-  chatsLoadSuccess,
-  messagesLoad,
-  messagesLoadSuccess,
-  settingsLoad,
-  settingsLoadSuccess,
-} from '../state/actions';
-import * as db from '../db.json';
+import { chatsLoad, messagesLoad, settingsLoad } from '../state/actions';
 
 type StateProps = {
   chatsLoading: boolean;
@@ -28,19 +20,6 @@ const ChatContainer: FC<Props> = ({ chatsLoading, messagesLoading, theme }) => {
     dispatch(chatsLoad());
     dispatch(messagesLoad());
     dispatch(settingsLoad());
-
-    // Emulating different loading speed
-    setTimeout(() => {
-      dispatch(chatsLoadSuccess(db.chats));
-    }, 2000);
-
-    setTimeout(() => {
-      dispatch(messagesLoadSuccess(db.messages));
-    }, 3000);
-
-    setTimeout(() => {
-      dispatch(settingsLoadSuccess(db.settings));
-    }, 2000);
   }, [dispatch]);
 
   return (
