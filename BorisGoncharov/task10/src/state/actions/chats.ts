@@ -10,7 +10,9 @@ export enum ChatsActionTypes {
   // Main actions
   CHATS_ADD = 'CHATS_ADD',
   CHATS_DELETE = 'CHATS_DELETE',
-  CHATS_SELECT = 'CHATS_SELECT'
+  CHATS_SELECT = 'CHATS_SELECT',
+  CHATS_SET_TYPING_AUTHOR = 'CHATS_SET_TYPING_AUTHOR',
+  CHATS_RESET_TYPING_AUTHOR = 'CHATS_RESET_TYPING_AUTHOR'
 }
 
 // Define actions functions types
@@ -38,8 +40,18 @@ export type ChatsDeleteAction = {
   payload: string;
 };
 
+export type ChatsSetTypingAuthorAction = {
+  type: ChatsActionTypes.CHATS_SET_TYPING_AUTHOR;
+  payload: { chatId: string, author: string };
+};
+
+export type ChatsResetTypingAuthorAction = {
+  type: ChatsActionTypes.CHATS_RESET_TYPING_AUTHOR;
+  payload: string;
+};
+
 // All actions
-export type ChatsActions = ChatsLoadAction | ChatsLoadSuccessAction | ChatsLoadErrorAction | ChatsAddAction | ChatsDeleteAction;
+export type ChatsActions = ChatsLoadAction | ChatsLoadSuccessAction | ChatsLoadErrorAction | ChatsAddAction | ChatsDeleteAction | ChatsSetTypingAuthorAction | ChatsResetTypingAuthorAction;
 
 // Exporting actions
 export const chatsLoad: ActionCreator<ChatsLoadAction> = () => ({
@@ -63,5 +75,15 @@ export const chatsAdd: ActionCreator<ChatsAddAction> = (payload: Chat) => ({
 
 export const chatsDelete: ActionCreator<ChatsDeleteAction> = (payload: string) => ({
   type: ChatsActionTypes.CHATS_DELETE,
+  payload
+});
+
+export const chatsSetTypingAuthor: ActionCreator<ChatsSetTypingAuthorAction> = (payload: { chatId: string, author: string }) => ({
+  type: ChatsActionTypes.CHATS_SET_TYPING_AUTHOR,
+  payload
+});
+
+export const chatsResetTypingAuthor: ActionCreator<ChatsResetTypingAuthorAction> = (payload: string) => ({
+  type: ChatsActionTypes.CHATS_RESET_TYPING_AUTHOR,
   payload
 });

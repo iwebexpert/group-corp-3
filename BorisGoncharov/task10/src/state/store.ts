@@ -1,8 +1,7 @@
-import { combineReducers, createStore, Store } from "redux";
+import { applyMiddleware, combineReducers, createStore, Store } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { chatsReducer, ChatsReducerState } from "./reducers/chats";
-import { messagesReducer, MessagesReducerState } from "./reducers/messages";
-import { settingsReducer, SettingsReducerState } from "./reducers/settings";
+import { botResponseMiddleware } from "./middlewares";
+import { chatsReducer, ChatsReducerState, messagesReducer, MessagesReducerState, settingsReducer, SettingsReducerState } from "./reducers";
 
 export type AppState = {
   chats: ChatsReducerState;
@@ -16,4 +15,4 @@ export const rootReducer = combineReducers<AppState>({
   settings: settingsReducer,
 });
 
-export const store: Store = createStore(rootReducer, composeWithDevTools());
+export const store: Store = createStore(rootReducer, composeWithDevTools(applyMiddleware(botResponseMiddleware)));

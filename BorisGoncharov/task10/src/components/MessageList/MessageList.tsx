@@ -7,14 +7,14 @@ import './MessageList.scss';
 
 type MessageListProps = {
   items: Message[];
-  isTyping: boolean;
+  typingAuthor: string;
   theme?: Theme;
   onMessageClose: (id: string) => void;
 };
 
 export const MessageList: FC<MessageListProps> = ({
   items,
-  isTyping,
+  typingAuthor,
   theme = 'light',
   onMessageClose,
 }) => {
@@ -37,9 +37,9 @@ export const MessageList: FC<MessageListProps> = ({
       {items.map((item) => (
         <Message {...item} onMessageClose={onMessageClose} key={item.id} />
       ))}
-      {isTyping && (
+      {typingAuthor && (
         <div className="text-secondary">
-          {t('WRITING')}...&nbsp;
+          {`${typingAuthor} ${t('WRITING')}... `}
           <Spinner animation="border" variant="secondary" size="sm" />
         </div>
       )}

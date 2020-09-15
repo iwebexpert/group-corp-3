@@ -13,6 +13,7 @@ type StateProps = {
   messages: Message[];
   theme: Theme;
   name: string;
+  typingAuthor: string;
 };
 
 type DispatchProps = {
@@ -26,6 +27,7 @@ const MessengerContainer: FC<Props> = ({
   messages,
   theme,
   name,
+  typingAuthor,
   onMessageSend,
   onMessageClose,
 }) => {
@@ -35,6 +37,7 @@ const MessengerContainer: FC<Props> = ({
       onMessageClose={onMessageClose}
       messages={messages}
       author={name}
+      typingAuthor={typingAuthor}
       theme={theme}
     />
   );
@@ -51,10 +54,13 @@ const mapStateToProps = (
     (message) => message.chatId === chatId
   );
 
+  const chat = state.chats.chats.find((chat) => chat.id === chatId);
+
   return {
     messages: messages ? messages : [],
     theme: state.settings.settings.theme,
     name: state.settings.settings.name,
+    typingAuthor: chat?.typingAuthor || '',
   };
 };
 

@@ -11,6 +11,7 @@ type Message = {
 type Chat = {
   title: string;
   id: string;
+  typingAuthor?: string;
 };
 
 type Theme = 'light' | 'dark';
@@ -22,3 +23,8 @@ type Settings = {
   theme: Theme;
   language: Language;
 };
+
+type Author = {
+  id: string;
+  name: string;
+}

@@ -13,6 +13,9 @@ const initialState: ChatsReducerState = {
 };
 
 export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = initialState, action) => {
+  // Chat index in array
+  let index;
+
   switch (action.type) {
     case ChatsActionTypes.CHATS_LOAD:
       return {
@@ -44,16 +47,47 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
 
     case ChatsActionTypes.CHATS_DELETE:
       // Getting chat array id
-      const id = state.chats.findIndex(chat => chat.id === action.payload);
-      if (id !== -1) {
+      index = state.chats.findIndex(chat => chat.id === action.payload);
+      if (index !== -1) {
         return update(state, {
           chats: {
-            $splice: [[id, 1]],
+            $splice: [[index, 1]],
           },
         });
-      } else {
-        return state;
       }
+      return state;
+
+    case ChatsActionTypes.CHATS_SET_TYPING_AUTHOR:
+      index = state.chats.findIndex(chat => chat.id === action.payload.chatId);
+
+      if (index !== -1) {
+        return update(state, {
+          chats: {
+            [index]: {
+              typingAuthor: {
+                $set: action.payload.author
+              },
+            }
+          },
+        });
+      }
+      return state;
+
+    case ChatsActionTypes.CHATS_RESET_TYPING_AUTHOR:
+      index = state.chats.findIndex(chat => chat.id === action.payload);
+
+      if (index !== -1) {
+        return update(state, {
+          chats: {
+            [index]: {
+              typingAuthor: {
+                $set: ''
+              },
+            }
+          },
+        });
+      }
+      return state;
 
     default:
       return state;
