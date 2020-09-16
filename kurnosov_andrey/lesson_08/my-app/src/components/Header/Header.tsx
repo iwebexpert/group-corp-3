@@ -1,6 +1,6 @@
 import './Header.scss'
-import React, { useContext, useState } from 'react'
-import { Navbar, Form, FormControl } from 'react-bootstrap';
+import React from 'react'
+import { Navbar } from 'react-bootstrap';
 import { SettingsButton } from '../Settings';
 import { Link } from 'react-router-dom';
 

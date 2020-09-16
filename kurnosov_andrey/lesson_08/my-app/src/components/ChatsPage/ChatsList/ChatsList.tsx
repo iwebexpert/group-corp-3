@@ -1,14 +1,16 @@
 import './ChatsList.scss'
 
-import React from 'react'
+import React, { useState } from 'react'
 import classnames from 'classnames'
-import { Nav } from 'react-bootstrap';
+import { Nav, Form, FormControl, InputGroup, Button, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 type ChatsListProps = {
-    selectedId?: string
-    onSelect?: (el: {id: number; name: string}) => void
-    list: {id: number; name: string}[]
+    selectedId?: string;
+    loading: boolean;
+    list: {id: number; name: string}[];
+    onSelect?: (el: {id: number; name: string}) => void;
+    onAddChat: (chat: {name: string}) => void;
 }
 
 export const ChatsList = (props: ChatsListProps) => {
@@ -33,7 +35,47 @@ export const ChatsList = (props: ChatsListProps) => {
             </Nav.Item>
         ) 
     });
-    return <Nav className="flex-column" variant="pills">
-        {list}
-    </Nav>
+
+    const [validated, setValidated] = useState<boolean>(false);
+    const [chatName, _setChatName] = useState<string>('');
+    const setChatName = (name: string) => {
+        setValidated(name.length > 0);
+        _setChatName(name);
+    } 
+
+    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const form = e.currentTarget;
+        if (form.checkValidity()) {
+            props.onAddChat({name: chatName});
+            setChatName('');
+        }
+    }
+
+    return <>
+        {props.loading && <Spinner animation="border" /> }
+        <Nav className="flex-column" variant="pills">
+            {list}
+        </Nav>
+        {/* TODO: Вынести в компонент */}
+        <Form noValidate validated={validated} onSubmit={onSubmit}>
+            <Form.Group>
+                <InputGroup>
+                    <FormControl 
+                        name="name" 
+                        value={chatName} 
+                        onChange={e => setChatName(e.target.value)}
+                        minLength={3}
+                        maxLength={20}
+                        pattern={'^[А-Яа-яA-Za-z0-9]{3,20}$'}
+                    /> 
+                    <InputGroup.Append>
+                        <Button variant="outline-primary" type="submit" disabled={!chatName.length}>+</Button>
+                    </InputGroup.Append>
+                </InputGroup>
+            </Form.Group>
+        </Form>
+    </>
 }

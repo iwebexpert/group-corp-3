@@ -1,4 +1,4 @@
-import React, { FormEvent, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap'
 import { LangContext, LangText, Langs, LangString, langsNameList } from '../../../Langs';
 import { AuthContext } from '../../../Auth';

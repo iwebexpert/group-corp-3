@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Textarea } from "../../../../Common/Textarea";
 import { Form, Button } from "react-bootstrap";
-import { LangText, LangString } from "../../../../../Langs";
+import { LangText } from "../../../../../Langs";
 import { AuthContext } from "../../../../../Auth";
 
 
