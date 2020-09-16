@@ -19,23 +19,19 @@ export const Messenger: React.FC<MessengerProps> = ({items, onSendHandler, route
     };
 
     useEffect(() => {
-        let st = 0;
         if (items.length) {
             const {author, chatId} = items[items.length - 1];
-            if (author !== 'Bot' && routeChange) {
-                st = window.setTimeout(() => {
-                    const newMessage: ItemWithId = {
-                        message: `Привет, ${author}! Это ответ бота`,
-                        author: 'Bot',
-                        id: generate(),
-                        chatId: +paramId
-                    };
-                    onSendHandler(newMessage);
-                }, 2000, paramId);
-            };
-        }
 
-        return () => {window.clearTimeout(st);};
+            if (author !== 'Bot') {
+                const newMessage: ItemWithId = {
+                    message: `Привет, ${author}! Это ответ бота`,
+                    author: 'Bot',
+                    id: generate(),
+                    chatId: +paramId
+                };
+                onSendHandler(newMessage);
+            }
+        }
     }, [items]);
 
     useEffect(() => {

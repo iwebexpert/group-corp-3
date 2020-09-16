@@ -54,5 +54,6 @@ export type ConfigApp = {
 export type ChatsData = {
     id: number,
     title: string,
-    messages: ItemWithId[]
+    messages: ItemWithId[],
+    answerBot: boolean
 };

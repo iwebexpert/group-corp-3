@@ -18,17 +18,19 @@ export const chatsReducer: Reducer<ChatsReducerState, any> = (state = initialSta
             return Object.assign({}, state, {
                 chats: chatsData
             });
+
         case ChatsActionTypes.CHATS_MESSAGE_SEND:
-            const {chatId, message, author, id} = action.payload;
+            const {chatId, message, author, id, answerBot} = action.payload;
             return Object.assign({}, state, {
                 chats: state.chats.map(ch => {
                     if (+ch.id == +chatId) {
                         return {
                             ...ch,
-                            messages: [...ch.messages, {message, author, id, chatId}]
+                            messages: [...ch.messages, {message, author, id, chatId}],
+                            answerBot
                         }
                     } else {
-                        return ch
+                        return { ...ch, answerBot: false }
                     }
                 })
             })
@@ -41,6 +43,7 @@ export const chatsReducer: Reducer<ChatsReducerState, any> = (state = initialSta
                 messages: []
             };
             return Object.assign({}, state, {chats: [...state.chats, joinedChat]})
+
         default:
             return state;
     }

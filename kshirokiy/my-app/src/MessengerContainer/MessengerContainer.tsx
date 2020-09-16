@@ -10,20 +10,27 @@ import {Messenger} from '../Messenger/Messenger';
 export const MessengerContainer: React.FC<{}> = () => {
     let {id} = useParams<any>();
     const [routeChange, setRouteChange] = useState<boolean>(false);
-
     const dispatch = useDispatch();
     const messages = useSelector((state: AppState) => state.chats.chats[id] ? state.chats.chats[id].messages : []);
 
     const handleMessageSend = (message: ItemWithId) => {
-        dispatch(chatsMessageSend({
-            ...message
-        }));
-        setRouteChange(true)
+        let st = 0;
+        if (message) {
+            const {author, chatId} = message;
+            if (author !== 'Bot') {
+                dispatch(chatsMessageSend({
+                    ...message
+                }));
+            } else {
+                st = window.setTimeout(() => {
+                    dispatch(chatsMessageSend({
+                        ...message
+                    }));
+                    console.log('dispatch')
+                }, 2000);
+            }
+        }
     };
-
-    useEffect(() => {
-        dispatch(chatsLoad());
-    }, []);
 
     useEffect(() => {
         setRouteChange(false);

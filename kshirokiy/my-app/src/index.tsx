@@ -2,26 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
-import {BrowserRouter, HashRouter, MemoryRouter} from 'react-router-dom';
-import logger from 'redux-logger';
-import rootReducer from './store/reducers/rootReducer';
-import {createStore, applyMiddleware, Store} from 'redux';
-import {composeWithDevTools} from 'redux-devtools-extension';
 import {Provider} from 'react-redux';
+import {ConnectedRouter} from 'connected-react-router';
+import {PersistGate} from 'redux-persist/integration/react';
+import {initStore, history} from './store';
 
-const store: Store = createStore(
-    rootReducer,
-    composeWithDevTools(
-        //applyMiddleware(logger)
-    )
-);
-
+const {store, persistor} = initStore();
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <App/>
-        </BrowserRouter>
+        <PersistGate persistor={persistor}>
+            <ConnectedRouter history={history}>
+                <App/>
+            </ConnectedRouter>
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 );

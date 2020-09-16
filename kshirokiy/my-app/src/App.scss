@@ -92,3 +92,10 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
     transform: rotate(360deg);
   }
 }
+
+
+@keyframes pulsate{50%{text-shadow:0 -1px rgba(0,0,0,.3),0 0 5px #f03000,0 0 8px #f80000;}
+}
+.answerBot {
+  animation: pulsate .3s linear;
+}

@@ -35,7 +35,7 @@ export const AddingChatForm: React.FC<{}> = () => {
                 <Form.Control
                     type='text'
                     className='form-control'
-                    pattern='[a-zA-Zа-яА-ЯёЁ]{3,30}'
+                    pattern='[a-zA-Zа-яА-ЯёЁ\s\d]{3,30}'
                     value={title}
                     placeholder={'Добавьте чат'}
                     required
