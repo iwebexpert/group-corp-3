@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import { generate } from 'shortid';
 import { ChatList } from '../components/ChatList';
 import { AppState } from '../state/store';
-import {
-  ChatsActions,
-  chatsAdd,
-  chatsDelete,
-  chatsMarkRead,
-} from '../state/actions';
+import { ChatsActions, chatsAdd, chatsDelete } from '../state/actions';
 import { Dispatch } from 'redux';
 import { CallHistoryMethodAction, push } from 'connected-react-router';
 
@@ -19,24 +14,13 @@ type StateProps = {
 type DispatchProps = {
   onChatAdd: (title: string) => void;
   onChatDelete: (id: string) => void;
-  onChatSelect: (id: string) => void;
 };
 
 type Props = StateProps & DispatchProps;
 
-const ChatListContainer: FC<Props> = ({
-  chats,
-  onChatAdd,
-  onChatDelete,
-  onChatSelect,
-}) => {
+const ChatListContainer: FC<Props> = ({ chats, onChatAdd, onChatDelete }) => {
   return (
-    <ChatList
-      chats={chats}
-      onChatAdd={onChatAdd}
-      onChatDelete={onChatDelete}
-      onChatSelect={onChatSelect}
-    />
+    <ChatList chats={chats} onChatAdd={onChatAdd} onChatDelete={onChatDelete} />
   );
 };
 
@@ -61,7 +45,6 @@ const mapDispathToProps = (
       dispatch(push(`/${newChatId}`));
     },
     onChatDelete: (id: string) => dispatch(chatsDelete(id)),
-    onChatSelect: (id: string) => dispatch(chatsMarkRead(id)),
   };
 };
 
