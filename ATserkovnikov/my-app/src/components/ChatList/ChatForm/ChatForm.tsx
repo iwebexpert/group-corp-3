@@ -21,7 +21,8 @@ export const ChatForm : React.FC = () => {
         const form = event.currentTarget as HTMLFormElement;
 
         if (form.checkValidity()) {
-            dispatch(chatAdd(chatNameField.value));
+            const newChatAdd: ChatAdd = { id: 0, name: chatNameField.value};
+            dispatch(chatAdd(newChatAdd));
             chatNameField.setValues("");
         }
 

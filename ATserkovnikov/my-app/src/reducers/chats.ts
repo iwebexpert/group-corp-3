@@ -16,15 +16,15 @@ export const chatReducer: Reducer<ChatsReducerState, ChatsActions>
     = (state = initialChatsReducerState, action) => {
     switch (action.type) {
         case ChatActionTypes.CHAT_ADD:
-            const newId = state.entries.length++;
             const newChat: Chat = {
-                id: newId,
-                title: action.payload,
-                description: action.payload,
+                id: action.payload.id,
+                title: action.payload.name,
+                description: action.payload.name,
                 messages: {
                     messages: [],
                     authors: [],
-                    chatId: newId
+                    chatId: action.payload.id,
+                    unreadMessageCount: 0
                 }
             };
 
@@ -41,10 +41,19 @@ export const chatReducer: Reducer<ChatsReducerState, ChatsActions>
             return Object.assign({}, state, {entries: newChatDB});
 
         case ChatActionTypes.CHATS_LOAD:
-            return  {
-                ...state,
-                entries: ChatsDB
-            };
+            if (state.entries.length === 0) {
+                return  {
+                    ...state,
+                    entries: ChatsDB
+                };
+            }
+            return state;
+
+        case ChatActionTypes.REMOVE_CHAT:
+            const newChats = state.entries.filter(c => c.id !== action.payload);
+
+            return Object.assign({}, state, {entries: newChats});
+
         default:
             return state;
     }
