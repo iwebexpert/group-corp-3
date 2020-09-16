@@ -89,6 +89,38 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
       }
       return state;
 
+    case ChatsActionTypes.CHATS_MARK_READ:
+      index = state.chats.findIndex(chat => chat.id === action.payload);
+
+      if (index !== -1) {
+        return update(state, {
+          chats: {
+            [index]: {
+              isUnread: {
+                $set: false
+              },
+            }
+          },
+        });
+      }
+      return state;
+
+    case ChatsActionTypes.CHATS_MARK_UNREAD:
+      index = state.chats.findIndex(chat => chat.id === action.payload);
+
+      if (index !== -1) {
+        return update(state, {
+          chats: {
+            [index]: {
+              isUnread: {
+                $set: true
+              },
+            }
+          },
+        });
+      }
+      return state;
+
     default:
       return state;
   }

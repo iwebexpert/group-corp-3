@@ -10,7 +10,8 @@ type Message = {
 type Chat = {
   title: string;
   id: string;
-  typingAuthor?: string;
+  isUnread: boolean;
+  typingAuthor: string;
 };
 
 type Theme = 'light' | 'dark';

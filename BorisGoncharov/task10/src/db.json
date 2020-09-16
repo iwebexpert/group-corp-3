@@ -1,10 +1,30 @@
 {
   "chats": [
-    { "id": "0", "title": "Friends" },
-    { "id": "1", "title": "Work" },
-    { "id": "2", "title": "Family" },
-    { "id": "3", "title": "Football" },
-    { "id": "4", "title": "Web Courses" }
+    {
+      "id": "0",
+      "title": "Friends",
+      "isUnread": false,
+      "typingAuthor": ""
+    },
+    { "id": "1", "title": "Work", "isUnread": false, "typingAuthor": "" },
+    {
+      "id": "2",
+      "title": "Family",
+      "isUnread": false,
+      "typingAuthor": ""
+    },
+    {
+      "id": "3",
+      "title": "Football",
+      "isUnread": false,
+      "typingAuthor": ""
+    },
+    {
+      "id": "4",
+      "title": "Web Courses",
+      "isUnread": false,
+      "typingAuthor": ""
+    }
   ],
   "messages": [
     {

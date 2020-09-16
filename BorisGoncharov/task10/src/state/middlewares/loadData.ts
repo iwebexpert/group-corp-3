@@ -1,5 +1,5 @@
 import { Middleware } from 'redux';
-import { ChatsActionTypes, chatsLoadSuccess, MessagesActionTypes, messagesLoadSuccess, settingsLoadSuccess } from '../actions';
+import { ChatsActionTypes, chatsLoadSuccess, MessagesActionTypes, messagesLoadSuccess, SettingsActionTypes, settingsLoadSuccess } from '../actions';
 import * as db from '../../db.json';
 
 export const loadDataMiddleware: Middleware = store => next => action => {
@@ -16,7 +16,7 @@ export const loadDataMiddleware: Middleware = store => next => action => {
     }, 3000);
   }
 
-  if (action.type === MessagesActionTypes.MESSAGES_LOAD) {
+  if (action.type === SettingsActionTypes.SETTINGS_LOAD) {
     setTimeout(() => {
       store.dispatch(settingsLoadSuccess(db.settings));
     }, 2000);

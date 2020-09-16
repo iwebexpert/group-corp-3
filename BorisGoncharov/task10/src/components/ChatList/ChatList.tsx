@@ -9,12 +9,14 @@ export type ChatListProps = {
   chats: Chat[];
   onChatAdd: (title: string) => void;
   onChatDelete: (id: string) => void;
+  onChatSelect: (id: string) => void;
 };
 
 export const ChatList: FC<ChatListProps> = ({
   chats,
   onChatAdd,
   onChatDelete,
+  onChatSelect,
 }) => {
   let { chatId } = useParams<{ chatId: string }>();
   const { t } = useTranslation();
@@ -34,31 +36,27 @@ export const ChatList: FC<ChatListProps> = ({
     }
   };
 
-  const handleDeleteButtonClick = (id: string): void => {
-    onChatDelete(id);
-  };
-
   return (
     <>
       <Col className="chat-list__list bg-dark">
         <ListGroup variant="flush">
           {chats?.map((chat) => {
             return (
-              <div className="position-relative">
+              <div className="position-relative" key={chat.id}>
                 <ListGroup.Item
                   as={Link}
                   to={`/${chat.id}`}
                   action
                   variant="dark"
-                  key={chat.id}
                   active={chat.id === chatId}
+                  onClick={() => onChatSelect(chat.id)}
                 >
-                  {chat.title}
+                  {chat.title + (chat.isUnread ? '*' : '')}
                 </ListGroup.Item>
 
                 <BsX
                   className="chat-list__icon-remove"
-                  onClick={() => handleDeleteButtonClick(chat.id)}
+                  onClick={() => onChatDelete(chat.id)}
                 />
               </div>
             );

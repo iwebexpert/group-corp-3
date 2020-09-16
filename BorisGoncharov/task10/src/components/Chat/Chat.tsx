@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
-import { Redirect, Route, Switch } from 'react-router-dom';
 import classNames from 'classnames';
 import MessengerContainer from '../../containers/MessagerContainer';
 import ChatListContainer from '../../containers/ChatListContainer';
@@ -33,34 +32,27 @@ export const Chat: FC<ChatProps> = ({
         <Col className="p-0 shadow-lg">
           <HeaderContainer />
 
-          <Switch>
-            <Route path={`/:chatId`} exact>
-              <Row noGutters className="chat">
-                <Col md="3" className={chatListClasses}>
-                  {chatsLoading ? (
-                    <div className="chat__spinner-container">
-                      <Spinner animation="border" variant="light" />
-                    </div>
-                  ) : (
-                    <ChatListContainer />
-                  )}
-                </Col>
+          <Row noGutters className="chat">
+            <Col md="3" className={chatListClasses}>
+              {chatsLoading ? (
+                <div className="chat__spinner-container">
+                  <Spinner animation="border" variant="light" />
+                </div>
+              ) : (
+                <ChatListContainer />
+              )}
+            </Col>
 
-                <Col md="9" className="d-flex flex-column flex-grow-1">
-                  {messagesLoading ? (
-                    <div className="chat__spinner-container">
-                      <Spinner animation="border" variant="secondary" />
-                    </div>
-                  ) : (
-                    <MessengerContainer />
-                  )}
-                </Col>
-              </Row>
-            </Route>
-            <Route path="">
-              <Redirect to={`/${0}`}></Redirect>
-            </Route>
-          </Switch>
+            <Col md="9" className="d-flex flex-column flex-grow-1">
+              {messagesLoading ? (
+                <div className="chat__spinner-container">
+                  <Spinner animation="border" variant="secondary" />
+                </div>
+              ) : (
+                <MessengerContainer />
+              )}
+            </Col>
+          </Row>
         </Col>
       </Container>
 

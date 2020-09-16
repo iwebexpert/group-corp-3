@@ -25,7 +25,7 @@ export const botResponseMiddleware: Middleware = store => next => action => {
         }));
 
         store.dispatch(chatsResetTypingAuthor(chatId));
-      }, 2000);
+      }, 3000);
     }
   }
 
