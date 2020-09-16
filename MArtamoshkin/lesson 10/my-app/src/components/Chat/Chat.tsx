@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { CreateMessage } from "../CreateMessage/CreateMessage";
 import { MessagesList } from '../MessagesList/MessagesList';
-import useDebounce from "../../hooks/useDebounce";
 import { UserContext } from "../../contexts/UserContext";
-import { getFakeResponse } from '../../common/fakeResponse';
 import { Row } from "react-bootstrap";
 
 import './Chat.scss';
@@ -19,9 +17,6 @@ const Chat = (props: ChatProps) => {
 
     const { t } = useTranslation();
 
-    const typingTimeout = 3 * 1000;
-    const responseTimeout = (Math.random() * 5) * 1000 + typingTimeout;
-
     const dispatch = useDispatch();
 
     const chats = useSelector<AppState, Chat[]>((state: AppState) => state.chats.items);
@@ -31,13 +26,6 @@ const Chat = (props: ChatProps) => {
 
     const currentUser: User = useContext(UserContext);
 
-    const [hasResponse, setHasResponse] = useState<boolean>(true);
-    const [responseStep, setResponseStep] = useState<number>(0);
-    const [isTyping, setIsTyping] = useState<boolean>(false);
-
-    const debouncedMessage = useDebounce<Message[]>(messages, responseTimeout);
-    const debouncedTyping = useDebounce<Message[]>(messages, typingTimeout);
-
     const scrollToBottom = (): void => {
         if (chatsRef && chatsRef.current) {
             chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
@@ -45,11 +33,6 @@ const Chat = (props: ChatProps) => {
     };
 
     const handleSend = (chatId: number, message: Message): ChatsMessageSendAction => dispatch(chatsMessageSend(message, chatId));
-
-    useEffect(() => {
-        setIsTyping(false);
-        setHasResponse(true);
-    }, [activeChat])
 
     const onSendHandler = (message: string): void => {
         const newMessage: Message = {
@@ -59,33 +42,7 @@ const Chat = (props: ChatProps) => {
         };
 
         handleSend(activeChatId, newMessage);
-        setHasResponse(false);
     };
-
-    useEffect(() => {
-        const addBotResponse = () => {
-            if (!hasResponse) {
-                const newResponse: Message = getFakeResponse(responseStep, contactPerson.id);
-
-                handleSend(activeChatId, newResponse);
-                setHasResponse(true);
-                setResponseStep(responseStep + 1);
-                setIsTyping(false);
-            }
-        }
-
-        addBotResponse();
-    }, [debouncedMessage]); // eslint-disable-line react-hooks/exhaustive-deps
-
-    useEffect(() => {
-        const showTyping = () => {
-            if (!hasResponse) {
-                setIsTyping(true);
-            }
-        }
-
-        showTyping();
-    }, [debouncedTyping]);  // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         scrollToBottom();
@@ -100,7 +57,7 @@ const Chat = (props: ChatProps) => {
                             <MessagesList messages={messages} contactPerson={contactPerson} />
                         </div>
                     </div>
-                    <span className="typing text-muted"> {isTyping && <>{contactPerson.name} {t('TYPING')}</>}&nbsp; </span>
+                    <span className="typing text-muted"> {activeChat.isTyping && <>{contactPerson.name} {t('TYPING')}</>}&nbsp; </span>
                 </div>
             </Row>
 

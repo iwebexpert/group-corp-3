@@ -34,7 +34,10 @@ type Chat = {
     id: number;
     author: Author;
     messages: Message[];
-    isFired?: boolean
+    isFired: boolean;
+    hasResponse?: boolean;
+    isTyping?: boolean;
+    responseStep: number;
 };
 
 type ChatProps = {

@@ -18,20 +18,51 @@ export const chatsReducer: Reducer<ChatsReducerState> = (state = initialState, a
             return {
                 ...state,
                 items: chatsStub
-            }
+            };
         case ChatsActionTypes.CHATS_NEW:
             return {
                 ...state,
                 items: [...state.items, action.payload]
-            }
+            };
+        case ChatsActionTypes.CHATS_IS_TYPING:
+            const { isTyping } = action.payload;
+            return {
+                ...state,
+                items: [...state.items.map((item: Chat) => {
+                    if (item.id === action.payload.chatId) {
+                        item.isTyping = isTyping;
+                    }
+
+                    return item;
+                })]
+            };
+        case ChatsActionTypes.CHATS_DELETE:
+            const { id } = action.payload;
+            return {
+                ...state,
+                items: [...state.items.filter((chat: Chat) => chat.id !== id)]
+            };
+        case ChatsActionTypes.CHATS_IS_FIRED:
+            const { isFired } = action.payload;
+            return {
+                ...state,
+                items: [...state.items.map((item: Chat) => {
+                    if (item.id === action.payload.chatId) {
+                        item.isFired = isFired;
+                    }
+
+                    return item;
+                })]
+            };
         case ChatsActionTypes.CHATS_MESSAGE_SEND:
-            const { chatId, message } = action.payload;
-            
+            const { chatId, message, isResponse } = action.payload;
+
             return {
                 ...state,
                 items: [...state.items.map((item: Chat) => {
                     if (item.id === chatId) {
                         item.messages = [...item.messages, message];
+                        item.responseStep = isResponse ? item.responseStep + 1 : item.responseStep;
                     }
 
                     return item;

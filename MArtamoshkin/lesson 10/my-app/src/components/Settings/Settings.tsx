@@ -19,13 +19,13 @@ const SettingsSchema = Yup.object().shape({
 
 const Settings = () => {
     const { t } = useTranslation();
-   
+
     const dispatch = useDispatch();
     const { name, theme, language } = useSelector((state: AppState) => state.appSettings.settings);
 
     const [show, setShow] = useState<boolean>(false);
     const [userName, setUserName] = useState<string>('');
-  
+
     const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         dispatch(editSettings({ name: userName }));
