@@ -17,7 +17,7 @@ export const Layout: React.FC<{}> = ({children}) => {
                     </div>
                     <div className='col-md-8'>
                         <Switch>
-                            <Route path='/chats/:id' children={<MessengerContainer />} />
+                            <Route path='/chats/:id' component={MessengerContainer} />
                             <Route path='/' children={<MessengerContainer />} />
                         </Switch>
                     </div>
