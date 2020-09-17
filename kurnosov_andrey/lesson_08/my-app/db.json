@@ -1,0 +1,39 @@
+{
+    "chats": [
+        {
+            "id": 1,
+            "name" : "Чат 1"
+        },
+        {
+            "id": 2,
+            "name" : "Чат 2"
+        },
+        {
+            "id": 1,
+            "name" : "Чат 3"
+        }
+    ],
+    "messages": [
+        {
+            "id" : 1,
+            "chatId" : 1, 
+            "text" : "Привет!",
+            "author": "Неизвестно",
+            "isFromUser": false
+        },
+        {
+            "id" : 2,
+            "chatId" : 1, 
+            "text" : "Что ты здесь делаешь!",
+            "author": "Неизвестно",
+            "isFromUser": false
+        },
+        {
+            "id" : 3,
+            "chatId" : 2, 
+            "text" : "?????",
+            "author": "?????",
+            "isFromUser": false
+        }
+    ]
+}
