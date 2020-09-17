@@ -15,7 +15,12 @@ export const MessageForm: React.FC<MessageFormProps> = ({ messageFormData, addMe
         const form = event.currentTarget as HTMLFormElement;
 
         if (form.checkValidity()) {
-            addMessageHandler({key: generate(), author: authorField.value, messageText: messageTextField.value});
+            addMessageHandler({
+                key: generate(),
+                author: authorField.value,
+                messageText: messageTextField.value,
+                read: true
+            });
 
             messageTextField.setValues("");
         }

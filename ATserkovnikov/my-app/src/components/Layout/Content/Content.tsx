@@ -1,9 +1,9 @@
 import React from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import {Route, Switch, Redirect} from "react-router-dom";
-import ChatContentContainer from "../../../containers/ChatContentContainer";
+import {ChatContentContainer} from "../../../containers/ChatContentContainer";
+import {ChatList} from "../../ChatList";
 import {PageNotFound} from "../../PageNotFound";
-import ChatList from "../../ChatList/ChatList";
 
 import './Content.scss'
 
@@ -12,7 +12,7 @@ export const Content: React.FC = () => {
         <Container>
              <Row>
                  <Col md={4} className="p-0">
-                     <Route path="/chat/:id" component={ChatList} />
+                     <ChatList/>
                  </Col>
                  <Col md={8} className="p-0">
                      <Switch>

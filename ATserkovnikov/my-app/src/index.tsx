@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from "mobx-react";
 import {App} from "./App";
-import {BrowserRouter} from "react-router-dom";
-import {ChatStore} from "./stores";
-
+import {Provider} from "react-redux";
+import {history, initStore} from "./store";
+import {ConnectedRouter} from "connected-react-router";
+import {PersistGate} from "redux-persist/integration/react"
 import './index.scss';
 
+const {store, persistor} = initStore();
+
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider chats={new ChatStore()}>
-            <App/>
-        </Provider>
-    </BrowserRouter>,
+    <Provider store={store}>
+        <PersistGate persistor={persistor}>
+            <ConnectedRouter history={history}>
+                <App/>
+            </ConnectedRouter>
+        </PersistGate>
+    </Provider>,
     document.getElementById('root')
 );
 

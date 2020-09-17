@@ -1,29 +1,27 @@
-import React from "react";
+import {useParams} from "react-router-dom";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {AppState} from "../reducers";
+import {chatsLoad, messageAdd} from "../actions/chats";
 import {MessageList} from "../components/MessageList";
-import {inject, observer} from "mobx-react";
-import {ChatStore} from "../stores";
 
-type ChatContentContainerProps = {
-    chats?: ChatStore;
-    match?: any;
-}
+export const ChatContentContainer: React.FC = () => {
+    const {id} = useParams();
 
-@inject('chats')
-@observer
-export default class ChatContentContainer extends React.Component<ChatContentContainerProps> {
+    const dispatch = useDispatch();
+    const messages = useSelector((state:AppState) => {
+        const curChat = state.chats.entries.filter(chat => chat.id === +id)[0];
+        return curChat ? curChat.messages : null;
+    });
 
-    updateChatDB = (data: MessagesListData): void => {
-        if (this.props.chats?.addMessages){
-            this.props.chats?.addMessages(data);
-        }
+    useEffect(()=>{ dispatch(chatsLoad())}, []);
+
+    const updateChatDB = (data: MessagesListData): void => {
+        dispatch(messageAdd(data));
     };
 
-    render() {
-        const messages = this.props.chats?.chats.filter(c => c.id === +this.props.match.params.id)[0]?.messages;
-        if (messages) {
-            return <MessageList messages={messages} updateChatDB={this.updateChatDB}/>
-        } else {
-            return <div>Нет сообщений</div>
-        }
-    }
+    return messages && (
+        <MessageList messages={messages} updateChatDB={updateChatDB} />
+    );
 };
+
