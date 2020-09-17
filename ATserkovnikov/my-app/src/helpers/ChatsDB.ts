@@ -5,7 +5,9 @@ export const ChatsDB: Chat[] = [{
         messages: {
             messages: [],
             authors: [],
-            chatId: 0}
+            chatId: 0,
+            unreadMessageCount: 0
+        }
     },
     {
         id: 1,
@@ -14,7 +16,9 @@ export const ChatsDB: Chat[] = [{
         messages: {
             messages: [],
             authors: [],
-            chatId: 1}
+            chatId: 1,
+            unreadMessageCount: 0
+        }
     },
     {
         id: 2,
@@ -23,5 +27,7 @@ export const ChatsDB: Chat[] = [{
         messages: {
             messages: [],
             authors: [],
-            chatId: 2}
+            chatId: 2,
+            unreadMessageCount: 0
+        }
     }];

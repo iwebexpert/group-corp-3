@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Messages} from './Messages';
 import {MessageForm} from './MessafeForm';
 import {Container, Row} from "react-bootstrap";
@@ -13,50 +13,41 @@ export const MessageList: React.FC<MessagesListProps> = ({messages, updateChatDB
     const [curMessages, setMessage] = useState(messages);
     const [curAuthor, setNewAuthor] = useState("");
 
-    if (messages.chatId !== curMessages.chatId){
-        updateChatDB(curMessages);
+    const saveChatDB = (messages: MessagesListData) => {
+        setMessage(messages);
+        updateChatDB(messages);
+    };
 
+    if (messages.chatId !== curMessages.chatId){
         setMessage(messages);
         setNewAuthor("");
     }
-
-    const curMessagesRef = useRef(curMessages);
-    curMessagesRef.current = curMessages;
 
     const addMessageHandler = (newData: MessageData) => {
         if (curMessages.authors.find(c => c === newData.author) === undefined)
             setNewAuthor(newData.author);
 
-        setMessage({...curMessages, messages: curMessages.messages.concat(newData)});
+        saveChatDB({...curMessages, messages: curMessages.messages.concat(newData)});
     };
 
      useEffect(() => {
          if (curAuthor === "") return;
 
          const newKey = generate();
-         setMessage({...curMessages,
-             messages: curMessages.messages.concat({author: "Бот", messageText: "", key: newKey}),
+         saveChatDB({...curMessages,
+             messages: curMessages.messages.concat({author: "Бот",
+                 messageText: "",
+                 key: newKey,
+                 read: false
+             }),
              authors: curMessages.authors.concat(curAuthor)});
-
-         const timer = setTimeout(() => {
-             const newMessages = curMessagesRef.current.messages.map(item => {
-                 if (item.key === newKey){
-                     item.messageText = "Привет! " + curAuthor;
-                 }
-                 return item;
-             });
-
-             setMessage({...curMessages, messages: newMessages});
-        }, 2000);
-
-         return () => clearTimeout(timer);
     }, [curAuthor]);
 
     return (
         <Container className="p-4">
             <Row as={Messages} messages={curMessages.messages} />
             <Row as={MessageForm}
-                 messageFormData={{author: options.author, messageText: "", key: ""}}
+                 messageFormData={{author: options.author, messageText: "", key: "", read: false}}
                  addMessageHandler={addMessageHandler}
                  checkCondition={options.confirmCondition}
             />

@@ -37,6 +37,7 @@ type MessageData = {
     key: string
     author: string;
     messageText: string;
+    read: boolean;
 }
 
 type MessageProps = {
@@ -47,6 +48,7 @@ type MessagesListData = {
     messages: MessageData[];
     authors: string[];
     chatId: number;
+    unreadMessageCount: number;
 }
 
 type MessagesListProps = {
@@ -61,3 +63,7 @@ type Chat = {
     messages: MessagesListData
 }
 
+type ChatAdd = {
+    id: number;
+    name: string;
+}
