@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import { Chat } from '../components/Chat';
 import { AppState } from '../state/store';
-import { chatsLoad, messagesLoad, settingsLoad } from '../state/actions';
+import { chatsLoad, settingsLoad } from '../state/actions';
 
 type StateProps = {
   chatsLoading: boolean;
@@ -18,7 +18,6 @@ const ChatContainer: FC<Props> = ({ chatsLoading, messagesLoading, theme }) => {
   useEffect(() => {
     // Load data
     dispatch(chatsLoad());
-    dispatch(messagesLoad());
     dispatch(settingsLoad());
   }, [dispatch]);
 

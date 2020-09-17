@@ -9,7 +9,8 @@ export type MessageProps = Message & {
 
 export const Message: FC<MessageProps> = ({
   text,
-  author,
+  authorId,
+  authorName,
   id,
   date,
   closable,
@@ -17,8 +18,8 @@ export const Message: FC<MessageProps> = ({
   onMessageClose,
 }) => {
   const classes = classNames('message', {
-    _grey: author.id !== user.id,
-    _yellow: author.id === user.id,
+    _grey: authorId !== user.id,
+    _yellow: authorId === user.id,
   });
 
   const dateObj = new Date(date);
@@ -27,7 +28,7 @@ export const Message: FC<MessageProps> = ({
     <div className={classes}>
       <div>{text}</div>
       <small className="float-right">
-        {author.name}, {dateObj.getDate()}/{dateObj.getMonth()}/
+        {authorName}, {dateObj.getDate()}/{dateObj.getMonth()}/
         {dateObj.getFullYear()}&nbsp;{dateObj.getHours()}:{dateObj.getMinutes()}
       </small>
 

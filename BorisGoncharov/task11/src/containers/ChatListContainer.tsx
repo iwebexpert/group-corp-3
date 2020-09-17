@@ -44,7 +44,7 @@ const mapDispathToProps = (
       );
       dispatch(push(`/${newChatId}`));
     },
-    onChatDelete: (id: string) => dispatch(chatsDelete(id)),
+    onChatDelete: (id: string) => dispatch(chatsDelete(id) as any),
   };
 };
 

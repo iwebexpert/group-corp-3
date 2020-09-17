@@ -2,7 +2,8 @@ type Message = {
   id: string;
   chatId: string;
   text: string;
-  author: User;
+  authorId: string;
+  authorName: string;
   date: string;
   closable: boolean;
 };
@@ -27,4 +28,8 @@ type Settings = {
 type User = {
   id: string;
   name: string;
+}
+
+type ThunkExtraArgs = {
+  baseUrl: string;
 }

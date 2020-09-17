@@ -1,11 +1,12 @@
-import { ActionCreator } from 'redux';
+import { ActionCreator, Dispatch } from 'redux';
+import { AppState } from '../store';
 
 // Define actions types
 export enum MessagesActionTypes {
   // Loading actions
-  MESSAGES_LOAD = 'MESSAGES_LOAD',
+  MESSAGES_LOAD_REQUEST = 'MESSAGES_LOAD_REQUEST',
   MESSAGES_LOAD_SUCCESS = 'MESSAGES_LOAD_SUCCESS',
-  MESSAGES_LOAD_ERROR = 'MESSAGES_LOAD_ERROR',
+  MESSAGES_LOAD_FAILURE = 'MESSAGES_LOAD_FAILURE',
 
   // Main actions
   MESSAGES_ADD = 'MESSAGES_ADD',
@@ -14,8 +15,8 @@ export enum MessagesActionTypes {
 }
 
 // Define actions functions types
-export type MessagesLoadAction = {
-  type: MessagesActionTypes.MESSAGES_LOAD;
+export type MessagesLoadRequestAction = {
+  type: MessagesActionTypes.MESSAGES_LOAD_REQUEST;
 };
 
 export type MessagesLoadSuccessAction = {
@@ -23,8 +24,8 @@ export type MessagesLoadSuccessAction = {
   payload: Message[];
 };
 
-export type MessagesLoadErrorAction = {
-  type: MessagesActionTypes.MESSAGES_LOAD_ERROR;
+export type MessagesLoadFailureAction = {
+  type: MessagesActionTypes.MESSAGES_LOAD_FAILURE;
   payload: string;
 };
 
@@ -39,11 +40,24 @@ export type MessagesDeleteAction = {
 };
 
 // All actions
-export type MessagesActions = MessagesLoadAction | MessagesLoadSuccessAction | MessagesLoadErrorAction | MessagesAddAction | MessagesDeleteAction;
+export type MessagesActions = MessagesLoadRequestAction | MessagesLoadSuccessAction | MessagesLoadFailureAction | MessagesAddAction | MessagesDeleteAction;
+
+export const messagesLoad = (chatId: string) =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      console.log('here');
+
+      dispatch(messagesLoadRequest());
+      const result = await fetch(`${baseUrl}/messages?chatId=${chatId}`);
+      dispatch(messagesLoadSuccess(await result.json()));
+    } catch (error) {
+      dispatch(messagesLoadError(error));
+    }
+  };
 
 // Exporting actions
-export const messagesLoad: ActionCreator<MessagesLoadAction> = () => ({
-  type: MessagesActionTypes.MESSAGES_LOAD,
+export const messagesLoadRequest: ActionCreator<MessagesLoadRequestAction> = () => ({
+  type: MessagesActionTypes.MESSAGES_LOAD_REQUEST,
 });
 
 export const messagesLoadSuccess: ActionCreator<MessagesLoadSuccessAction> = (payload: Message[]) => ({
@@ -51,8 +65,8 @@ export const messagesLoadSuccess: ActionCreator<MessagesLoadSuccessAction> = (pa
   payload
 });
 
-export const messagesLoadError: ActionCreator<MessagesLoadErrorAction> = (payload: string) => ({
-  type: MessagesActionTypes.MESSAGES_LOAD_ERROR,
+export const messagesLoadError: ActionCreator<MessagesLoadFailureAction> = (payload: string) => ({
+  type: MessagesActionTypes.MESSAGES_LOAD_FAILURE,
   payload
 });
 

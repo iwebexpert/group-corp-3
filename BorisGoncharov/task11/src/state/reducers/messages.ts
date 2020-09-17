@@ -14,7 +14,7 @@ const initialState: MessagesReducerState = {
 
 export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (state = initialState, action) => {
   switch (action.type) {
-    case MessagesActionTypes.MESSAGES_LOAD:
+    case MessagesActionTypes.MESSAGES_LOAD_REQUEST:
       return {
         ...state,
         loading: true,
@@ -27,7 +27,7 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
         loading: false,
       };
 
-    case MessagesActionTypes.MESSAGES_LOAD_ERROR:
+    case MessagesActionTypes.MESSAGES_LOAD_FAILURE:
       console.warn(action.payload);
       return {
         ...state,

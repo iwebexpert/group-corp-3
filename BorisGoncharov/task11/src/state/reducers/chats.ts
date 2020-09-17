@@ -17,7 +17,8 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
   let index;
 
   switch (action.type) {
-    case ChatsActionTypes.CHATS_LOAD:
+    case ChatsActionTypes.CHATS_LOAD_REQUEST:
+    case ChatsActionTypes.CHATS_DELETE_REQUEST:
       return {
         ...state,
         loading: true,
@@ -30,7 +31,8 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
         loading: false,
       };
 
-    case ChatsActionTypes.CHATS_LOAD_ERROR:
+    case ChatsActionTypes.CHATS_LOAD_FAILURE:
+    case ChatsActionTypes.CHATS_DELETE_FAILURE:
       console.warn(action.payload);
       return {
         ...state,
@@ -45,7 +47,7 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
         },
       });
 
-    case ChatsActionTypes.CHATS_DELETE:
+    case ChatsActionTypes.CHATS_DELETE_SUCCESS:
       // Getting chat array id
       index = state.chats.findIndex(chat => chat.id === action.payload);
       if (index !== -1) {
@@ -53,6 +55,9 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
           chats: {
             $splice: [[index, 1]],
           },
+          loading: {
+            $set: false
+          }
         });
       }
       return state;

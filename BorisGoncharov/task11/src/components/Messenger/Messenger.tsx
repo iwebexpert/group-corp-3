@@ -28,7 +28,8 @@ export const Messenger: FC<MessengerProps> = ({
   const handleMessageSend = (text: string): void => {
     const newMessage: Message = {
       text,
-      author: user,
+      authorId: user.id,
+      authorName: user.name,
       id: generate(),
       date: new Date().toISOString(),
       closable: false,

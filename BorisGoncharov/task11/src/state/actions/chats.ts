@@ -1,11 +1,18 @@
-import { ActionCreator } from 'redux';
+import { ActionCreator, Dispatch } from 'redux';
+import { messagesLoad } from '.';
+import { AppState } from '../store';
 
 // Define actions types
 export enum ChatsActionTypes {
   // Loading actions
-  CHATS_LOAD = 'CHATS_LOAD',
+  CHATS_LOAD_REQUEST = 'CHATS_LOAD_REQUEST',
   CHATS_LOAD_SUCCESS = 'CHATS_LOAD_SUCCESS',
-  CHATS_LOAD_ERROR = 'CHATS_LOAD_ERROR',
+  CHATS_LOAD_FAILURE = 'CHATS_LOAD_FAILURE',
+
+  // Delete actions
+  CHATS_DELETE_REQUEST = 'CHATS_DELETE_REQUEST',
+  CHATS_DELETE_SUCCESS = 'CHATS_DELETE_SUCCESS',
+  CHATS_DELETE_FAILURE = 'CHATS_DELETE_FAILURE',
 
   // Main actions
   CHATS_ADD = 'CHATS_ADD',
@@ -18,8 +25,8 @@ export enum ChatsActionTypes {
 }
 
 // Define actions functions types
-export type ChatsLoadAction = {
-  type: ChatsActionTypes.CHATS_LOAD;
+export type ChatsLoadRequestAction = {
+  type: ChatsActionTypes.CHATS_LOAD_REQUEST;
 };
 
 export type ChatsLoadSuccessAction = {
@@ -27,19 +34,28 @@ export type ChatsLoadSuccessAction = {
   payload: Chat[];
 };
 
-export type ChatsLoadErrorAction = {
-  type: ChatsActionTypes.CHATS_LOAD_ERROR;
+export type ChatsLoadFailureAction = {
+  type: ChatsActionTypes.CHATS_LOAD_FAILURE;
+  payload: string;
+};
+
+export type ChatsDeleteRequestAction = {
+  type: ChatsActionTypes.CHATS_DELETE_REQUEST;
+};
+
+export type ChatsDeleteSuccessAction = {
+  type: ChatsActionTypes.CHATS_DELETE_SUCCESS;
+  payload: string;
+};
+
+export type ChatsDeleteFailureAction = {
+  type: ChatsActionTypes.CHATS_DELETE_FAILURE;
   payload: string;
 };
 
 export type ChatsAddAction = {
   type: ChatsActionTypes.CHATS_ADD;
   payload: Chat;
-};
-
-export type ChatsDeleteAction = {
-  type: ChatsActionTypes.CHATS_DELETE;
-  payload: string;
 };
 
 export type ChatsSetTypingAuthorAction = {
@@ -64,19 +80,56 @@ export type ChatsMarkUnreadAction = {
 
 // All actions
 export type ChatsActions =
-  ChatsLoadAction |
+  // Load
+  ChatsLoadRequestAction |
   ChatsLoadSuccessAction |
-  ChatsLoadErrorAction |
+  ChatsLoadFailureAction |
+  // Delete
+  ChatsDeleteRequestAction |
+  ChatsDeleteSuccessAction |
+  ChatsDeleteFailureAction |
+  // Add
   ChatsAddAction |
-  ChatsDeleteAction |
+  // Other
   ChatsSetTypingAuthorAction |
   ChatsResetTypingAuthorAction |
   ChatsMarkReadAction |
   ChatsMarkUnreadAction;
 
+// Exporting methods
+export const chatsLoad = () =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      dispatch(chatsLoadRequest());
+      const result = await fetch(`${baseUrl}/chats?_embed=messages`);
+      const chats = await result.json();
+      dispatch(chatsLoadSuccess(chats));
+      // Load messages by first chat id
+      dispatch(messagesLoad(chats[0].id) as any);
+    } catch (error) {
+      dispatch(chatsLoadFailure(error));
+    }
+  };
+
+export const chatsDelete = (id: string) =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      dispatch(chatsDeleteRequest());
+      const result = await fetch(`${baseUrl}/chats/${id}`, {
+        method: 'DELETE',
+      });
+      await result.json();
+      dispatch(chatsDeleteSuccess(id));
+    } catch (error) {
+      dispatch(chatsDeleteFailure(error));
+    }
+
+  };
+
 // Exporting actions
-export const chatsLoad: ActionCreator<ChatsLoadAction> = () => ({
-  type: ChatsActionTypes.CHATS_LOAD,
+// Load
+export const chatsLoadRequest: ActionCreator<ChatsLoadRequestAction> = () => ({
+  type: ChatsActionTypes.CHATS_LOAD_REQUEST,
 });
 
 export const chatsLoadSuccess: ActionCreator<ChatsLoadSuccessAction> = (payload: Chat[]) => ({
@@ -84,18 +137,29 @@ export const chatsLoadSuccess: ActionCreator<ChatsLoadSuccessAction> = (payload:
   payload
 });
 
-export const chatsLoadError: ActionCreator<ChatsLoadErrorAction> = (payload: string) => ({
-  type: ChatsActionTypes.CHATS_LOAD_ERROR,
+export const chatsLoadFailure: ActionCreator<ChatsLoadFailureAction> = (payload: string) => ({
+  type: ChatsActionTypes.CHATS_LOAD_FAILURE,
   payload
 });
 
+// Delete
+export const chatsDeleteRequest: ActionCreator<ChatsDeleteRequestAction> = () => ({
+  type: ChatsActionTypes.CHATS_DELETE_REQUEST,
+});
+
+export const chatsDeleteSuccess: ActionCreator<ChatsDeleteSuccessAction> = (payload: string) => ({
+  type: ChatsActionTypes.CHATS_DELETE_SUCCESS,
+  payload
+});
+
+export const chatsDeleteFailure: ActionCreator<ChatsDeleteFailureAction> = (payload: string) => ({
+  type: ChatsActionTypes.CHATS_DELETE_FAILURE,
+  payload
+});
+
+// Add
 export const chatsAdd: ActionCreator<ChatsAddAction> = (payload: Chat) => ({
   type: ChatsActionTypes.CHATS_ADD,
-  payload
-});
-
-export const chatsDelete: ActionCreator<ChatsDeleteAction> = (payload: string) => ({
-  type: ChatsActionTypes.CHATS_DELETE,
   payload
 });
 
