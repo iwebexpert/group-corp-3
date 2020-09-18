@@ -10,7 +10,14 @@ const BOT = {
 
 export const botResponseMiddleware: Middleware = store => next => action => {
   if (action.type === MessagesActionTypes.MESSAGES_ADD_SUCCESS) {
-    const { chatId, authorId, authorName } = (action as MessagesAddSuccessAction).payload;
+    const messageId = (action as MessagesAddSuccessAction).payload;
+    const foundMessage = (store.getState() as AppState).messages.messages.find(message => message.id === messageId);
+
+    if (!foundMessage) {
+      return next(action);
+    }
+
+    const { chatId, authorId, authorName } = foundMessage;
     const typingAuthor = (store.getState() as AppState).chats.chats.find(chat => chat.id === chatId)?.typingAuthor;
     const botIsWriting = typingAuthor === BOT.name;
 
@@ -26,6 +33,7 @@ export const botResponseMiddleware: Middleware = store => next => action => {
           text: `Hi, ${authorName}! This is ${BOT.name}...`,
           closable: true,
           date: new Date().toISOString(),
+          sentOnServer: true,
         }) as any);
 
         store.dispatch(chatsResetTypingAuthor(chatId));

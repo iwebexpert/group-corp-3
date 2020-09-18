@@ -8,7 +8,7 @@ export type ChatsReducerState = {
 };
 
 const initialState: ChatsReducerState = {
-  loading: false,
+  loading: true,
   chats: [],
 };
 
@@ -45,9 +45,7 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
         chats: {
           $push: [action.payload]
         },
-        loading: {
-          $set: false
-        },
+        loading: { $set: false },
       });
 
     case ChatsActionTypes.CHATS_DELETE_SUCCESS:
@@ -58,9 +56,7 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
           chats: {
             $splice: [[index, 1]],
           },
-          loading: {
-            $set: false
-          }
+          loading: { $set: false },
         });
       }
       return state;

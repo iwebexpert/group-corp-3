@@ -14,12 +14,15 @@ export const Message: FC<MessageProps> = ({
   id,
   date,
   closable,
+  sentOnServer,
   user,
   onMessageClose,
 }) => {
+  const userIsAuthor = authorId === user.id;
+
   const classes = classNames('message', {
-    _grey: authorId !== user.id,
-    _yellow: authorId === user.id,
+    _grey: !userIsAuthor,
+    _yellow: userIsAuthor,
   });
 
   const dateObj = new Date(date);
@@ -29,7 +32,8 @@ export const Message: FC<MessageProps> = ({
       <div>{text}</div>
       <small className="float-right">
         {authorName}, {dateObj.getDate()}/{dateObj.getMonth()}/
-        {dateObj.getFullYear()}&nbsp;{dateObj.getHours()}:{dateObj.getMinutes()}
+        {dateObj.getFullYear()}&nbsp;{dateObj.getHours()}:{dateObj.getMinutes()}{' '}
+        {userIsAuthor && sentOnServer ? <>&#10003;</> : null}
       </small>
 
       {closable && (

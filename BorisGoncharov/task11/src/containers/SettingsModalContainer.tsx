@@ -4,7 +4,7 @@ import { SettingsModal } from '../components/SettingsModal';
 import { AppState } from '../state/store';
 import {
   SettingsActions,
-  settingsChange,
+  settingsUpdate,
   settingsModalClose,
 } from '../state/actions';
 import i18n from '../i18n/i18n';
@@ -59,7 +59,7 @@ const mapDispathToProps = (
 ): DispatchProps => {
   return {
     onSettingsChange: (settings: Settings) =>
-      dispatch(settingsChange(settings)),
+      dispatch(settingsUpdate(settings) as any),
     onSettingsModalClose: () => dispatch(settingsModalClose()),
   };
 };

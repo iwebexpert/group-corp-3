@@ -2,7 +2,7 @@ import { connectRouter, routerMiddleware, RouterState } from "connected-react-ro
 import { createBrowserHistory, History } from "history";
 import { applyMiddleware, combineReducers, createStore, Store } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { botResponseMiddleware, chatHighlightMiddleware } from "./middlewares";
+import { botResponseMiddleware, chatHighlightMiddleware, messagesLoadMiddleware } from "./middlewares";
 import { chatsReducer, ChatsReducerState, messagesReducer, MessagesReducerState, settingsReducer, SettingsReducerState } from "./reducers";
 import thunk from 'redux-thunk';
 
@@ -32,7 +32,8 @@ export const store: Store = createStore(
       routerMiddleware(history), // for dispatching history actions
       // ... other middlewares ...
       botResponseMiddleware,
-      chatHighlightMiddleware
+      chatHighlightMiddleware,
+      messagesLoadMiddleware,
     )
   ),
 );

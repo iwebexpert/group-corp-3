@@ -34,6 +34,7 @@ export const Messenger: FC<MessengerProps> = ({
       date: new Date().toISOString(),
       closable: false,
       chatId,
+      sentOnServer: false,
     };
 
     onMessageSend(newMessage);

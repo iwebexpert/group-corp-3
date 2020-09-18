@@ -6,6 +6,7 @@ type Message = {
   authorName: string;
   date: string;
   closable: boolean;
+  sentOnServer: boolean;
 };
 
 type Chat = {

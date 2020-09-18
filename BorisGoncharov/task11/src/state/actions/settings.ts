@@ -1,21 +1,27 @@
-import { ActionCreator } from 'redux';
+import { ActionCreator, Dispatch } from 'redux';
+import { AppState } from '../store';
 
 // Define actions types
 export enum SettingsActionTypes {
-  // Loading actions
-  SETTINGS_LOAD = 'SETTINGS_LOAD',
+  // Load
+  SETTINGS_LOAD_REQUEST = 'SETTINGS_LOAD_REQUEST',
   SETTINGS_LOAD_SUCCESS = 'SETTINGS_LOAD_SUCCESS',
-  SETTINGS_LOAD_ERROR = 'SETTINGS_LOAD_ERROR',
+  SETTINGS_LOAD_FAILURE = 'SETTINGS_LOAD_FAILURE',
 
-  // Main actions
-  SETTINGS_CHANGE = 'SETTINGS_CHANGE',
+  // Update
+  SETTINGS_UPDATE_REQUEST = 'SETTINGS_UPDATE_REQUEST',
+  SETTINGS_UPDATE_SUCCESS = 'SETTINGS_UPDATE_SUCCESS',
+  SETTINGS_UPDATE_FAILURE = 'SETTINGS_UPDATE_FAILURE',
+
+  // Other
   SETTINGS_MODAL_OPEN = 'SETTINGS_MODAL_OPEN',
   SETTINGS_MODAL_CLOSE = 'SETTINGS_MODAL_CLOSE',
 }
 
 // Define actions functions types
-export type SettingsLoadAction = {
-  type: SettingsActionTypes.SETTINGS_LOAD;
+// Load
+export type SettingsLoadRequestAction = {
+  type: SettingsActionTypes.SETTINGS_LOAD_REQUEST;
 };
 
 export type SettingsLoadSuccessAction = {
@@ -23,16 +29,27 @@ export type SettingsLoadSuccessAction = {
   payload: Settings;
 };
 
-export type SettingsLoadErrorAction = {
-  type: SettingsActionTypes.SETTINGS_LOAD_ERROR;
+export type SettingsLoadFailureAction = {
+  type: SettingsActionTypes.SETTINGS_LOAD_FAILURE;
   payload: string;
 };
 
-export type SettingsChangeAction = {
-  type: SettingsActionTypes.SETTINGS_CHANGE;
+// Update
+export type SettingsUpdateRequestAction = {
+  type: SettingsActionTypes.SETTINGS_UPDATE_REQUEST;
   payload: Settings;
 };
 
+export type SettingsUpdateSuccessAction = {
+  type: SettingsActionTypes.SETTINGS_UPDATE_SUCCESS;
+};
+
+export type SettingsUpdateFailureAction = {
+  type: SettingsActionTypes.SETTINGS_UPDATE_FAILURE;
+  payload: string;
+};
+
+// Other
 export type SettingsModalOpenAction = {
   type: SettingsActionTypes.SETTINGS_MODAL_OPEN;
 };
@@ -42,11 +59,36 @@ export type SettingsModalCloseAction = {
 };
 
 // All actions
-export type SettingsActions = SettingsLoadAction | SettingsLoadSuccessAction | SettingsLoadErrorAction | SettingsChangeAction | SettingsModalOpenAction | SettingsModalCloseAction;
+export type SettingsActions =
+  // Load 
+  SettingsLoadRequestAction |
+  SettingsLoadSuccessAction |
+  SettingsLoadFailureAction |
+
+  // Update
+  SettingsUpdateRequestAction |
+  SettingsUpdateSuccessAction |
+  SettingsUpdateFailureAction |
+
+  // Other
+  SettingsModalOpenAction |
+  SettingsModalCloseAction;
 
 // Exporting actions
-export const settingsLoad: ActionCreator<SettingsLoadAction> = () => ({
-  type: SettingsActionTypes.SETTINGS_LOAD,
+// Load
+export const settingsLoad = () =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      dispatch(settingsLoadRequest());
+      const result = await fetch(`${baseUrl}/settings`);
+      dispatch(settingsLoadSuccess(await result.json()));
+    } catch (error) {
+      dispatch(settingsLoadFailure(error));
+    }
+  };
+
+export const settingsLoadRequest: ActionCreator<SettingsLoadRequestAction> = () => ({
+  type: SettingsActionTypes.SETTINGS_LOAD_REQUEST,
 });
 
 export const settingsLoadSuccess: ActionCreator<SettingsLoadSuccessAction> = (payload: Settings) => ({
@@ -54,16 +96,45 @@ export const settingsLoadSuccess: ActionCreator<SettingsLoadSuccessAction> = (pa
   payload
 });
 
-export const settingsLoadError: ActionCreator<SettingsLoadErrorAction> = (payload: string) => ({
-  type: SettingsActionTypes.SETTINGS_LOAD_ERROR,
+export const settingsLoadFailure: ActionCreator<SettingsLoadFailureAction> = (payload: string) => ({
+  type: SettingsActionTypes.SETTINGS_LOAD_FAILURE,
   payload
 });
 
-export const settingsChange: ActionCreator<SettingsChangeAction> = (payload: Settings) => ({
-  type: SettingsActionTypes.SETTINGS_CHANGE,
+// Load
+export const settingsUpdate = (settings: Settings) =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      dispatch(settingsUpdateRequest(settings));
+      const result = await fetch(`${baseUrl}/settings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(settings),
+      });
+      await result.json();
+      dispatch(settingsUpdateSuccess());
+    } catch (error) {
+      dispatch(settingsUpdateFailure(error));
+    }
+  };
+
+export const settingsUpdateRequest: ActionCreator<SettingsUpdateRequestAction> = (payload: Settings) => ({
+  type: SettingsActionTypes.SETTINGS_UPDATE_REQUEST,
   payload
 });
 
+export const settingsUpdateSuccess: ActionCreator<SettingsUpdateSuccessAction> = () => ({
+  type: SettingsActionTypes.SETTINGS_UPDATE_SUCCESS,
+});
+
+export const settingsUpdateFailure: ActionCreator<SettingsUpdateFailureAction> = (payload: string) => ({
+  type: SettingsActionTypes.SETTINGS_UPDATE_FAILURE,
+  payload
+});
+
+// Other
 export const settingsModalOpen: ActionCreator<SettingsModalOpenAction> = () => ({
   type: SettingsActionTypes.SETTINGS_MODAL_OPEN,
 });

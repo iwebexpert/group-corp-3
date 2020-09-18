@@ -17,6 +17,10 @@ export enum MessagesActionTypes {
   MESSAGES_DELETE_REQUEST = 'MESSAGES_DELETE_REQUEST',
   MESSAGES_DELETE_SUCCESS = 'MESSAGES_DELETE_SUCCESS',
   MESSAGES_DELETE_FAILURE = 'MESSAGES_DELETE_FAILURE',
+
+  // Other
+  MESSAGES_SHOW_LOADING = 'MESSAGES_SHOW_LOADING',
+  MESSAGES_MARK_SENT = 'MESSAGES_MARK_SENT',
 }
 
 // Define actions functions types
@@ -38,11 +42,12 @@ export type MessagesLoadFailureAction = {
 // Add
 export type MessagesAddRequestAction = {
   type: MessagesActionTypes.MESSAGES_ADD_REQUEST;
+  payload: Message;
 };
 
 export type MessagesAddSuccessAction = {
   type: MessagesActionTypes.MESSAGES_ADD_SUCCESS;
-  payload: Message;
+  payload: string;
 };
 
 export type MessagesAddFailureAction = {
@@ -65,6 +70,10 @@ export type MessagesDeleteFailureAction = {
   payload: string;
 };
 
+export type MessagesShowLoadingAction = {
+  type: MessagesActionTypes.MESSAGES_SHOW_LOADING;
+};
+
 // All actions
 export type MessagesActions =
   // Load
@@ -80,7 +89,10 @@ export type MessagesActions =
   // Delete
   MessagesDeleteRequestAction |
   MessagesDeleteSuccessAction |
-  MessagesDeleteFailureAction;
+  MessagesDeleteFailureAction |
+
+  // Other
+  MessagesShowLoadingAction;
 
 // Exporting actions
 // Load
@@ -113,7 +125,7 @@ export const messagesLoadError: ActionCreator<MessagesLoadFailureAction> = (payl
 export const messagesAdd = (message: Message) =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
-      dispatch(messagesAddRequest());
+      dispatch(messagesAddRequest(message));
       const result = await fetch(`${baseUrl}/messages`, {
         method: 'POST',
         headers: {
@@ -121,17 +133,18 @@ export const messagesAdd = (message: Message) =>
         },
         body: JSON.stringify(message),
       });
-      dispatch(messagesAddSuccess(await result.json()));
+      dispatch(messagesAddSuccess((await result.json() as Message).id));
     } catch (error) {
       dispatch(messagesAddError(error));
     }
   };
 
-export const messagesAddRequest: ActionCreator<MessagesAddRequestAction> = () => ({
+export const messagesAddRequest: ActionCreator<MessagesAddRequestAction> = (payload: Message) => ({
   type: MessagesActionTypes.MESSAGES_ADD_REQUEST,
+  payload
 });
 
-export const messagesAddSuccess: ActionCreator<MessagesAddSuccessAction> = (payload: Message) => ({
+export const messagesAddSuccess: ActionCreator<MessagesAddSuccessAction> = (payload: string) => ({
   type: MessagesActionTypes.MESSAGES_ADD_SUCCESS,
   payload
 });
@@ -167,4 +180,9 @@ export const messagesDeleteSuccess: ActionCreator<MessagesDeleteSuccessAction> =
 export const messagesDeleteError: ActionCreator<MessagesDeleteFailureAction> = (payload: string) => ({
   type: MessagesActionTypes.MESSAGES_DELETE_FAILURE,
   payload
+});
+
+// Other
+export const messagesShowLoading: ActionCreator<MessagesShowLoadingAction> = () => ({
+  type: MessagesActionTypes.MESSAGES_SHOW_LOADING,
 });

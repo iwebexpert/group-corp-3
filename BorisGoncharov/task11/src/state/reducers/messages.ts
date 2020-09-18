@@ -8,11 +8,13 @@ export type MessagesReducerState = {
 };
 
 const initialState: MessagesReducerState = {
-  loading: false,
+  loading: true,
   messages: [],
 };
 
 export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (state = initialState, action) => {
+  let index; // Message index in array
+
   switch (action.type) {
     case MessagesActionTypes.MESSAGES_LOAD_REQUEST:
       return {
@@ -37,23 +39,44 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
         loading: false,
       };
 
-    case MessagesActionTypes.MESSAGES_ADD_SUCCESS:
+    case MessagesActionTypes.MESSAGES_ADD_REQUEST:
       return update(state, {
         messages: {
           $push: [action.payload]
         },
-        loading: { $set: false }
       });
 
     case MessagesActionTypes.MESSAGES_DELETE_SUCCESS:
       // Getting message array id
-      let id = state.messages.findIndex(message => message.id === action.payload);
-      if (id !== -1) {
+      index = state.messages.findIndex(message => message.id === action.payload);
+      if (index !== -1) {
         return update(state, {
           messages: {
-            $splice: [[id, 1]],
+            $splice: [[index, 1]],
           },
-          loading: { $set: false }
+        });
+      }
+      return state;
+
+    case MessagesActionTypes.MESSAGES_SHOW_LOADING:
+      return {
+        ...state,
+        loading: true,
+      }
+
+    case MessagesActionTypes.MESSAGES_ADD_SUCCESS:
+      // Getting message array id
+      index = state.messages.findIndex(message => message.id === action.payload);
+      if (index !== -1) {
+        return update(state, {
+          messages: {
+            [index]: {
+              sentOnServer: {
+                $set: true
+              }
+            }
+          },
+
         });
       }
       return state;

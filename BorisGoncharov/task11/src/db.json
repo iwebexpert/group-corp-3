@@ -13,38 +13,14 @@
       "typingAuthor": ""
     },
     {
-      "id": "mvvdVfcRM",
-      "title": "asdsad",
+      "id": "Ca0iA-hi6",
+      "title": "asdasd",
       "isUnread": false,
       "typingAuthor": ""
     },
     {
-      "id": "L8l_6jryO",
-      "title": "asdsadas",
-      "isUnread": false,
-      "typingAuthor": ""
-    },
-    {
-      "id": "ndMSMs9yN",
-      "title": "asdasda",
-      "isUnread": false,
-      "typingAuthor": ""
-    },
-    {
-      "id": "Frna1FZEQ",
-      "title": "dfdgdfg",
-      "isUnread": false,
-      "typingAuthor": ""
-    },
-    {
-      "id": "Xr5naHpmH",
-      "title": "asdasdsad",
-      "isUnread": false,
-      "typingAuthor": ""
-    },
-    {
-      "id": "1ImXsANOL",
-      "title": "sadsad",
+      "id": "aviaZ1Jt8",
+      "title": "asdasd",
       "isUnread": false,
       "typingAuthor": ""
     }
@@ -69,78 +45,6 @@
       "chatId": "0"
     },
     {
-      "text": "sadasd",
-      "authorId": "00000001",
-      "authorName": "Boris",
-      "id": "IcgsAphhp",
-      "date": "2020-09-18T09:51:11.138Z",
-      "closable": false,
-      "chatId": "Xr5naHpmH"
-    },
-    {
-      "text": "asdasdsad",
-      "authorId": "00000001",
-      "authorName": "Boris",
-      "id": "HBE2WiTmZ",
-      "date": "2020-09-18T09:51:13.232Z",
-      "closable": false,
-      "chatId": "Xr5naHpmH"
-    },
-    {
-      "id": "cxEyxsu0R",
-      "chatId": "Xr5naHpmH",
-      "authorName": "Bot",
-      "authorId": "007213",
-      "text": "Hi, Boris! This is Bot...",
-      "closable": true,
-      "date": "2020-09-18T09:51:14.218Z"
-    },
-    {
-      "text": "asdsaddsa",
-      "authorId": "00000001",
-      "authorName": "Boris",
-      "id": "0wKxOAX3q",
-      "date": "2020-09-18T09:51:20.754Z",
-      "closable": false,
-      "chatId": "Xr5naHpmH"
-    },
-    {
-      "id": "DTKSCb_xv",
-      "chatId": "Xr5naHpmH",
-      "authorName": "Bot",
-      "authorId": "007213",
-      "text": "Hi, Boris! This is Bot...",
-      "closable": true,
-      "date": "2020-09-18T09:51:24.145Z"
-    },
-    {
-      "text": "sadasd",
-      "authorId": "00000001",
-      "authorName": "Boris",
-      "id": "YpSxQgIiV",
-      "date": "2020-09-18T09:51:59.480Z",
-      "closable": false,
-      "chatId": "1ImXsANOL"
-    },
-    {
-      "text": "asdasd",
-      "authorId": "00000001",
-      "authorName": "Boris",
-      "id": "ZRFzrwhUV",
-      "date": "2020-09-18T09:52:00.717Z",
-      "closable": false,
-      "chatId": "1ImXsANOL"
-    },
-    {
-      "id": "T93qigr9X",
-      "chatId": "1ImXsANOL",
-      "authorName": "Bot",
-      "authorId": "007213",
-      "text": "Hi, Boris! This is Bot...",
-      "closable": true,
-      "date": "2020-09-18T09:52:02.556Z"
-    },
-    {
       "text": "asadasd",
       "authorId": "00000001",
       "authorName": "Boris",
@@ -157,12 +61,265 @@
       "text": "Hi, Boris! This is Bot...",
       "closable": true,
       "date": "2020-09-18T09:52:13.854Z"
+    },
+    {
+      "text": "sadsadsad",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "gQQtEfkL3",
+      "date": "2020-09-18T09:54:08.992Z",
+      "closable": false,
+      "chatId": "0"
+    },
+    {
+      "text": "asdasdsad",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "t-gxOIGSP",
+      "date": "2020-09-18T09:54:10.914Z",
+      "closable": false,
+      "chatId": "0"
+    },
+    {
+      "id": "qiCivNIJD",
+      "chatId": "0",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T09:54:12.367Z"
+    },
+    {
+      "text": "asdasdsa",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "HyMc4DceE",
+      "date": "2020-09-18T10:29:47.899Z",
+      "closable": false,
+      "chatId": "YDfHvm8rk"
+    },
+    {
+      "id": "dREO14v1b",
+      "chatId": "YDfHvm8rk",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T10:29:53.312Z"
+    },
+    {
+      "text": "sdfdsfsdf",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "k6x8Ku07E",
+      "date": "2020-09-18T10:30:04.698Z",
+      "closable": false,
+      "chatId": "YDfHvm8rk"
+    },
+    {
+      "id": "aKZMMSY52",
+      "chatId": "YDfHvm8rk",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T10:30:10.081Z"
+    },
+    {
+      "text": "asdsad",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "pzGpRGgCD",
+      "date": "2020-09-18T10:56:18.892Z",
+      "closable": false,
+      "chatId": "aviaZ1Jt8",
+      "sentOnServer": false
+    },
+    {
+      "id": "2hCeJKOVh",
+      "chatId": "aviaZ1Jt8",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T10:56:21.895Z",
+      "sentOnServer": true
+    },
+    {
+      "text": "asdsad",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "tv6xEQOeo",
+      "date": "2020-09-18T10:56:58.766Z",
+      "closable": false,
+      "chatId": "aviaZ1Jt8",
+      "sentOnServer": false
+    },
+    {
+      "id": "befk8SLJp",
+      "chatId": "aviaZ1Jt8",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T10:57:01.767Z",
+      "sentOnServer": true
+    },
+    {
+      "text": "asdasd",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "_Gq6k-To4",
+      "date": "2020-09-18T10:59:17.924Z",
+      "closable": false,
+      "chatId": "aviaZ1Jt8",
+      "sentOnServer": false
+    },
+    {
+      "id": "UW-s-iTP_",
+      "chatId": "aviaZ1Jt8",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T10:59:20.927Z",
+      "sentOnServer": true
+    },
+    {
+      "text": "dsfdsf",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "OVFc4Q4bB",
+      "date": "2020-09-18T11:00:27.168Z",
+      "closable": false,
+      "chatId": "aviaZ1Jt8",
+      "sentOnServer": false
+    },
+    {
+      "id": "IzMvrqBWL",
+      "chatId": "aviaZ1Jt8",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T11:00:30.173Z",
+      "sentOnServer": true
+    },
+    {
+      "text": "asdsad",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "qCwrrMKWT",
+      "date": "2020-09-18T11:30:29.115Z",
+      "closable": false,
+      "chatId": "0",
+      "sentOnServer": false
+    },
+    {
+      "id": "k08s1QmhX",
+      "chatId": "0",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T11:30:32.126Z",
+      "sentOnServer": true
+    },
+    {
+      "text": "asdsad",
+      "authorId": "00000001",
+      "authorName": "Boris",
+      "id": "1aM-AoWXP",
+      "date": "2020-09-18T11:30:33.947Z",
+      "closable": false,
+      "chatId": "0",
+      "sentOnServer": false
+    },
+    {
+      "id": "0dUdcmcrt",
+      "chatId": "0",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Boris! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T11:30:36.949Z",
+      "sentOnServer": true
+    },
+    {
+      "text": "asdsadsad",
+      "authorId": "00000001",
+      "authorName": "Borisasdasd",
+      "id": "7RqMMO0Pr",
+      "date": "2020-09-18T12:59:38.503Z",
+      "closable": false,
+      "chatId": "aviaZ1Jt8",
+      "sentOnServer": false
+    },
+    {
+      "text": "asdsad",
+      "authorId": "00000001",
+      "authorName": "Borisasdasd",
+      "id": "U28Orxvgb",
+      "date": "2020-09-18T12:59:40.838Z",
+      "closable": false,
+      "chatId": "aviaZ1Jt8",
+      "sentOnServer": false
+    },
+    {
+      "id": "fOcTNc8la",
+      "chatId": "aviaZ1Jt8",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Borisasdasd! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T12:59:43.581Z",
+      "sentOnServer": true
+    },
+    {
+      "text": "sdaasdsa",
+      "authorId": "00000001",
+      "authorName": "Borisasdasd",
+      "id": "I5rdowENL",
+      "date": "2020-09-18T13:08:22.003Z",
+      "closable": false,
+      "chatId": "0",
+      "sentOnServer": false
+    },
+    {
+      "id": "HHitXNDv0",
+      "chatId": "0",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Borisasdasd! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T13:08:27.083Z",
+      "sentOnServer": true
+    },
+    {
+      "text": "asdasdsadasd",
+      "authorId": "00000001",
+      "authorName": "Borisasdasd",
+      "id": "YTdXjokLI",
+      "date": "2020-09-18T13:08:35.630Z",
+      "closable": false,
+      "chatId": "0",
+      "sentOnServer": false
+    },
+    {
+      "id": "GDrijWf9a",
+      "chatId": "0",
+      "authorName": "Bot",
+      "authorId": "007213",
+      "text": "Hi, Borisasdasd! This is Bot...",
+      "closable": true,
+      "date": "2020-09-18T13:08:41.028Z",
+      "sentOnServer": true
     }
   ],
   "settings": {
     "user": {
       "id": "00000001",
-      "name": "Boris"
+      "name": "Borisasdasd"
     },
     "theme": "light",
     "language": "en"

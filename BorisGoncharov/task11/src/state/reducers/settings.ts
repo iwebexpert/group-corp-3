@@ -24,7 +24,7 @@ const initialState: SettingsReducerState = {
 
 export const settingsReducer: Reducer<SettingsReducerState, SettingsActions> = (state = initialState, action) => {
   switch (action.type) {
-    case SettingsActionTypes.SETTINGS_LOAD:
+    case SettingsActionTypes.SETTINGS_LOAD_REQUEST:
       return {
         ...state,
         loading: true,
@@ -37,7 +37,8 @@ export const settingsReducer: Reducer<SettingsReducerState, SettingsActions> = (
         loading: false,
       };
 
-    case SettingsActionTypes.SETTINGS_LOAD_ERROR:
+    case SettingsActionTypes.SETTINGS_LOAD_FAILURE:
+    case SettingsActionTypes.SETTINGS_UPDATE_FAILURE:
       console.warn(action.payload);
       return {
         ...state,
@@ -45,7 +46,7 @@ export const settingsReducer: Reducer<SettingsReducerState, SettingsActions> = (
         loading: false,
       };
 
-    case SettingsActionTypes.SETTINGS_CHANGE:
+    case SettingsActionTypes.SETTINGS_UPDATE_REQUEST:
       return {
         ...state,
         settings: action.payload,

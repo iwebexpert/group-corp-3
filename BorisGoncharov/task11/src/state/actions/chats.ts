@@ -1,5 +1,4 @@
 import { ActionCreator, Dispatch } from 'redux';
-import { messagesLoad } from '.';
 import { AppState } from '../store';
 
 // Define actions types
@@ -124,8 +123,6 @@ export const chatsLoad = () =>
       const result = await fetch(`${baseUrl}/chats?_embed=messages`);
       const chats = await result.json();
       dispatch(chatsLoadSuccess(chats));
-      // Load messages by first chat id
-      dispatch(messagesLoad(chats[0].id) as any);
     } catch (error) {
       dispatch(chatsLoadFailure(error));
     }
