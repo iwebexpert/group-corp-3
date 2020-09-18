@@ -28,8 +28,8 @@ export const store: Store = createStore(
   createRootReducer(history), // root reducer with router state
   composeWithDevTools(
     applyMiddleware(
-      thunk.withExtraArgument<ThunkExtraArgs>({ baseUrl }),
       routerMiddleware(history), // for dispatching history actions
+      thunk.withExtraArgument<ThunkExtraArgs>({ baseUrl }),
       // ... other middlewares ...
       messagesMiddleware,
       routeMiddleware,

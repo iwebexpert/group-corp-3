@@ -41,7 +41,7 @@ export const messagesMiddleware: Middleware = store => next => action => {
         }) as any);
 
         store.dispatch(chatsResetTypingAuthor(chatId));
-      }, 3000);
+      }, 2000);
     }
 
     // Highlight chat if message arrived in inactive chat

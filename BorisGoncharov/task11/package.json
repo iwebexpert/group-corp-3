@@ -43,7 +43,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "json-server --port 4000 --delay 2000 --watch ./src/db.json",
+    "server": "json-server --port 4000 --delay 1000 --watch ./src/db.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
