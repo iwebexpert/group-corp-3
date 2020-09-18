@@ -9,6 +9,8 @@ const BOT = {
 }
 
 export const messagesMiddleware: Middleware = store => next => action => {
+  const result = next(action);
+
   if (action.type === MessagesActionTypes.MESSAGES_ADD_SUCCESS) {
     const messageId = (action as MessagesAddSuccessAction).payload;
     const state = (store.getState() as AppState);
@@ -50,5 +52,5 @@ export const messagesMiddleware: Middleware = store => next => action => {
     }
   }
 
-  return next(action);
+  return result;
 };

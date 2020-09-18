@@ -30,8 +30,8 @@ export const MessageList: FC<MessageListProps> = ({
   });
 
   const classes = classNames('message-list', {
-    'bg-white': theme === 'light',
-    'bg-secondary': theme === 'dark',
+    'bg-white text-secondary': theme === 'light',
+    'bg-secondary text-white': theme === 'dark',
   });
 
   return (
@@ -45,7 +45,7 @@ export const MessageList: FC<MessageListProps> = ({
         />
       ))}
       {typingAuthor && (
-        <div className="text-secondary">
+        <div>
           {`${typingAuthor} ${t('WRITING')}... `}
           <Spinner animation="border" variant="secondary" size="sm" />
         </div>
