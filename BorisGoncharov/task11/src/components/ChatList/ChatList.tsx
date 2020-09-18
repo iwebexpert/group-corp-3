@@ -9,12 +9,14 @@ export type ChatListProps = {
   chats: Chat[];
   onChatAdd: (title: string) => void;
   onChatDelete: (id: string) => void;
+  onChatSelect: (id: string) => void;
 };
 
 export const ChatList: FC<ChatListProps> = ({
   chats,
   onChatAdd,
   onChatDelete,
+  onChatSelect,
 }) => {
   let { chatId } = useParams<{ chatId: string }>();
   const { t } = useTranslation();
@@ -47,6 +49,7 @@ export const ChatList: FC<ChatListProps> = ({
                   action
                   variant="dark"
                   active={chat.id === chatId}
+                  onClick={() => onChatSelect(chat.id)}
                 >
                   {chat.title + (chat.isUnread ? '*' : '')}
                 </ListGroup.Item>

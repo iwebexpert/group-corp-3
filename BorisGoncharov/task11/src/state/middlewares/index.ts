@@ -1,3 +1,2 @@
-export * from './botResponse';
-export * from './chatHighlight'
-export * from './messagesLoad'
+export * from './messages';
+export * from './router'

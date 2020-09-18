@@ -3,7 +3,7 @@ import { AppState } from '../store';
 
 // Define actions types
 export enum MessagesActionTypes {
-  // Loading
+  // Load
   MESSAGES_LOAD_REQUEST = 'MESSAGES_LOAD_REQUEST',
   MESSAGES_LOAD_SUCCESS = 'MESSAGES_LOAD_SUCCESS',
   MESSAGES_LOAD_FAILURE = 'MESSAGES_LOAD_FAILURE',
@@ -17,10 +17,6 @@ export enum MessagesActionTypes {
   MESSAGES_DELETE_REQUEST = 'MESSAGES_DELETE_REQUEST',
   MESSAGES_DELETE_SUCCESS = 'MESSAGES_DELETE_SUCCESS',
   MESSAGES_DELETE_FAILURE = 'MESSAGES_DELETE_FAILURE',
-
-  // Other
-  MESSAGES_SHOW_LOADING = 'MESSAGES_SHOW_LOADING',
-  MESSAGES_MARK_SENT = 'MESSAGES_MARK_SENT',
 }
 
 // Define actions functions types
@@ -70,10 +66,6 @@ export type MessagesDeleteFailureAction = {
   payload: string;
 };
 
-export type MessagesShowLoadingAction = {
-  type: MessagesActionTypes.MESSAGES_SHOW_LOADING;
-};
-
 // All actions
 export type MessagesActions =
   // Load
@@ -89,10 +81,7 @@ export type MessagesActions =
   // Delete
   MessagesDeleteRequestAction |
   MessagesDeleteSuccessAction |
-  MessagesDeleteFailureAction |
-
-  // Other
-  MessagesShowLoadingAction;
+  MessagesDeleteFailureAction;
 
 // Exporting actions
 // Load
@@ -103,7 +92,7 @@ export const messagesLoad = (chatId: string) =>
       const result = await fetch(`${baseUrl}/messages?chatId=${chatId}`);
       dispatch(messagesLoadSuccess(await result.json()));
     } catch (error) {
-      dispatch(messagesLoadError(error));
+      dispatch(messagesLoadFailure(error));
     }
   };
 
@@ -116,7 +105,7 @@ export const messagesLoadSuccess: ActionCreator<MessagesLoadSuccessAction> = (pa
   payload
 });
 
-export const messagesLoadError: ActionCreator<MessagesLoadFailureAction> = (payload: string) => ({
+export const messagesLoadFailure: ActionCreator<MessagesLoadFailureAction> = (payload: string) => ({
   type: MessagesActionTypes.MESSAGES_LOAD_FAILURE,
   payload
 });
@@ -131,11 +120,11 @@ export const messagesAdd = (message: Message) =>
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(message),
+        body: JSON.stringify({ ...message, sentOnServer: true }),
       });
       dispatch(messagesAddSuccess((await result.json() as Message).id));
     } catch (error) {
-      dispatch(messagesAddError(error));
+      dispatch(messagesAddFailure(error));
     }
   };
 
@@ -149,7 +138,7 @@ export const messagesAddSuccess: ActionCreator<MessagesAddSuccessAction> = (payl
   payload
 });
 
-export const messagesAddError: ActionCreator<MessagesAddFailureAction> = (payload: string) => ({
+export const messagesAddFailure: ActionCreator<MessagesAddFailureAction> = (payload: string) => ({
   type: MessagesActionTypes.MESSAGES_ADD_FAILURE,
   payload
 });
@@ -164,7 +153,7 @@ export const messagesDelete = (id: string) =>
       });
       dispatch(messagesDeleteSuccess(id));
     } catch (error) {
-      dispatch(messagesDeleteError(error));
+      dispatch(messagesDeleteFailure(error));
     }
   };
 
@@ -177,12 +166,7 @@ export const messagesDeleteSuccess: ActionCreator<MessagesDeleteSuccessAction> =
   payload
 });
 
-export const messagesDeleteError: ActionCreator<MessagesDeleteFailureAction> = (payload: string) => ({
+export const messagesDeleteFailure: ActionCreator<MessagesDeleteFailureAction> = (payload: string) => ({
   type: MessagesActionTypes.MESSAGES_DELETE_FAILURE,
   payload
-});
-
-// Other
-export const messagesShowLoading: ActionCreator<MessagesShowLoadingAction> = () => ({
-  type: MessagesActionTypes.MESSAGES_SHOW_LOADING,
 });

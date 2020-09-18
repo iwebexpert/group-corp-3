@@ -32,7 +32,7 @@ export const Messenger: FC<MessengerProps> = ({
       authorName: user.name,
       id: generate(),
       date: new Date().toISOString(),
-      closable: false,
+      closable: true,
       chatId,
       sentOnServer: false,
     };

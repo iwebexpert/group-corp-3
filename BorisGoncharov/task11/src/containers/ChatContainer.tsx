@@ -19,7 +19,7 @@ const ChatContainer: FC<Props> = ({ chatsLoading, messagesLoading, theme }) => {
     // Load data
     dispatch(chatsLoad());
     dispatch(settingsLoad());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Chat

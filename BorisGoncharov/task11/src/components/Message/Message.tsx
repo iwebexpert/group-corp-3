@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
+import { Spinner } from 'react-bootstrap';
 import './Message.scss';
 
 export type MessageProps = Message & {
@@ -33,7 +34,12 @@ export const Message: FC<MessageProps> = ({
       <small className="float-right">
         {authorName}, {dateObj.getDate()}/{dateObj.getMonth()}/
         {dateObj.getFullYear()}&nbsp;{dateObj.getHours()}:{dateObj.getMinutes()}{' '}
-        {userIsAuthor && sentOnServer ? <>&#10003;</> : null}
+        {userIsAuthor &&
+          (sentOnServer ? (
+            <>&#10003;</>
+          ) : (
+            <Spinner animation="grow" size="sm" />
+          ))}
       </small>
 
       {closable && (

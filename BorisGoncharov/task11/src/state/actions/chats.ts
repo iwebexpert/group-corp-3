@@ -1,3 +1,4 @@
+import { push } from 'connected-react-router';
 import { ActionCreator, Dispatch } from 'redux';
 import { AppState } from '../store';
 
@@ -19,7 +20,6 @@ export enum ChatsActionTypes {
   CHATS_ADD_FAILURE = 'CHATS_ADD_FAILURE',
 
   // Other
-  CHATS_SELECT = 'CHATS_SELECT',
   CHATS_SET_TYPING_AUTHOR = 'CHATS_SET_TYPING_AUTHOR',
   CHATS_RESET_TYPING_AUTHOR = 'CHATS_RESET_TYPING_AUTHOR',
   CHATS_MARK_READ = 'CHATS_MARK_READ',
@@ -99,14 +99,17 @@ export type ChatsActions =
   ChatsLoadRequestAction |
   ChatsLoadSuccessAction |
   ChatsLoadFailureAction |
+
   // Delete
   ChatsDeleteRequestAction |
   ChatsDeleteSuccessAction |
   ChatsDeleteFailureAction |
+
   // Add
   ChatsAddRequestAction |
   ChatsAddSuccessAction |
   ChatsAddFailureAction |
+
   // Other
   ChatsSetTypingAuthorAction |
   ChatsResetTypingAuthorAction |
@@ -120,9 +123,11 @@ export const chatsLoad = () =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
       dispatch(chatsLoadRequest());
-      const result = await fetch(`${baseUrl}/chats?_embed=messages`);
+      const result = await fetch(`${baseUrl}/chats`);
       const chats = await result.json();
       dispatch(chatsLoadSuccess(chats));
+      // Relocate to 1st chat
+      dispatch(push(`/${chats[0].id}`));
     } catch (error) {
       dispatch(chatsLoadFailure(error));
     }
@@ -152,6 +157,8 @@ export const chatsDelete = (id: string) =>
       });
       await result.json();
       dispatch(chatsDeleteSuccess(id));
+      // Relocate to 1st chat
+      dispatch(push(`/${getState().chats.chats[0].id}`));
     } catch (error) {
       dispatch(chatsDeleteFailure(error));
     }
@@ -183,7 +190,10 @@ export const chatsAdd = (chat: Chat) =>
         },
         body: JSON.stringify(chat),
       });
-      dispatch(chatsAddSuccess(await result.json()));
+      const addedChat = await result.json() as Chat;
+      dispatch(chatsAddSuccess(addedChat));
+      // Relocate to new chat
+      dispatch(push(`/${addedChat.id}`));
     } catch (error) {
       dispatch(chatsAddFailure(error));
     }

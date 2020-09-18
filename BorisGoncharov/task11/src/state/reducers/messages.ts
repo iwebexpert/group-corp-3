@@ -58,12 +58,6 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
       }
       return state;
 
-    case MessagesActionTypes.MESSAGES_SHOW_LOADING:
-      return {
-        ...state,
-        loading: true,
-      }
-
     case MessagesActionTypes.MESSAGES_ADD_SUCCESS:
       // Getting message array id
       index = state.messages.findIndex(message => message.id === action.payload);
