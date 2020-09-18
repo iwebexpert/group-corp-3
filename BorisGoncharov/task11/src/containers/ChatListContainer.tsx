@@ -40,7 +40,9 @@ const mapDispathToProps = (
         chatsAdd({
           id: newChatId,
           title,
-        })
+          isUnread: false,
+          typingAuthor: '',
+        }) as any
       );
       dispatch(push(`/${newChatId}`));
     },

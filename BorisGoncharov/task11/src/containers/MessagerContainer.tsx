@@ -68,8 +68,8 @@ const mapDispathToProps = (
   dispatch: Dispatch<MessagesActions>
 ): DispatchProps => {
   return {
-    onMessageSend: (message: Message) => dispatch(messagesAdd(message)),
-    onMessageClose: (id: string) => dispatch(messagesDelete(id)),
+    onMessageSend: (message: Message) => dispatch(messagesAdd(message) as any),
+    onMessageClose: (id: string) => dispatch(messagesDelete(id) as any),
   };
 };
 

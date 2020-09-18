@@ -18,7 +18,6 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
 
   switch (action.type) {
     case ChatsActionTypes.CHATS_LOAD_REQUEST:
-    case ChatsActionTypes.CHATS_DELETE_REQUEST:
       return {
         ...state,
         loading: true,
@@ -33,6 +32,7 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
 
     case ChatsActionTypes.CHATS_LOAD_FAILURE:
     case ChatsActionTypes.CHATS_DELETE_FAILURE:
+    case ChatsActionTypes.CHATS_ADD_FAILURE:
       console.warn(action.payload);
       return {
         ...state,
@@ -40,10 +40,13 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
         loading: false,
       };
 
-    case ChatsActionTypes.CHATS_ADD:
+    case ChatsActionTypes.CHATS_ADD_SUCCESS:
       return update(state, {
         chats: {
           $push: [action.payload]
+        },
+        loading: {
+          $set: false
         },
       });
 

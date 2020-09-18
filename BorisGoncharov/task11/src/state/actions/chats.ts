@@ -4,19 +4,22 @@ import { AppState } from '../store';
 
 // Define actions types
 export enum ChatsActionTypes {
-  // Loading actions
+  // Loading
   CHATS_LOAD_REQUEST = 'CHATS_LOAD_REQUEST',
   CHATS_LOAD_SUCCESS = 'CHATS_LOAD_SUCCESS',
   CHATS_LOAD_FAILURE = 'CHATS_LOAD_FAILURE',
 
-  // Delete actions
+  // Delete
   CHATS_DELETE_REQUEST = 'CHATS_DELETE_REQUEST',
   CHATS_DELETE_SUCCESS = 'CHATS_DELETE_SUCCESS',
   CHATS_DELETE_FAILURE = 'CHATS_DELETE_FAILURE',
 
-  // Main actions
-  CHATS_ADD = 'CHATS_ADD',
-  CHATS_DELETE = 'CHATS_DELETE',
+  // Add
+  CHATS_ADD_REQUEST = 'CHATS_ADD_REQUEST',
+  CHATS_ADD_SUCCESS = 'CHATS_ADD_SUCCESS',
+  CHATS_ADD_FAILURE = 'CHATS_ADD_FAILURE',
+
+  // Other
   CHATS_SELECT = 'CHATS_SELECT',
   CHATS_SET_TYPING_AUTHOR = 'CHATS_SET_TYPING_AUTHOR',
   CHATS_RESET_TYPING_AUTHOR = 'CHATS_RESET_TYPING_AUTHOR',
@@ -25,6 +28,7 @@ export enum ChatsActionTypes {
 }
 
 // Define actions functions types
+// Load
 export type ChatsLoadRequestAction = {
   type: ChatsActionTypes.CHATS_LOAD_REQUEST;
 };
@@ -39,6 +43,7 @@ export type ChatsLoadFailureAction = {
   payload: string;
 };
 
+// Delete
 export type ChatsDeleteRequestAction = {
   type: ChatsActionTypes.CHATS_DELETE_REQUEST;
 };
@@ -53,11 +58,22 @@ export type ChatsDeleteFailureAction = {
   payload: string;
 };
 
-export type ChatsAddAction = {
-  type: ChatsActionTypes.CHATS_ADD;
+// Add
+export type ChatsAddRequestAction = {
+  type: ChatsActionTypes.CHATS_ADD_REQUEST;
+};
+
+export type ChatsAddSuccessAction = {
+  type: ChatsActionTypes.CHATS_ADD_SUCCESS;
   payload: Chat;
 };
 
+export type ChatsAddFailureAction = {
+  type: ChatsActionTypes.CHATS_ADD_FAILURE;
+  payload: string;
+};
+
+// Other
 export type ChatsSetTypingAuthorAction = {
   type: ChatsActionTypes.CHATS_SET_TYPING_AUTHOR;
   payload: { chatId: string, author: string };
@@ -89,14 +105,18 @@ export type ChatsActions =
   ChatsDeleteSuccessAction |
   ChatsDeleteFailureAction |
   // Add
-  ChatsAddAction |
+  ChatsAddRequestAction |
+  ChatsAddSuccessAction |
+  ChatsAddFailureAction |
   // Other
   ChatsSetTypingAuthorAction |
   ChatsResetTypingAuthorAction |
   ChatsMarkReadAction |
   ChatsMarkUnreadAction;
 
-// Exporting methods
+
+// Exporting actions
+// Load
 export const chatsLoad = () =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
@@ -111,23 +131,6 @@ export const chatsLoad = () =>
     }
   };
 
-export const chatsDelete = (id: string) =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
-    try {
-      dispatch(chatsDeleteRequest());
-      const result = await fetch(`${baseUrl}/chats/${id}`, {
-        method: 'DELETE',
-      });
-      await result.json();
-      dispatch(chatsDeleteSuccess(id));
-    } catch (error) {
-      dispatch(chatsDeleteFailure(error));
-    }
-
-  };
-
-// Exporting actions
-// Load
 export const chatsLoadRequest: ActionCreator<ChatsLoadRequestAction> = () => ({
   type: ChatsActionTypes.CHATS_LOAD_REQUEST,
 });
@@ -143,6 +146,20 @@ export const chatsLoadFailure: ActionCreator<ChatsLoadFailureAction> = (payload:
 });
 
 // Delete
+export const chatsDelete = (id: string) =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      dispatch(chatsDeleteRequest());
+      const result = await fetch(`${baseUrl}/chats/${id}`, {
+        method: 'DELETE',
+      });
+      await result.json();
+      dispatch(chatsDeleteSuccess(id));
+    } catch (error) {
+      dispatch(chatsDeleteFailure(error));
+    }
+  };
+
 export const chatsDeleteRequest: ActionCreator<ChatsDeleteRequestAction> = () => ({
   type: ChatsActionTypes.CHATS_DELETE_REQUEST,
 });
@@ -158,11 +175,38 @@ export const chatsDeleteFailure: ActionCreator<ChatsDeleteFailureAction> = (payl
 });
 
 // Add
-export const chatsAdd: ActionCreator<ChatsAddAction> = (payload: Chat) => ({
-  type: ChatsActionTypes.CHATS_ADD,
+export const chatsAdd = (chat: Chat) =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      dispatch(chatsAddRequest());
+      const result = await fetch(`${baseUrl}/chats`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(chat),
+      });
+      dispatch(chatsAddSuccess(await result.json()));
+    } catch (error) {
+      dispatch(chatsAddFailure(error));
+    }
+  };
+
+export const chatsAddRequest: ActionCreator<ChatsAddRequestAction> = () => ({
+  type: ChatsActionTypes.CHATS_ADD_REQUEST,
+});
+
+export const chatsAddSuccess: ActionCreator<ChatsAddSuccessAction> = (payload: Chat) => ({
+  type: ChatsActionTypes.CHATS_ADD_SUCCESS,
   payload
 });
 
+export const chatsAddFailure: ActionCreator<ChatsAddFailureAction> = (payload: string) => ({
+  type: ChatsActionTypes.CHATS_ADD_FAILURE,
+  payload
+});
+
+// Other
 export const chatsSetTypingAuthor: ActionCreator<ChatsSetTypingAuthorAction> = (payload: { chatId: string, author: string }) => ({
   type: ChatsActionTypes.CHATS_SET_TYPING_AUTHOR,
   payload

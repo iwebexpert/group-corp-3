@@ -3,18 +3,24 @@ import { AppState } from '../store';
 
 // Define actions types
 export enum MessagesActionTypes {
-  // Loading actions
+  // Loading
   MESSAGES_LOAD_REQUEST = 'MESSAGES_LOAD_REQUEST',
   MESSAGES_LOAD_SUCCESS = 'MESSAGES_LOAD_SUCCESS',
   MESSAGES_LOAD_FAILURE = 'MESSAGES_LOAD_FAILURE',
 
-  // Main actions
-  MESSAGES_ADD = 'MESSAGES_ADD',
-  MESSAGES_DELETE = 'MESSAGES_DELETE',
-  MESSAGES_SELECT = 'MESSAGES_SELECT'
+  // Add
+  MESSAGES_ADD_REQUEST = 'MESSAGES_ADD_REQUEST',
+  MESSAGES_ADD_SUCCESS = 'MESSAGES_ADD_SUCCESS',
+  MESSAGES_ADD_FAILURE = 'MESSAGES_ADD_FAILURE',
+
+  // Add
+  MESSAGES_DELETE_REQUEST = 'MESSAGES_DELETE_REQUEST',
+  MESSAGES_DELETE_SUCCESS = 'MESSAGES_DELETE_SUCCESS',
+  MESSAGES_DELETE_FAILURE = 'MESSAGES_DELETE_FAILURE',
 }
 
 // Define actions functions types
+// Load
 export type MessagesLoadRequestAction = {
   type: MessagesActionTypes.MESSAGES_LOAD_REQUEST;
 };
@@ -29,24 +35,58 @@ export type MessagesLoadFailureAction = {
   payload: string;
 };
 
-export type MessagesAddAction = {
-  type: MessagesActionTypes.MESSAGES_ADD;
+// Add
+export type MessagesAddRequestAction = {
+  type: MessagesActionTypes.MESSAGES_ADD_REQUEST;
+};
+
+export type MessagesAddSuccessAction = {
+  type: MessagesActionTypes.MESSAGES_ADD_SUCCESS;
   payload: Message;
 };
 
-export type MessagesDeleteAction = {
-  type: MessagesActionTypes.MESSAGES_DELETE;
+export type MessagesAddFailureAction = {
+  type: MessagesActionTypes.MESSAGES_ADD_FAILURE;
+  payload: string;
+};
+
+// Delete
+export type MessagesDeleteRequestAction = {
+  type: MessagesActionTypes.MESSAGES_DELETE_REQUEST;
+};
+
+export type MessagesDeleteSuccessAction = {
+  type: MessagesActionTypes.MESSAGES_DELETE_SUCCESS;
+  payload: string;
+};
+
+export type MessagesDeleteFailureAction = {
+  type: MessagesActionTypes.MESSAGES_DELETE_FAILURE;
   payload: string;
 };
 
 // All actions
-export type MessagesActions = MessagesLoadRequestAction | MessagesLoadSuccessAction | MessagesLoadFailureAction | MessagesAddAction | MessagesDeleteAction;
+export type MessagesActions =
+  // Load
+  MessagesLoadRequestAction |
+  MessagesLoadSuccessAction |
+  MessagesLoadFailureAction |
 
+  // Add
+  MessagesAddRequestAction |
+  MessagesAddSuccessAction |
+  MessagesAddFailureAction |
+
+  // Delete
+  MessagesDeleteRequestAction |
+  MessagesDeleteSuccessAction |
+  MessagesDeleteFailureAction;
+
+// Exporting actions
+// Load
 export const messagesLoad = (chatId: string) =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
-      console.log('here');
-
       dispatch(messagesLoadRequest());
       const result = await fetch(`${baseUrl}/messages?chatId=${chatId}`);
       dispatch(messagesLoadSuccess(await result.json()));
@@ -55,7 +95,6 @@ export const messagesLoad = (chatId: string) =>
     }
   };
 
-// Exporting actions
 export const messagesLoadRequest: ActionCreator<MessagesLoadRequestAction> = () => ({
   type: MessagesActionTypes.MESSAGES_LOAD_REQUEST,
 });
@@ -70,12 +109,62 @@ export const messagesLoadError: ActionCreator<MessagesLoadFailureAction> = (payl
   payload
 });
 
-export const messagesAdd: ActionCreator<MessagesAddAction> = (payload: Message) => ({
-  type: MessagesActionTypes.MESSAGES_ADD,
+// Add
+export const messagesAdd = (message: Message) =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      dispatch(messagesAddRequest());
+      const result = await fetch(`${baseUrl}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(message),
+      });
+      dispatch(messagesAddSuccess(await result.json()));
+    } catch (error) {
+      dispatch(messagesAddError(error));
+    }
+  };
+
+export const messagesAddRequest: ActionCreator<MessagesAddRequestAction> = () => ({
+  type: MessagesActionTypes.MESSAGES_ADD_REQUEST,
+});
+
+export const messagesAddSuccess: ActionCreator<MessagesAddSuccessAction> = (payload: Message) => ({
+  type: MessagesActionTypes.MESSAGES_ADD_SUCCESS,
   payload
 });
 
-export const messagesDelete: ActionCreator<MessagesDeleteAction> = (payload: string) => ({
-  type: MessagesActionTypes.MESSAGES_DELETE,
+export const messagesAddError: ActionCreator<MessagesAddFailureAction> = (payload: string) => ({
+  type: MessagesActionTypes.MESSAGES_ADD_FAILURE,
+  payload
+});
+
+// Delete
+export const messagesDelete = (id: string) =>
+  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+    try {
+      dispatch(messagesDeleteRequest());
+      await fetch(`${baseUrl}/messages/${id}`, {
+        method: 'DELETE',
+      });
+      dispatch(messagesDeleteSuccess(id));
+    } catch (error) {
+      dispatch(messagesDeleteError(error));
+    }
+  };
+
+export const messagesDeleteRequest: ActionCreator<MessagesDeleteRequestAction> = () => ({
+  type: MessagesActionTypes.MESSAGES_DELETE_REQUEST,
+});
+
+export const messagesDeleteSuccess: ActionCreator<MessagesDeleteSuccessAction> = (payload: string) => ({
+  type: MessagesActionTypes.MESSAGES_DELETE_SUCCESS,
+  payload
+});
+
+export const messagesDeleteError: ActionCreator<MessagesDeleteFailureAction> = (payload: string) => ({
+  type: MessagesActionTypes.MESSAGES_DELETE_FAILURE,
   payload
 });

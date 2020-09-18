@@ -28,6 +28,8 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
       };
 
     case MessagesActionTypes.MESSAGES_LOAD_FAILURE:
+    case MessagesActionTypes.MESSAGES_ADD_FAILURE:
+    case MessagesActionTypes.MESSAGES_DELETE_FAILURE:
       console.warn(action.payload);
       return {
         ...state,
@@ -35,14 +37,15 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
         loading: false,
       };
 
-    case MessagesActionTypes.MESSAGES_ADD:
+    case MessagesActionTypes.MESSAGES_ADD_SUCCESS:
       return update(state, {
         messages: {
           $push: [action.payload]
         },
+        loading: { $set: false }
       });
 
-    case MessagesActionTypes.MESSAGES_DELETE:
+    case MessagesActionTypes.MESSAGES_DELETE_SUCCESS:
       // Getting message array id
       let id = state.messages.findIndex(message => message.id === action.payload);
       if (id !== -1) {
@@ -50,10 +53,10 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
           messages: {
             $splice: [[id, 1]],
           },
+          loading: { $set: false }
         });
-      } else {
-        return state;
       }
+      return state;
 
     default:
       return state;
