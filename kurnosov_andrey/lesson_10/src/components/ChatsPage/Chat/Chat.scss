@@ -1,0 +1,143 @@
+$user-message-color : lightgreen;
+$other-message-color :#66c2f4 ;
+$chat-background-light: white;
+$chat-background-dark: darkslategray;
+
+// TODO: Разобраться, как работает scroll во flex-ах
+// Сломалась прокрутка, крутится вся строка вместо чата
+.chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border: 1px solid steelblue;
+
+  &.theme-dark {
+    background-color: $chat-background-dark;
+    .message-container::after {
+        background-color: $chat-background-dark;
+    }
+    
+    textarea,
+    textarea:focus,
+    input,
+    input:focus { 
+      background-color: $chat-background-dark;
+      color: azure;
+    }
+  }
+  &.theme-light {
+      background-color: $chat-background-light;
+      .message-container::after {
+        background-color: $chat-background-light;
+      }
+
+      
+    textarea,
+    textarea:focus,
+    input,
+    input:focus { 
+      background-color: $chat-background-light;
+    }
+  }
+  padding: 10px;
+
+  height: 100%;
+
+  .messages-container {
+    height: 100%;
+    flex: 1;
+    overflow-y: auto;
+    
+    border: 1px solid steelblue;
+    border-radius: 5px;
+
+    .messages {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      width: 100%;
+      min-height: min-content;
+
+      .message-container {
+        display: flex;
+        
+        border-radius: 5px 5px 5px 5px;
+
+        margin-top: 1rem;
+
+        .author {
+          color: gray;
+          font-size: small;
+          float: right;
+        }
+
+        &.from-user {
+          padding-right: 15px;
+          padding-left: 10px;
+          align-self: flex-end;
+
+          background-color: $user-message-color;
+        
+          &::after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            bottom: 0;
+            right: 0px;
+            width: 10px;
+            height: 100%;
+            border-bottom-left-radius: 10px;
+          }
+        }
+
+        position: relative;
+        &.from-other {
+          padding-left: 15px;
+          padding-right: 10px;
+
+          align-self: flex-start;
+
+          background-color: $other-message-color;
+        
+          &::after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            bottom: 0;
+            left: 0px;
+            width: 10px;
+            height: 100%;
+            border-bottom-right-radius: 10px;
+          }
+      
+        }
+      }
+    }
+  }
+
+  .send-message-form {
+    margin-top: 1rem;
+
+    textarea {
+      padding: 0.2rem;
+      resize: none;
+      margin-right: 0;
+      width: 100%;
+      border-radius: 5px;
+    }
+
+    button {
+      float: right;
+    }
+  }
+}
+
+/* 
+.chat .message-container .message {
+  background: #2299bb88;
+}
+.chat .message-container.message-container-user .message {
+  background: #77aa0088;
+} */

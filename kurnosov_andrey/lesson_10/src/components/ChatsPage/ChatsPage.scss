@@ -1,0 +1,12 @@
+.chats-page {
+    display: flex;
+    height: 100%;
+
+    .chats-list-container {
+        width: 30%;
+    }
+
+    .chat-container {
+        flex-grow: 1;
+    }
+}

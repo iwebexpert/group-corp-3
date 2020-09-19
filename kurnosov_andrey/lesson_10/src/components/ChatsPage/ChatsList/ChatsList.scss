@@ -1,0 +1,10 @@
+.chats-list {
+
+    padding-right: 5px;
+    padding-left: 0;
+    
+    &-item:not(:first-child) {    
+        border-top: solid 1px lightblue;
+    }
+
+}
