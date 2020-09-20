@@ -1,7 +1,7 @@
 import { Middleware } from 'redux';
 import { generate } from 'shortid';
 import { chatsMarkUnread, chatsResetTypingAuthor, chatsSetTypingAuthor, MessagesActionTypes, messagesAdd, MessagesAddSuccessAction } from '../actions';
-import { AppState } from '../store';
+import { AppState, baseUrl } from '../store';
 
 const BOT = {
   id: '007213',
@@ -28,22 +28,36 @@ export const messagesMiddleware: Middleware = store => next => action => {
     // Send Bot's response on user message
     // We don't send another Bot's response if Bot is already typing
     if (authorId !== BOT.id && !botIsWriting) {
-      store.dispatch(chatsSetTypingAuthor({ chatId, author: BOT.name }));
+      const botMessage = {
+        id: generate(),
+        chatId,
+        authorName: BOT.name,
+        authorId: BOT.id,
+        text: `Hi, ${authorName}! This is ${BOT.name}...`,
+        closable: true,
+        date: new Date().toISOString(),
+        sentOnServer: true,
+      };
 
-      setTimeout(() => {
-        store.dispatch(messagesAdd({
-          id: generate(),
-          chatId,
-          authorName: BOT.name,
-          authorId: BOT.id,
-          text: `Hi, ${authorName}! This is ${BOT.name}...`,
-          closable: true,
-          date: new Date().toISOString(),
-          sentOnServer: true,
-        }) as any);
+      if (activeChatId === chatId) {
+        store.dispatch(chatsSetTypingAuthor({ chatId, author: BOT.name }));
 
-        store.dispatch(chatsResetTypingAuthor(chatId));
-      }, 2000);
+        setTimeout(() => {
+          store.dispatch(messagesAdd(botMessage) as any);
+          store.dispatch(chatsResetTypingAuthor(chatId));
+        }, 2000);
+      } else {
+        setTimeout(async () => {
+          await fetch(`${baseUrl}/messages`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(botMessage),
+          });
+          store.dispatch(chatsMarkUnread(chatId));
+        }, 2000);
+      }
     }
 
     // Highlight chat if message arrived in inactive chat

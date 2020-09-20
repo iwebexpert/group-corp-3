@@ -9,17 +9,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.scss';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Switch>
-          <Route path={`/:chatId`} exact>
-            <ChatContainer></ChatContainer>
-          </Route>
-          <Redirect to={'/0'}></Redirect>
-        </Switch>
-      </ConnectedRouter>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route path={`/:chatId`} exact>
+          <ChatContainer></ChatContainer>
+        </Route>
+        <Route path={`*`}>
+          <ChatContainer></ChatContainer>
+        </Route>
+      </Switch>
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById('root')
 );

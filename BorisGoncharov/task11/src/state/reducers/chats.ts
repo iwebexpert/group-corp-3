@@ -18,6 +18,8 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
 
   switch (action.type) {
     case ChatsActionTypes.CHATS_LOAD_REQUEST:
+    case ChatsActionTypes.CHATS_DELETE_REQUEST:
+    case ChatsActionTypes.CHATS_ADD_REQUEST:
       return {
         ...state,
         loading: true,
@@ -45,6 +47,7 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
         chats: {
           $push: [action.payload]
         },
+        loading: { $set: false },
       });
 
     case ChatsActionTypes.CHATS_DELETE_SUCCESS:
@@ -55,6 +58,7 @@ export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = i
           chats: {
             $splice: [[index, 1]],
           },
+          loading: { $set: false },
         });
       }
       return state;

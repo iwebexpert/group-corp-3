@@ -6,7 +6,7 @@ import { messagesMiddleware, routeMiddleware } from "./middlewares";
 import { chatsReducer, ChatsReducerState, messagesReducer, MessagesReducerState, settingsReducer, SettingsReducerState } from "./reducers";
 import thunk from 'redux-thunk';
 
-const baseUrl = 'http://localhost:4000';
+export const baseUrl = 'http://localhost:4000';
 
 export type AppState = {
   router: RouterState,

@@ -38,7 +38,7 @@ export const Message: FC<MessageProps> = ({
           (sentOnServer ? (
             <>&#10003;</>
           ) : (
-            <Spinner animation="grow" size="sm" />
+            <Spinner animation="border" size="sm" />
           ))}
       </small>
 

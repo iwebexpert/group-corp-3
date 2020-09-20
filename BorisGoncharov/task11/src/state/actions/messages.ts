@@ -1,19 +1,23 @@
 import { ActionCreator, Dispatch } from 'redux';
 import { AppState } from '../store';
 
+// Need for messages loading abortions
+let abortController = new AbortController();
+
 // Define actions types
 export enum MessagesActionTypes {
   // Load
   MESSAGES_LOAD_REQUEST = 'MESSAGES_LOAD_REQUEST',
   MESSAGES_LOAD_SUCCESS = 'MESSAGES_LOAD_SUCCESS',
   MESSAGES_LOAD_FAILURE = 'MESSAGES_LOAD_FAILURE',
+  MESSAGES_LOAD_ABORTION = 'MESSAGES_LOAD_ABORTION',
 
   // Add
   MESSAGES_ADD_REQUEST = 'MESSAGES_ADD_REQUEST',
   MESSAGES_ADD_SUCCESS = 'MESSAGES_ADD_SUCCESS',
   MESSAGES_ADD_FAILURE = 'MESSAGES_ADD_FAILURE',
 
-  // Add
+  // Delete
   MESSAGES_DELETE_REQUEST = 'MESSAGES_DELETE_REQUEST',
   MESSAGES_DELETE_SUCCESS = 'MESSAGES_DELETE_SUCCESS',
   MESSAGES_DELETE_FAILURE = 'MESSAGES_DELETE_FAILURE',
@@ -33,6 +37,10 @@ export type MessagesLoadSuccessAction = {
 export type MessagesLoadFailureAction = {
   type: MessagesActionTypes.MESSAGES_LOAD_FAILURE;
   payload: string;
+};
+
+export type MessagesLoadAbortionAction = {
+  type: MessagesActionTypes.MESSAGES_LOAD_ABORTION;
 };
 
 // Add
@@ -72,6 +80,7 @@ export type MessagesActions =
   MessagesLoadRequestAction |
   MessagesLoadSuccessAction |
   MessagesLoadFailureAction |
+  MessagesLoadAbortionAction |
 
   // Add
   MessagesAddRequestAction |
@@ -88,11 +97,20 @@ export type MessagesActions =
 export const messagesLoad = (chatId: string) =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
+      // Abort previous fetch request
+      abortController.abort();
+      abortController = new AbortController();
+
+      // Loading logic
       dispatch(messagesLoadRequest());
-      const result = await fetch(`${baseUrl}/messages?chatId=${chatId}`);
+      const result = await fetch(`${baseUrl}/messages?chatId=${chatId}`, { signal: abortController.signal });
       dispatch(messagesLoadSuccess(await result.json()));
     } catch (error) {
-      dispatch(messagesLoadFailure(error));
+      if (error?.name === 'AbortError') {
+        dispatch(messagesLoadAbortion());
+      } else {
+        dispatch(messagesLoadFailure(error));
+      }
     }
   };
 
@@ -108,6 +126,10 @@ export const messagesLoadSuccess: ActionCreator<MessagesLoadSuccessAction> = (pa
 export const messagesLoadFailure: ActionCreator<MessagesLoadFailureAction> = (payload: string) => ({
   type: MessagesActionTypes.MESSAGES_LOAD_FAILURE,
   payload
+});
+
+export const messagesLoadAbortion: ActionCreator<MessagesLoadAbortionAction> = () => ({
+  type: MessagesActionTypes.MESSAGES_LOAD_ABORTION,
 });
 
 // Add
