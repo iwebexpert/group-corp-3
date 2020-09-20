@@ -33,7 +33,7 @@ export const chatsLoadRequest: ActionCreator<ChatsLoadRequestAction> = () => ({
     type: ChatsActionTypes.CHATS_LOAD_REQUEST,
 });
 
-export const chatsLoadSuccess: ActionCreator<ChatsLoadSuccessAction> = (data: any) => ({
+export const chatsLoadSuccess: ActionCreator<ChatsLoadSuccessAction> = (data: Chat[]) => ({
     type: ChatsActionTypes.CHATS_LOAD_SUCCESS,
     payload: data,
 });
