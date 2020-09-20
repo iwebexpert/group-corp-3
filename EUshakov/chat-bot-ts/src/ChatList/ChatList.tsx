@@ -2,11 +2,12 @@ import React from 'react';
 import "./ChatList.scss";
 import classNames from 'classnames';
 import { Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export type Chat = {
-    name: string;
+    id: number;
+    title: string;
     link: string;
-    isSelected?: boolean;
 }
 export type ChatListProps = {
     chatList: Chat[];
@@ -14,7 +15,7 @@ export type ChatListProps = {
 export const ChatList: React.FC<ChatListProps> = ({ chatList }) => {
     let chatBars = chatList.map((chat, idx) =>
         <Nav.Item key={idx}>
-            <Nav.Link href={chat.link}>{chat.name}</Nav.Link>
+            <Nav.Link as={Link} to={chat.link}>{chat.title}</Nav.Link>
         </Nav.Item>);
     return <Nav className="flex-column">
         {chatBars}
