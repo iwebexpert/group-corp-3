@@ -6,12 +6,12 @@ import { Row } from "react-bootstrap";
 
 import './Chat.scss';
 import { useTranslation } from "react-i18next";
-import { chatsMessageSend, ChatsMessageSendAction } from "../../actions/chats";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../reducers";
+import { chatsMessageSend } from "../../actions/chats/messageSend";
 
 const Chat = (props: ChatProps) => {
-    const { activeChatId } = props;
+    const { activeChatId, isError } = props;
 
     const chatsRef = useRef<HTMLDivElement>(null);
 
@@ -39,13 +39,13 @@ const Chat = (props: ChatProps) => {
         }
     };
 
-    const handleSend = (chatId: number, message: Message): ChatsMessageSendAction => dispatch(chatsMessageSend(message, chatId));
+    const handleSend = (chatId: number, message: Message) => dispatch(chatsMessageSend(message, chatId));
 
     const onSendHandler = (message: string): void => {
         const newMessage: Message = {
             text: message,
             date: new Date(),
-            authorId: currentUser.id
+            author: currentUser.id
         };
 
         handleSend(activeChatId, newMessage);
@@ -57,7 +57,8 @@ const Chat = (props: ChatProps) => {
 
     return (
         <>
-            {(contactPerson) && <>
+        {isError && <h5 className="error text-center mt-4">{t('LOADING_ERROR')}</h5> }
+            {(contactPerson && !isError) && <>
                 <Row>
                     <div className="p-3 text-right w-100" id="chat">
                         <div className="panel-body">

@@ -13,11 +13,11 @@ const generateTextMessage = (responseStep: number): string => {
     }
 };
 
-export const getFakeResponse = (responseStep: number, authorId: number): Message => {
+export const getFakeResponse = (responseStep: number, author: number): Message => {
     const message = {
         text: generateTextMessage(responseStep),
         date: new Date(),
-        authorId
+        author
     };
 
     return message;

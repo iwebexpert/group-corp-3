@@ -19,5 +19,6 @@
     "NO_MESSAGES": "Сообщений нет",
     "NOT_SELECTED_CHAT_TEXT": "Выберите чат и начните общение",
     "NEW_CHAT": "Новый чат",
-    "ALL_CHATS_IS_ACTIVE": "Все чаты активны"
+    "ALL_CHATS_IS_ACTIVE": "Все чаты активны",
+    "LOADING_ERROR": " При загрузке данных произошла ошибка"
 }

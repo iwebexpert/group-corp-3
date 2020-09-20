@@ -17,11 +17,11 @@ export const ChatContainer = () => {
 
     return <>
         <Col md={3} className="border-right p-0">
-            <ChatList activeChatId={chatId} isLoading={isLoading} />
+            <ChatList activeChatId={chatId} isLoading={isLoading} isError={isError} />
         </Col>
 
         <Col md={9} className="chat-container">
-            {chatId ? <Chat activeChatId={chatId} /> :
+            {chatId ? <Chat activeChatId={chatId} isError={isError} /> :
                 <h5 className="not-selected-chat-text text-center">{t('NOT_SELECTED_CHAT_TEXT')}</h5>}
         </Col></>;
 };

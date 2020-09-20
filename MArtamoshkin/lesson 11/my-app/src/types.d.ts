@@ -5,7 +5,7 @@ type CreateMessageProps = {
 type Message = {
     text: string;
     date: Date | string;
-    authorId: number;
+    author: number;
 };
 
 type Author = {
@@ -42,10 +42,12 @@ type Chat = {
 
 type ChatProps = {
     activeChatId: number;
+    isError: boolean;
 };
 
 type ChatListProps = {
     isLoading: boolean;
+    isError: boolean;
     activeChatId: number | null;
 };
 

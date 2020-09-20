@@ -1,9 +1,13 @@
 import { chatsSetIsFired, chatsSetIsTyping } from './../actions/chats';
-import { Middleware } from "redux";
-import { ChatsActionTypes, chatsMessageSend } from "../actions/chats";
+import { AnyAction, Middleware } from "redux";
+import { ChatsActionTypes } from "../actions/chats";
 import { AppState } from "../reducers";
 import { getFakeResponse } from "../common/fakeResponse";
 import { matchPath } from 'react-router-dom';
+import { chatsMessageSend } from '../actions/chats/messageSend';
+import { ThunkDispatch } from 'redux-thunk';
+
+type ThunkDispatchType = ThunkDispatch<{}, {}, AnyAction>;
 
 const responseState: { [chatId: number]: NodeJS.Timeout; } = {};
 const isTypingState: { [chatId: number]: NodeJS.Timeout; } = {};
@@ -14,7 +18,7 @@ export const autoResponseMiddleware: Middleware = store => next => action => {
     const typingTimeout = 3 * 1000;
     const responseTimeout = (Math.random() * 5) * 1000 + typingTimeout;
 
-    if (action.type === ChatsActionTypes.CHATS_MESSAGE_SEND) {
+    if (action.type === ChatsActionTypes.CHATS_MESSAGE_SEND_SUCCESS) {
         const { chatId, isResponse } = action.payload;
 
         if (responseState[chatId]) {
@@ -33,7 +37,8 @@ export const autoResponseMiddleware: Middleware = store => next => action => {
 
                 const activeChat = matchPath<ChatParams>((store.getState() as AppState).router.location.pathname, { path: '/chat/:id' });
 
-                store.dispatch(chatsMessageSend(newResponse, chatId, true));
+                const thunkDispatch = store.dispatch as ThunkDispatchType;
+                thunkDispatch(chatsMessageSend(newResponse, chatId, true));
                 store.dispatch(chatsSetIsTyping(chatId, false));
 
                 if (activeChat && Number(activeChat.params.id) !== chatId) {

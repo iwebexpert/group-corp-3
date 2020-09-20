@@ -65,11 +65,25 @@ export const chatsReducer: Reducer<ChatsReducerState> = (state = initialState, a
                     return item;
                 })]
             };
-        case ChatsActionTypes.CHATS_DELETE:
+        case ChatsActionTypes.CHATS_DELETE_SUCCESS:
             const { id } = action.payload;
+            
             return {
                 ...state,
+                loading: false,
                 items: [...state.items.filter((chat: Chat) => chat.id !== id)]
+            };
+        case ChatsActionTypes.CHATS_DELETE_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+            };
+        case ChatsActionTypes.CHATS_DELETE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: false,
             };
         case ChatsActionTypes.CHATS_IS_FIRED:
             const { isFired } = action.payload;
@@ -83,7 +97,17 @@ export const chatsReducer: Reducer<ChatsReducerState> = (state = initialState, a
                     return item;
                 })]
             };
-        case ChatsActionTypes.CHATS_MESSAGE_SEND:
+        case ChatsActionTypes.CHATS_MESSAGE_SEND_FAILURE:
+            return {
+                ...state,
+                error: true,
+            };
+        case ChatsActionTypes.CHATS_MESSAGE_SEND_REQUEST:
+            return {
+                ...state,
+                error: false,
+            };
+        case ChatsActionTypes.CHATS_MESSAGE_SEND_SUCCESS:
             const { chatId, message, isResponse } = action.payload;
 
             return {

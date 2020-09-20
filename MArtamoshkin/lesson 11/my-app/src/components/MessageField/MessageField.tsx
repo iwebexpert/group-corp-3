@@ -10,7 +10,7 @@ const MessageField = (props: MessageItemProps) => {
     const currentUser: User = useContext(UserContext);
     const { name }: Settings = useSelector<AppState, Settings>((state: AppState) => state.appSettings.settings);
 
-    const isCurrentUser = message.authorId === currentUser.id;
+    const isCurrentUser = message.author === currentUser.id;
     const messageClasses = !isCurrentUser ? 'chat' : 'chat chat-left';
     const author = isCurrentUser ? {...currentUser, name} : contactPerson;
 

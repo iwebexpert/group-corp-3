@@ -7,11 +7,11 @@ import { NewChat } from "./NewChat/NewChat";
 import { AppState } from "../../reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { chatsDelete } from "../../actions/chats";
 import { push } from "connected-react-router";
+import { chatsDelete } from "../../actions/chats/delete";
 
 const ChatList = (props: ChatListProps) => {
-    const { activeChatId, isLoading } = props;
+    const { activeChatId, isLoading, isError } = props;
     const { t } = useTranslation();
     const chats = useSelector<AppState, Chat[]>((state: AppState) => state.chats.items);
 
@@ -49,7 +49,7 @@ const ChatList = (props: ChatListProps) => {
             }
             {isLoading && <Spinner className="d-flex align-self-center mt-2" animation="grow" variant="secondary" />}
         </div>
-        <NewChat />
+        {!isLoading && !isError && <NewChat />}
     </div>
     );
 };

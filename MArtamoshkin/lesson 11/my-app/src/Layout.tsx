@@ -9,7 +9,7 @@ import { UserSettingsProvider } from "./providers/UserSettingsProvider";
 import { Redirect, Route } from "react-router-dom";
 import { ChatContainer } from "./components/ChatContainer/ChatContainer";
 import { useDispatch } from "react-redux";
-import { chatsLoad } from "./actions/chats";
+import { chatsLoad } from "./actions/chats/load";
 
 const Layout = () => {
     const dispatch = useDispatch();

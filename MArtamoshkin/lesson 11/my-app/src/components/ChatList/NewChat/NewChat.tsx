@@ -1,7 +1,7 @@
 import React, { useRef, useState, MouseEvent } from "react";
 import { Popover, Overlay, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { chatsNewSend } from "../../../actions/chats";
+import { chatsNewSend } from "../../../actions/chats/new";
 import { AppState } from "../../../reducers";
 import { useTranslation } from "react-i18next";
 import { push } from "connected-react-router";
