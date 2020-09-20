@@ -4,33 +4,37 @@ import {Item, ItemWithId} from '../types/types';
 import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../store/reducers/rootReducer';
-import {chatsLoad, chatsMessageSend} from '../store/actions/actionType';
+import {chatsLoad, chatsMessageSend, sendMessage} from '../store/actions/actionType';
 import {Messenger} from '../Messenger/Messenger';
 
 export const MessengerContainer: React.FC<{}> = () => {
-    let {id} = useParams<any>();
+    const {id} = useParams<any>();
     const [routeChange, setRouteChange] = useState<boolean>(false);
     const dispatch = useDispatch();
     const messages = useSelector((state: AppState) => state.chats.chats[id] ? state.chats.chats[id].messages : []);
+    const [isLoading, isError, lastAddMessage] = useSelector((state: AppState) =>
+            ([state.chats.loading, state.chats.error, state.chats.lastAddMessage]));
 
-    const handleMessageSend = (message: ItemWithId) => {
-        let st = 0;
+    const handleMessageSend = (message: ItemWithId, isManual = false) => {
         if (message) {
-            const {author, chatId} = message;
+            const {author, chatId = 0} = message;
             if (author !== 'Bot') {
-                dispatch(chatsMessageSend({
-                    ...message
-                }));
+                dispatch(sendMessage({...message, chatId: +chatId}));
             } else {
-                st = window.setTimeout(() => {
-                    dispatch(chatsMessageSend({
-                        ...message
-                    }));
-                    console.log('dispatch')
-                }, 2000);
+                if (isManual && (lastAddMessage && lastAddMessage.hasOwnProperty('chatId') &&
+                    +lastAddMessage.chatId === +id)) {
+                    window.setTimeout(() => {
+                        dispatch(chatsMessageSend({
+                            ...message
+                        }));
+                    }, 2000);
+                }
             }
         }
     };
+
+    useEffect(() => {
+    }, [messages]);
 
     useEffect(() => {
         setRouteChange(false);
@@ -38,9 +42,9 @@ export const MessengerContainer: React.FC<{}> = () => {
 
     return (<div className='messenger'>
         {id ? <Messenger items={messages}
+                         isLoading={isLoading}
                          routeChange={routeChange}
                          paramId={id}
                          onSendHandler={handleMessageSend}/> : ''}
-
     </div>);
 }

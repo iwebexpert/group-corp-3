@@ -5,6 +5,10 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
   padding: 20px;
@@ -36,28 +40,7 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
   left: 0;
   transform: translate(0, -45%)
 }
-//.close {
-//  position: relative;
-//  width: 16px;
-//  height: 16px;
-//}
-//.close:hover {
-//  opacity: 1;
-//}
-//.close:before, .close:after {
-//  position: absolute;
-//  left: 8px;
-//  content: ' ';
-//  height: 16px;
-//  width: 2px;
-//  background-color: red;
-//}
-//.close:before {
-//  transform: rotate(45deg);
-//}
-//.close:after {
-//  transform: rotate(-45deg);
-//}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

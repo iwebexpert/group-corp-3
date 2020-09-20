@@ -9,7 +9,7 @@ export const Layout: React.FC<{}> = ({children}) => {
     return (
         <>
             <Header/>
-            <div className='container-fluid'>
+            <div className='container-fluid' style={{maxWidth: '980px'}}>
                 <div className='row'>
                     <div className='col-md-4'>
                         <ChatList/>
