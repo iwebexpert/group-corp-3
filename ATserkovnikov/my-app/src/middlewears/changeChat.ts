@@ -7,12 +7,12 @@ export const ChangeChatMiddleware: Middleware = store => next => action =>{
         const chatId = (action as ChangeChatAction).payload;
 
         const chat: Chat = (store.getState() as AppState).chats.entries.filter(c => c.id === chatId)[0];
-        const newMessages: MessageData[] = chat.messages.messages.map(item => {
+        const newMessages: MessageData[] = chat.messages.map(item => {
             item.read = true;
             return item;
         });
 
-        store.dispatch(messageAdd({...chat.messages, messages: newMessages}));
+        store.dispatch(messageAdd({chatId: chatId, messages: newMessages, unreadMessageCount: 0}));
     }
 
     return next(action);

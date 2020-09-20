@@ -18,8 +18,8 @@ export const ChatItem: React.FC<Chat> = (chat: Chat) => {
         dispatch(removeChat(curChat.id));
     };
 
-    const unreadMess = chat.messages.unreadMessageCount > 0 ?
-        (<div className="chat-num">{chat.messages.unreadMessageCount}</div>) : "";
+    const unreadMess = chat.unreadMessageCount > 0 ?
+        (<div className="chat-num">{chat.unreadMessageCount}</div>) : "";
 
     return (
     <Card key={chat.id.toString()}>

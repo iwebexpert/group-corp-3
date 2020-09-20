@@ -7,17 +7,20 @@ import {routerMiddleware} from "connected-react-router";
 import {createBrowserHistory} from "history";
 import {persistReducer, persistStore} from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import {apiMiddleware} from "redux-api-middleware";
 
 export const history = createBrowserHistory();
 
 const persistConfig = {
     key: "TsApp",
-    storage
+    storage,
+    blacklist: ['chats']
 };
 
 export const initStore = () => {
     const store: Store = createStore(persistReducer(persistConfig, rootReducer(history)), composeWithDevTools(
         applyMiddleware(logger,
+            apiMiddleware,
             ReadMiddleware,
             routerMiddleware(history),
             AddChatMiddleware,

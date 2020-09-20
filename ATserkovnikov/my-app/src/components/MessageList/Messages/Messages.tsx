@@ -7,9 +7,10 @@ import './Messages.scss';
 export const Messages: React.FC<MessageProps> = ({messages}) => {
     const messageView = messages.map((item) =>
         <Message
+            key={item.id}
+            id={item.id}
             author={item.author}
             messageText={item.messageText}
-            key={item.key}
             read={item.read}
         />);
 
