@@ -1,6 +1,6 @@
 import './Chat.scss'
 import React from 'react';
-import { MessageData } from '../../../logic/domain/MessageData';
+import { Message } from '../../../logic/domain/ChatsService';
 import { Chat } from './Chat';
 import { ChatsActionTypes, ChatsMessageSendAction } from '../../../actions/chats';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { AppState } from '../../../reducers';
 
 
 type Props = {
-    chatId: number,
+    chatId: number | null,
 }
 
 export function ChatContainer({chatId} : Props) {
@@ -19,7 +19,7 @@ export function ChatContainer({chatId} : Props) {
 
     const chat = chats.filter(ch => ch.id === chatId)[0];
     
-    const onMessageSend = (message: MessageData) => {
+    const onMessageSend = (message: Message) => {
         dispatch<ChatsMessageSendAction>({
             type: ChatsActionTypes.CHATS_MESSAGE_SEND,
             payload: {
@@ -28,7 +28,11 @@ export function ChatContainer({chatId} : Props) {
         })
     
     }
-    return <Chat chat={chat} onMessageSend={onMessageSend}/>
+    return chat ? 
+        <Chat chat={chat} onMessageSend={onMessageSend}/> :
+        <div className="text-center"> {
+            ( chatId ? <>Чат не найден.</> : <>Выберите чат из списка</> )
+        } </div>
 }
 
 

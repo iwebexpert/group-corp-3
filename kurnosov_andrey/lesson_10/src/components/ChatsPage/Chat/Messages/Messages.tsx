@@ -1,15 +1,16 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 import { Message } from './Message/Message';
-import { MessageData } from '../../../../logic/domain/MessageData';
+import { Message as MessageType } from '../../../../logic/domain/ChatsService';
+
 
 type Props = {
-    items: MessageData[]
+    items: Array<MessageType & {id:number}>
 };
 
-function Messages({items}: Props): ReactElement{
+const Messages = ({items}: Props) => {
 
-    const messages = items.map((item, index) => <Message message={item} key={ index } />);
+    const messages = items.map((item, index) => <Message message={item} key={ item.id } />);
     return (
     <div className="messages-container">
         <div className="messages">{messages}</div>

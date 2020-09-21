@@ -2,16 +2,16 @@ import './Chat.scss'
 import React, { useContext } from 'react';
 import { Messages } from './Messages/Messages';
 import { MessageForm } from './Messages/MessageForm/MessageForm';
-import { MessageData } from '../../../logic/domain/MessageData';
 import { LangText } from '../../../Langs';
 import { ThemeContext } from '../../../Theme';
 import classnames from 'classnames'
-import { ChatData, AnswerStatus } from '../../../logic/domain/ChatData';
+import { Chat as ChatData, AnswerStatus } from '../../../logic/domain/ChatsService';
+import { Message } from '../../../logic/domain/ChatsService';
 
 
 type Props = {
     chat: ChatData,
-    onMessageSend: (changedChat: MessageData) => void
+    onMessageSend: (changedChat: Message) => void
 }
 
 export function Chat({chat, onMessageSend} : Props) {
@@ -26,7 +26,7 @@ export function Chat({chat, onMessageSend} : Props) {
                 <span> &nbsp; </span>
         }
         <Messages items={chat.messages} />
-        <MessageForm onSend={(message, userName) => onMessageSend(new MessageData(message, userName, true))} />
+        <MessageForm onSend={(message, userName) => onMessageSend({text: message, author: userName, isFromUser: true, id:0 })} />
     </div>
 }
 

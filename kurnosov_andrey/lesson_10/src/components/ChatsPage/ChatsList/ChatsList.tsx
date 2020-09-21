@@ -2,38 +2,39 @@ import './ChatsList.scss'
 
 import React, { useState } from 'react'
 import classnames from 'classnames'
-import { Nav, Form, FormControl, InputGroup, Button, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Nav, Form, FormControl, InputGroup, Button, Spinner, Badge } from 'react-bootstrap';
 
 type ChatsListProps = {
-    selectedId?: string;
+    selectedId: number | null;
     loading: boolean;
-    list: {id: number; name: string}[];
-    onSelect?: (el: {id: number; name: string}) => void;
-    onAddChat: (chat: {name: string}) => void;
+    list: { id: number; name: string; unreadedMessagesCount: number }[];
+    onSelect: (el: { id: number; name: string }) => void;
+    onAddChat: (chat: { name: string }) => void;
 }
 
 export const ChatsList = (props: ChatsListProps) => {
-        
-    
-    const list = props.list.map( (el, i) => {
+
+
+    const list = props.list.map((el, i) => {
         const className = classnames(
-            { 'border-top' : i !== 0}
+            { 'border-top': i !== 0 }
         )
         return (
             <Nav.Item className={className}
                 key={el.id}
-                onClick={ () => props.onSelect && props.onSelect(el) }
+                onClick={() => props.onSelect(el)}
             >
-                <Nav.Link 
-                    as={Link} 
-                    to={'/chats/'+el.id} 
-                    active={el.id.toString() === props.selectedId}
-                >
+                <Nav.Link className="d-flex justify-content-between" active={props.selectedId === el.id}>
                     {el.name}
+                    {el.unreadedMessagesCount ?
+                        <div className="d-flex align-items-center">
+                            <Badge pill variant="success"> {el.unreadedMessagesCount} </Badge>
+                        </div>
+                        : null
+                    }
                 </Nav.Link>
             </Nav.Item>
-        ) 
+        )
     });
 
     const [validated, setValidated] = useState<boolean>(false);
@@ -41,21 +42,21 @@ export const ChatsList = (props: ChatsListProps) => {
     const setChatName = (name: string) => {
         setValidated(name.length > 0);
         _setChatName(name);
-    } 
+    }
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const form = e.currentTarget;
         if (form.checkValidity()) {
-            props.onAddChat({name: chatName});
+            props.onAddChat({ name: chatName });
             setChatName('');
         }
     }
 
     return <>
-        {props.loading && <Spinner animation="border" /> }
+        {props.loading && <Spinner animation="border" />}
         <Nav className="flex-column" variant="pills">
             {list}
         </Nav>
@@ -63,14 +64,14 @@ export const ChatsList = (props: ChatsListProps) => {
         <Form noValidate validated={validated} onSubmit={onSubmit}>
             <Form.Group>
                 <InputGroup>
-                    <FormControl 
-                        name="name" 
-                        value={chatName} 
+                    <FormControl
+                        name="name"
+                        value={chatName}
                         onChange={e => setChatName(e.target.value)}
                         minLength={3}
                         maxLength={20}
                         pattern={'^[А-Яа-яA-Za-z0-9]{3,20}$'}
-                    /> 
+                    />
                     <InputGroup.Append>
                         <Button variant="outline-primary" type="submit" disabled={!chatName.length}>+</Button>
                     </InputGroup.Append>

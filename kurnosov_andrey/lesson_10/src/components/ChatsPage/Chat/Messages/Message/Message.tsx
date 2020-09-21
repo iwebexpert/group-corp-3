@@ -1,10 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 import { nanoid } from 'nanoid'
-import { MessageData } from '../../../../../logic/domain/MessageData';
+import { Message as MessageType } from '../../../../../logic/domain/ChatsService';
 
 type Props = {
-    message: MessageData
+    message: MessageType
 };
 
 const Message = ({ message }: Props) => {

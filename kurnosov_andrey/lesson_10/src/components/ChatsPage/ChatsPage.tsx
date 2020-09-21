@@ -13,15 +13,10 @@ export const ChatsPage = () => {
 
     return <Row> 
         <Col md={4}>        
-            <ChatsListContainer />
+            <ChatsListContainer selectedChatId={id}/>
         </Col>
         <Col>
-            {id 
-                ? <ChatContainer chatId={id} />
-                : <div className="text-center"> {
-                    ( id ? <>Чат не найден.</> : <>Выберите чат из списка</> )
-                } </div>
-            }    
+            <ChatContainer chatId={id} />    
         </Col>
     </Row>
 }

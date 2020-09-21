@@ -41,21 +41,30 @@ class ChatsService {
                 "name": "Чат 3",
                 "messages": []
             }
-        ]
+        ].map(m => ({...m, unreadMessages: [], answerStatus: AnswerStatus.None}))
     }
 }
 
 
-export interface Chat  {
+export type Chat = {
     id: number;
     name: string;
-    messages: {
-        id: number,
-        chatId?: number,
-        text: string,
-        author: string,
-        isFromUser: boolean,
-    } [];
+    messages: Message[];
+    answerStatus: AnswerStatus;
+    unreadMessages: Message[];
+}
+
+export type Message = {
+    id: number,
+    chatId?: number,
+    text: string,
+    author: string,
+    isFromUser: boolean,
+}
+
+export enum AnswerStatus {
+    Typing,
+    None
 }
 
 export const chatsService = new ChatsService();
