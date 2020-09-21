@@ -13,9 +13,9 @@ export const MessageList: React.FC<MessagesListProps> = ({chatId, messages, upda
     const [curChatId, setChatId] = useState(chatId);
     const [curMessages, setMessages] = useState(messages);
 
-    const saveChatDB = (messages: MessageData[]) => {
+    const saveChatDB = (messages: MessageData[], newMessage: MessageData) => {
         setMessages(messages);
-        updateChatDB({chatId: curChatId, messages: messages, unreadMessageCount: 0});
+        updateChatDB(newMessage);
     };
 
     if (chatId !== curChatId){
@@ -26,18 +26,23 @@ export const MessageList: React.FC<MessagesListProps> = ({chatId, messages, upda
     const addMessageHandler = (newData: MessageData) => {
         if (curMessages.find(c => c.author === newData.author) === undefined) {
             const newMessages = curMessages.concat(newData);
-            saveChatDB(newMessages);
 
-            const botMessages = newMessages.concat({
+            saveChatDB(newMessages, newData);
+
+            const newBotMessage = {
                 author: "Бот",
+                chatId: +curChatId,
                 messageText: "",
                 id: generate(),
                 read: false
-            });
-            saveChatDB(botMessages);
+            };
+            const botMessages = newMessages.concat(newBotMessage);
+
+            saveChatDB(botMessages, newBotMessage);
         } else{
             const newMessages = curMessages.concat(newData);
-            saveChatDB(newMessages);
+
+            saveChatDB(newMessages, newData);
         }
     };
 
@@ -45,7 +50,7 @@ export const MessageList: React.FC<MessagesListProps> = ({chatId, messages, upda
         <Container className="p-4">
             <Row as={Messages} messages={curMessages} />
             <Row as={MessageForm}
-                 messageFormData={{author: options.author, messageText: "", id: "", read: false}}
+                 messageFormData={{chatId: curChatId, author: options.author, messageText: "", id: "", read: false}}
                  addMessageHandler={addMessageHandler}
                  checkCondition={options.confirmCondition}
             />

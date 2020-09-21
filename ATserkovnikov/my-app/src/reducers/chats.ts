@@ -1,5 +1,5 @@
 import {Reducer} from "redux";
-import {ChatActionTypes, ChatsActions, chatsLoadDB} from "../actions/chats";
+import {ChatActionTypes, ChatsActions} from "../actions/chats";
 import {ChatsDB} from "../helpers/ChatsDB";
 
 export type ChatsReducerState = {
@@ -22,22 +22,10 @@ export const chatReducer: Reducer<ChatsReducerState, ChatsActions>
                 id: action.payload.id,
                 title: action.payload.name,
                 description: action.payload.name,
-                messages: [],
-                unreadMessageCount: 0
+                messages: []
             };
 
             return Object.assign({}, state, {entries: state.entries.concat(newChat)});
-
-        case ChatActionTypes.MESSAGE_ADD:
-            const newChatDB = state.entries.map(item => {
-                if (item.id === +action.payload.chatId){
-                    item.messages = action.payload.messages;
-                    item.unreadMessageCount = action.payload.unreadMessageCount;
-                }
-                return item;
-            });
-
-            return Object.assign({}, state, {entries: newChatDB});
 
         case ChatActionTypes.CHATS_LOAD:
             if (state.entries.length === 0) {
@@ -67,10 +55,108 @@ export const chatReducer: Reducer<ChatsReducerState, ChatsActions>
                 errors: true
             });
 
-        case ChatActionTypes.REMOVE_CHAT:
+        case ChatActionTypes.CHAT_ADD_REQUEST:
+            return Object.assign({}, state, {
+                loading: true,
+                errors: false
+            });
+
+        case ChatActionTypes.CHAT_ADD_SUCCESS:
+            return Object.assign({}, state, {
+                loading: false,
+                errors: false,
+                entries: state.entries.concat(action.payload)
+            });
+
+        case ChatActionTypes.CHAT_ADD_FAILURE:
+            return Object.assign({}, state, {
+                loading: false,
+                errors: true
+            });
+
+        case ChatActionTypes.CHAT_REMOVE_REQUEST:
+            return Object.assign({}, state, {
+                loading: true,
+                errors: false
+            });
+
+        case ChatActionTypes.CHAT_REMOVE_SUCCESS:
             const newChats = state.entries.filter(c => c.id !== action.payload);
 
-            return Object.assign({}, state, {entries: newChats});
+            return Object.assign({}, state, {entries: newChats, loading: false});
+
+        case ChatActionTypes.CHAT_REMOVE_FAILURE:
+            return Object.assign({}, state, {
+                loading: false,
+                errors: true
+            });
+
+        case ChatActionTypes.MESSAGE_ADD:
+            const newChatMessages = state.entries.map(item => {
+                if (item.id === +action.payload.chatId){
+                    item.messages.concat(action.payload);
+                }
+                return item;
+            });
+
+            return Object.assign({}, state, {entries: newChatMessages});
+
+        case ChatActionTypes.MESSAGES_ADD_REQUEST:
+            return Object.assign({}, state, {
+                loading: true,
+                errors: false
+            });
+
+        case ChatActionTypes.MESSAGES_ADD_SUCCESS:
+            const newChatMessagesDB = state.entries.map(item => {
+                if (item.id === +action.payload.chatId){
+                    item.messages.push(action.payload);
+                }
+                return item;
+            });
+
+            return Object.assign({}, state, {
+                loading: false,
+                errors: false,
+                entries: newChatMessagesDB
+            });
+
+        case ChatActionTypes.MESSAGES_ADD_FAILURE:
+            return Object.assign({}, state, {
+                loading: false,
+                errors: true
+            });
+
+        case ChatActionTypes.MESSAGES_UPDATE_REQUEST:
+            return Object.assign({}, state, {
+                loading: true,
+                errors: false
+            });
+
+        case ChatActionTypes.MESSAGES_UPDATE_SUCCESS:
+            const updateMessagesDB = state.entries.map(item => {
+                if (item.id === +action.payload.chatId){
+                    item.messages = item.messages.map(m => {
+                        if (m.id === action.payload.id) {
+                            m = action.payload;
+                        }
+                        return m;
+                    });
+                }
+                return item;
+            });
+
+            return Object.assign({}, state, {
+                loading: false,
+                errors: false,
+                entries: updateMessagesDB
+            });
+
+        case ChatActionTypes.MESSAGES_UPDATE_FAILURE:
+            return Object.assign({}, state, {
+                loading: false,
+                errors: true
+            });
 
         default:
             return state;

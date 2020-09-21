@@ -7,6 +7,7 @@ import './Messages.scss';
 export const Messages: React.FC<MessageProps> = ({messages}) => {
     const messageView = messages.map((item) =>
         <Message
+            chatId={item.chatId}
             key={item.id}
             id={item.id}
             author={item.author}

@@ -3,20 +3,17 @@
     {
       "id": 0,
       "title": "Рабочий чат",
-      "description": "Рабочий чат",
-      "unreadMessageCount": 0
+      "description": "Рабочий чат"
     },
     {
       "id": 1,
       "title": "Чат дома",
-      "description": "Чат дома",
-      "unreadMessageCount": 0
+      "description": "Чат дома"
     },
     {
       "id": 2,
-      "title":"Дачный чат",
-      "description": "Дачный чат",
-      "unreadMessageCount": 0
+      "title": "Дачный чат",
+      "description": "Дачный чат"
     }
   ],
   "messages": [

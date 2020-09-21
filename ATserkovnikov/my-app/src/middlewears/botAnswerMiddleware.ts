@@ -1,24 +1,23 @@
 import {Middleware} from "redux";
-import {ChatActionTypes, messageAdd, MessageAddAction} from "../actions/chats";
+import {ChatActionTypes, MessageAddAction, MessageUpdateDB } from "../actions/chats";
 
 export const BotAnswerMiddleware: Middleware = store => next => action =>{
-    if (action.type === ChatActionTypes.MESSAGE_ADD){
+    if (action.type === ChatActionTypes.MESSAGES_ADD_SUCCESS){
         const messagesAdd = (action as MessageAddAction).payload;
 
-        const addBotMessage = (messagesAdd: MessagesAdd, botMessage: MessageData) => {
+        const addBotMessage = (messagesAdd: MessageData) => {
             setTimeout(() => {
-                const newMessages = messagesAdd.messages.map(item => {
-                    if (item.id === botMessage.id){
-                        item.messageText = "Привет! " + messagesAdd.messages[messagesAdd.messages.length-2].author;
-                    }
-                    return item;
-                });
+                messagesAdd.messageText = "Привет! Андрей";
 
-                store.dispatch(messageAdd({...messagesAdd, messages: newMessages}));
+                const rootPath = store.getState().router.location.pathname;
+                messagesAdd.read = rootPath === `/chat/${messagesAdd.chatId}`;
+
+                // @ts-ignore
+                store.dispatch(MessageUpdateDB(messagesAdd));
             }, 5000)};
 
-        const botMessages = messagesAdd.messages.filter(c => c.author === "Бот" && c.messageText === "");
-        botMessages.map(botMessage => addBotMessage(messagesAdd, botMessage));
+        if (messagesAdd.author === "Бот")
+            addBotMessage(messagesAdd);
     }
 
     return next(action);

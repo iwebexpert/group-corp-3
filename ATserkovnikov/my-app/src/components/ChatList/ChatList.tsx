@@ -15,7 +15,6 @@ export const ChatList: React.FC = () => {
                   description={item.description}
                   title={item.title}
                   messages={item.messages}
-                  unreadMessageCount={item.unreadMessageCount}
         />));
 
     return (<Container className="p-0">

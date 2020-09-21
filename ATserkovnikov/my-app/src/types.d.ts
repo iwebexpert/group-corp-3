@@ -34,6 +34,7 @@ type MessageFormProps = {
 }
 
 type MessageData = {
+    chatId: number;
     id: string
     author: string;
     messageText: string;
@@ -47,7 +48,7 @@ type MessageProps = {
 type MessagesListProps = {
     messages: MessageData[];
     chatId: number;
-    updateChatDB: (messagesAdd: MessagesAdd) => void;
+    updateChatDB: (messagesAdd: MessageData) => void;
 }
 
 type Chat = {
@@ -55,7 +56,6 @@ type Chat = {
     title: string,
     description: string;
     messages: MessageData[];
-    unreadMessageCount: number;
 }
 
 type ChatAdd = {
@@ -63,8 +63,4 @@ type ChatAdd = {
     name: string;
 }
 
-type MessagesAdd = {
-    chatId: number;
-    messages: MessageData[];
-    unreadMessageCount: number;
-}
+

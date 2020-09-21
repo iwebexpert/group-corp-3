@@ -3,7 +3,7 @@ import './ChatItem.scss'
 import {Accordion, Button, Card, Col, Row} from "react-bootstrap";
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
-import {changeChat, removeChat} from "../../../actions/chats";
+import {changeChat, ChatRemoveDB} from "../../../actions/chats";
 
 export const ChatItem: React.FC<Chat> = (chat: Chat) => {
     const [curChat] = useState(chat);
@@ -15,11 +15,12 @@ export const ChatItem: React.FC<Chat> = (chat: Chat) => {
     };
 
     const removeChatHandler = () => {
-        dispatch(removeChat(curChat.id));
+        dispatch(ChatRemoveDB(curChat.id));
     };
 
-    const unreadMess = chat.unreadMessageCount > 0 ?
-        (<div className="chat-num">{chat.unreadMessageCount}</div>) : "";
+    const unreadMessagesCount = chat.messages.filter(c => !c.read).length;
+    const unreadMess = unreadMessagesCount > 0 ?
+        (<div className="chat-num">{unreadMessagesCount}</div>) : "";
 
     return (
     <Card key={chat.id.toString()}>

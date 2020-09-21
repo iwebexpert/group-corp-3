@@ -17,6 +17,7 @@ export const MessageForm: React.FC<MessageFormProps> = ({ messageFormData, addMe
         if (form.checkValidity()) {
             addMessageHandler({
                 id: generate(),
+                chatId: +messageFormData.chatId,
                 author: authorField.value,
                 messageText: messageTextField.value,
                 read: true
