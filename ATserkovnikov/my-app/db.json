@@ -1,0 +1,35 @@
+{
+  "chats": [
+    {
+      "id": 0,
+      "title": "Рабочий чат",
+      "description": "Рабочий чат"
+    },
+    {
+      "id": 1,
+      "title": "Чат дома",
+      "description": "Чат дома"
+    },
+    {
+      "id": 2,
+      "title": "Дачный чат",
+      "description": "Дачный чат"
+    }
+  ],
+  "messages": [
+    {
+      "id": "0",
+      "chatId": 0,
+      "author": "Андрей",
+      "messageText": "Привет Бот",
+      "read": true
+    },
+    {
+      "id": "1",
+      "chatId": 0,
+      "author": "Бот",
+      "messageText": "Привет Андрей",
+      "read": true
+    }
+  ]
+}

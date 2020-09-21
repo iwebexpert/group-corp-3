@@ -1,5 +1,5 @@
 import {Middleware} from "redux";
-import {ChatActionTypes, ChangeChatAction, messageAdd} from "../actions/chats";
+import {ChatActionTypes, ChangeChatAction, MessageUpdateDB} from "../actions/chats";
 import {AppState} from "../reducers";
 
 export const ChangeChatMiddleware: Middleware = store => next => action =>{
@@ -7,12 +7,12 @@ export const ChangeChatMiddleware: Middleware = store => next => action =>{
         const chatId = (action as ChangeChatAction).payload;
 
         const chat: Chat = (store.getState() as AppState).chats.entries.filter(c => c.id === chatId)[0];
-        const newMessages: MessageData[] = chat.messages.messages.map(item => {
-            item.read = true;
-            return item;
+        chat.messages.map(item => {
+            if (!item.read) {
+                // @ts-ignore
+                store.dispatch(MessageUpdateDB({...item, read: true}));
+            }
         });
-
-        store.dispatch(messageAdd({...chat.messages, messages: newMessages}));
     }
 
     return next(action);

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Messages} from './Messages';
 import {MessageForm} from './MessafeForm';
 import {Container, Row} from "react-bootstrap";
@@ -7,47 +7,50 @@ import {ConfigContext} from "../../App";
 
 import './MessageList.scss'
 
-export const MessageList: React.FC<MessagesListProps> = ({messages, updateChatDB}) => {
+export const MessageList: React.FC<MessagesListProps> = ({chatId, messages, updateChatDB}) => {
     const {options} = useContext(ConfigContext);
 
-    const [curMessages, setMessage] = useState(messages);
-    const [curAuthor, setNewAuthor] = useState("");
+    const [curChatId, setChatId] = useState(chatId);
+    const [curMessages, setMessages] = useState(messages);
 
-    const saveChatDB = (messages: MessagesListData) => {
-        setMessage(messages);
-        updateChatDB(messages);
+    const saveChatDB = (messages: MessageData[], newMessage: MessageData) => {
+        setMessages(messages);
+        updateChatDB(newMessage);
     };
 
-    if (messages.chatId !== curMessages.chatId){
-        setMessage(messages);
-        setNewAuthor("");
+    if (chatId !== curChatId){
+        setChatId(chatId);
+        setMessages(messages);
     }
 
     const addMessageHandler = (newData: MessageData) => {
-        if (curMessages.authors.find(c => c === newData.author) === undefined)
-            setNewAuthor(newData.author);
+        if (curMessages.find(c => c.author === newData.author) === undefined) {
+            const newMessages = curMessages.concat(newData);
 
-        saveChatDB({...curMessages, messages: curMessages.messages.concat(newData)});
+            saveChatDB(newMessages, newData);
+
+            const newBotMessage = {
+                author: "Бот",
+                chatId: +curChatId,
+                messageText: "",
+                id: generate(),
+                read: false
+            };
+            const botMessages = newMessages.concat(newBotMessage);
+
+            saveChatDB(botMessages, newBotMessage);
+        } else{
+            const newMessages = curMessages.concat(newData);
+
+            saveChatDB(newMessages, newData);
+        }
     };
-
-     useEffect(() => {
-         if (curAuthor === "") return;
-
-         const newKey = generate();
-         saveChatDB({...curMessages,
-             messages: curMessages.messages.concat({author: "Бот",
-                 messageText: "",
-                 key: newKey,
-                 read: false
-             }),
-             authors: curMessages.authors.concat(curAuthor)});
-    }, [curAuthor]);
 
     return (
         <Container className="p-4">
-            <Row as={Messages} messages={curMessages.messages} />
+            <Row as={Messages} messages={curMessages} />
             <Row as={MessageForm}
-                 messageFormData={{author: options.author, messageText: "", key: "", read: false}}
+                 messageFormData={{chatId: curChatId, author: options.author, messageText: "", id: "", read: false}}
                  addMessageHandler={addMessageHandler}
                  checkCondition={options.confirmCondition}
             />

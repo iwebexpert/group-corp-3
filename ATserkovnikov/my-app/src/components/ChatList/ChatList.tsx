@@ -12,9 +12,10 @@ export const ChatList: React.FC = () => {
     const chats = chatsDB.entries.map((item: Chat) => (
         <ChatItem key={item.id}
                   id={item.id}
-                  messages={item.messages}
                   description={item.description}
-                  title={item.title}/>));
+                  title={item.title}
+                  messages={item.messages}
+        />));
 
     return (<Container className="p-0">
             <Row>

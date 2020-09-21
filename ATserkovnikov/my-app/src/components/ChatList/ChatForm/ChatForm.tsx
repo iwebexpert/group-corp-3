@@ -3,7 +3,7 @@ import {useFormValue} from "../../../hooks/useFormValue";
 import {Button, Form} from "react-bootstrap";
 import {ConfigContext} from "../../../App";
 import {useDispatch} from "react-redux";
-import {chatAdd} from "../../../actions/chats";
+import {chatAddDB} from "../../../actions/chats";
 
 import './ChatForm.scss'
 
@@ -22,7 +22,7 @@ export const ChatForm : React.FC = () => {
 
         if (form.checkValidity()) {
             const newChatAdd: ChatAdd = { id: 0, name: chatNameField.value};
-            dispatch(chatAdd(newChatAdd));
+            dispatch(chatAddDB(newChatAdd));
             chatNameField.setValues("");
         }
 
