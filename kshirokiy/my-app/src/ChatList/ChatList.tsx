@@ -31,6 +31,7 @@ export const chatsData: ChatsData[] = [
 export const ChatList: React.FC<{}> = ({}) => {
     const chats = useSelector((state: AppState) => state.chats.chats || []);
     const dispatch = useDispatch();
+    const classLink = ' mb-4 cursor-pointer';
 
     if(Object.keys(chats).length === 0) {
         dispatch(chatsLoad());
@@ -42,11 +43,11 @@ export const ChatList: React.FC<{}> = ({}) => {
 
     return (<div className={'pt-3'}>
         <Nav className='flex-column'>
-            {chats.map((chat) =>
-                (<a
-                    className={chat.answerBot ? 'answerBot mb-4' : 'mb-4'}
+            {chats.map((chat) => {
+                return (<a
+                    className={chat.answerBot ? `answerBot ${classLink}` : `${classLink}`}
                     onClick={() => handleChatAdd(chat.id)}
-                    key={chat.id}>{chat.title}</a>))}
+                    key={chat.id}>{chat.title}</a>)})}
         </Nav>
     </div>);
 }
