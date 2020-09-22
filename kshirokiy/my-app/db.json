@@ -1,84 +1,16 @@
 {
   "chats": [
     {
-      "id": 0,
-      "title": "Чат 0"
-    },
-    {
-      "id": 1,
-      "title": "Чат 1"
-    },
-    {
-      "id": 2,
-      "title": "Чат 2"
+      "title": "chat 1",
+      "id": 1
     }
   ],
   "messages": [
     {
-      "message": "dadasdasd",
-      "author": "asdasdsa",
-      "chatId": "0",
-      "id": 1
-    },
-    {
-      "message": "asdasdasd",
-      "author": "asdasd",
-      "chatId": 0,
-      "id": 2
-    },
-    {
-      "message": "aasasd",
-      "author": "asd",
-      "chatId": 0,
-      "id": 3
-    },
-    {
-      "message": "dasdasdasd",
-      "author": "asda",
-      "chatId": 0,
-      "id": 4
-    },
-    {
-      "message": "asda",
-      "author": "sdasdasadsad",
+      "message": "message 1 ",
+      "author": "author",
       "chatId": 1,
-      "id": 5
-    },
-    {
-      "message": "adaasd",
-      "author": "asdasd",
-      "chatId": 0,
-      "id": 6
-    },
-    {
-      "message": "sdfsdfsdf",
-      "author": "asdf",
-      "chatId": 0,
-      "id": 7
-    },
-    {
-      "message": "sadasdasdsadasd",
-      "author": "asdsad",
-      "chatId": 0,
-      "id": 8
-    },
-    {
-      "message": "asdsa",
-      "author": "dasdasdasd",
-      "chatId": 2,
-      "id": 9
-    },
-    {
-      "message": "addasdasd",
-      "author": "asdads",
-      "chatId": 0,
-      "id": 10
-    },
-    {
-      "message": "sadadadad",
-      "author": "asdads",
-      "chatId": 2,
-      "id": 11
+      "id": 1
     }
   ]
 }

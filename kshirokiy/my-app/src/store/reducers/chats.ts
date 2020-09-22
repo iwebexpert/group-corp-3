@@ -54,13 +54,6 @@ export const chatsReducer: Reducer<ChatsReducerState, any> = (state = initialSta
                 error: true
             };
 
-        case ChatsActionTypes.CHATS_LOAD_REQUEST:
-            return {
-                ...state,
-                loading: true,
-                error: false
-            };
-
         case ChatsActionTypes.CHATS_LOAD_SUCCESS:
             return {
                 ...state,
@@ -69,14 +62,7 @@ export const chatsReducer: Reducer<ChatsReducerState, any> = (state = initialSta
                 chats: action.payload
             };
 
-        case ChatsActionTypes.CHATS_LOAD_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: true
-            };
-
-        case ChatsActionTypes.CHATS_MESSAGE_SEND:
+        case ChatsActionTypes.CHATS_MESSAGE_SEND_BOT:
             const {chatId, message, author, id, answerBot} = action.payload;
             return Object.assign({}, state, {
                 chats: state.chats.map(ch => {
@@ -96,13 +82,15 @@ export const chatsReducer: Reducer<ChatsReducerState, any> = (state = initialSta
             return settingChatOnMessageSend(action.payload, state);
 
         case ChatsActionTypes.CHATS_ADDING:
-            const {title} = action.payload;
-            let joinedChat = {
-                id: state.chats.length,
-                title,
-                messages: []
-            };
-            return Object.assign({}, state, {chats: [...state.chats, joinedChat]})
+            const createChat = () => {
+                const {title, id} = action.payload;
+                return  {
+                    id,
+                    title,
+                    messages: []
+                };
+            }
+            return Object.assign({}, state, {chats: [...state.chats, createChat()], loading: false})
 
         default:
             return state;

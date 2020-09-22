@@ -16,15 +16,10 @@ export enum CommonActionTypes {
 };
 
 export enum ChatsActionTypes {
-    CHATS_LOAD = 'CHATS_LOAD',
-    CHATS_MESSAGE_SEND = 'CHATS_MESSAGE_SEND',
+    CHATS_MESSAGE_SEND_BOT = 'CHATS_MESSAGE_SEND_BOT',
     CHATS_ADDING = 'CHATS_ADDING',
-
-    CHATS_LOAD_REQUEST = 'CHATS_LOAD_REQUEST',
     CHATS_LOAD_SUCCESS = 'CHATS_LOAD_SUCCESS',
-    CHATS_LOAD_FAILURE = 'CHATS_LOAD_FAILURE',
-    SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS',
-    CHATS_ADD = 'CHATS_ADD'
+    SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS'
 };
 
 export type CommonLoadRequestAction = {
@@ -45,53 +40,24 @@ export const commonRequestFailure: ActionCreator<CommonRequestFailureAction> = (
     error: true
 });
 
-export type ChatsLoadRequestAction = {
-    type: ChatsActionTypes.CHATS_LOAD_REQUEST;
-};
-
 export type ChatsLoadSuccessAction = {
     type: ChatsActionTypes.CHATS_LOAD_SUCCESS;
     payload: any;
 };
-
-export type ChatsLoadFailureAction = {
-    type: ChatsActionTypes.CHATS_LOAD_FAILURE;
-    payload: RequestError;
-    error: boolean;
-};
-
-// get chat
-export const chatsLoadRequest: ActionCreator<ChatsLoadRequestAction> = () => ({
-    type: ChatsActionTypes.CHATS_LOAD_REQUEST,
-});
 
 export const chatsLoadSuccess: ActionCreator<ChatsLoadSuccessAction> = (data: any) => ({
     type: ChatsActionTypes.CHATS_LOAD_SUCCESS,
     payload: data,
 });
 
-export const chatsLoadFailure: ActionCreator<ChatsLoadFailureAction> = (error: RequestError) => ({
-    type: ChatsActionTypes.CHATS_LOAD_FAILURE,
-    payload: error,
-    error: true,
-});
-
-export type ChatsLoadAction = {
-    type: ChatsActionTypes.CHATS_LOAD;
-};
-
-// export const chatsLoad: ActionCreator<ChatsLoadAction> = () => ({
-//     type: ChatsActionTypes.CHATS_LOAD,
-// });
-
 export const chatsLoad = () => {
     return async (dispatch: Dispatch) => { // redux-thunk
         try {
-            dispatch(chatsLoadRequest());
-            const result = await fetch('http://localhost:3001/chats?_embed=messages');
+            dispatch(commonLoadRequest());
+            const result = await fetch('/chats?_embed=messages');
             dispatch(chatsLoadSuccess(await result.json()));
-        } catch(error){
-            dispatch(chatsLoadFailure(error));
+        } catch (error) {
+            dispatch(commonRequestFailure(error));
         }
     }
 };
@@ -111,7 +77,7 @@ export const sendMessage = (message: any) => {
         try {
             dispatch(commonLoadRequest());
             delete message.id;
-            const result = await fakeTimeout(200, fetch('http://localhost:3001/messages', {
+            const result = await fakeTimeout(200, fetch('/messages', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -120,22 +86,23 @@ export const sendMessage = (message: any) => {
                 method: 'POST'
             }));
             dispatch(sendMessagedRequestSuccess(await (result as any).json()));
-        } catch(error){
+        } catch (error) {
             dispatch(commonRequestFailure(error));
         }
     }
 };
 
-export type ChatsMessageSendAction = {
-    type: ChatsActionTypes.CHATS_MESSAGE_SEND;
+export type ChatsMessageSendBotAction = {
+    type: ChatsActionTypes.CHATS_MESSAGE_SEND_BOT;
     payload: any;
 };
 
-export const chatsMessageSend: ActionCreator<ChatsMessageSendAction> = (message: ItemWithId) => ({
-    type: ChatsActionTypes.CHATS_MESSAGE_SEND,
-    payload:  message
+export const chatsMessageBotSend: ActionCreator<ChatsMessageSendBotAction> = (message: ItemWithId) => ({
+    type: ChatsActionTypes.CHATS_MESSAGE_SEND_BOT,
+    payload: message
 });
 
+// add Chat
 export type ChatsAddingAction = {
     type: ChatsActionTypes.CHATS_ADDING;
     payload: any;
@@ -146,5 +113,24 @@ export const chatsAdding: ActionCreator<ChatsAddingAction> = (chat: any) => ({
     payload: chat
 });
 
+export const chatAdding = (chat: any) => {
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch(commonLoadRequest());
+            delete chat.id;
+            const result = await fakeTimeout(200, fetch('/chats', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(chat),
+                method: 'POST'
+            }));
+            dispatch(chatsAdding(await (result as any).json()));
+        } catch (error) {
+            dispatch(commonRequestFailure(error));
+        }
+    }
+}
 
 
