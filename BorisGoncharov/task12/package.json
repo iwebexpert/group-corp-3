@@ -25,6 +25,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
+    "express-http-proxy": "^1.6.2",
     "formik": "^2.1.5",
     "history": "^4.10.1",
     "i18next": "^19.7.0",
@@ -49,7 +50,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "json-server --port 4000 --delay 1000 --watch ./src/db.json",
+    "server": "node ./server/server.js",
+    "json-server": "json-server --port 4000 --delay 1000 --watch ./src/db.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please add a lastName'],
     },
+    fullName: String,
     login: {
       type: String,
       required: [true, 'Please add a login'],
@@ -40,9 +41,9 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-// Make fullName field
-UserSchema.pre('save', async function (next) {
-  this.fullName = `${this.firtName} ${this.lastName}`;
+// Fill fullName field
+UserSchema.pre('save', function () {
+  this.fullName = `${this.firstName} ${this.lastName}`;
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -6,13 +6,13 @@ const MessageSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide message with text'],
     },
-    chatId: {
+    chat: {
       type: mongoose.Schema.ObjectId, // Type will be an id of an object in schema
       ref: 'Chat', // Reference to model
       required: [true, 'Please provide message with chatId'],
-      virtual: false, // Don't include virtual to object
+      select: false,
     },
-    userId: {
+    user: {
       type: mongoose.Schema.ObjectId, // Type will be an id of an object in schema
       ref: 'User', // Reference to model
       required: [true, 'Please provide message with userId'],

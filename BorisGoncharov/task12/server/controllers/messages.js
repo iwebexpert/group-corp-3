@@ -6,7 +6,12 @@ const Message = require('../models/Message');
 const router = express.Router();
 
 const getMessages = asyncHandler(async (req, res) => {
-  res.status(200).send(await Message.findById(req.params.chatId));
+  res.status(200).send(
+    await Message.find({ chat: req.params.chatId }).populate({
+      path: 'user',
+      select: 'id fullName',
+    })
+  );
 });
 
 const addMessage = asyncHandler(async (req, res) => {
