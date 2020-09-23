@@ -183,7 +183,7 @@ export const chatAddDB = (chat: ChatAdd) => {
                 messages: []
             };
 
-            await fetch("http://localhost:4000/chats", {
+            await fetch("api/chats", {
                 method: 'POST',
                 body: JSON.stringify(newChat),
                 headers: {'Content-Type': 'application/json'}
@@ -226,7 +226,7 @@ export const ChatRemoveDB = (chatId: number) => {
         try {
             dispatch(ChatRemoveRequestDB());
 
-            await fetch(`http://localhost:4000/chats/${chatId}`, {
+            await fetch(`api/chats/${chatId}`, {
                 method: 'DELETE',
                 headers: {'Content-Type': 'application/json'}
             });
@@ -263,7 +263,7 @@ export const MessageAddDB = (message: MessageData) => {
         try {
             dispatch(MessagesAddRequestDB());
 
-            await fetch("http://localhost:4000/messages", {
+            await fetch("api/messages", {
                 method: 'POST',
                 body: JSON.stringify(message),
                 headers: {'Content-Type': 'application/json'}
@@ -296,7 +296,7 @@ export const MessageUpdateDB = (message: MessageData) => {
         try {
             dispatch(MessagesUpdateRequestDB());
 
-            await fetch(`http://localhost:4000/messages/${message.id}`, {
+            await fetch(`api/messages/${message.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(message),
                 headers: {'Content-Type': 'application/json'}

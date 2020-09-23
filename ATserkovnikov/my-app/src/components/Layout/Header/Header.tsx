@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
             <Row>
                 <Col/>
                 <Col>
-                    Чат
+                    {process.env.REACT_APP_TITLE}
                 </Col>
                 <Col className="text-right">
                     <OptionsModal options={options} changeContextHandle={changeContextHandle} />
