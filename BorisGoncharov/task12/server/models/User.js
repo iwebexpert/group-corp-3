@@ -10,11 +10,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please add a lastName'],
     },
-    fullName: String,
-    login: {
+    email: {
       type: String,
-      required: [true, 'Please add a login'],
-      unique: [true, 'Please add an unique login'],
+      required: [true, 'Please add an email'],
+      unique: [true, 'Please add an unique email'],
+      match: [/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/, 'Please add a valid email'],
     },
     password: {
       type: String,
@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema(
 );
 
 // Fill fullName field
-UserSchema.pre('save', function () {
+UserSchema.virtual('fullName').get(function () {
   this.fullName = `${this.firstName} ${this.lastName}`;
 });
 

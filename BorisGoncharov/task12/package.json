@@ -51,6 +51,8 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "node ./server/server.js",
+    "seeder-insert": "node ./server/seeder.js -i",
+    "seeder-delete": "node ./server/seeder.js -d",
     "json-server": "json-server --port 4000 --delay 1000 --watch ./src/db.json",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -7,6 +7,11 @@ const ChatSchema = new mongoose.Schema(
       required: [true, 'Please provide a chat title'],
       unique: [true, 'Please provide an unique chat title'],
     },
+    owner: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      required: [true, "Please provide chat's owner"],
+    },
   },
   {
     toJSON: { virtuals: true },

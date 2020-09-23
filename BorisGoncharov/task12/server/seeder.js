@@ -2,15 +2,17 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const colors = require('colors');
 const dotenv = require('dotenv');
+const path = require('path');
 
 // Load env variables
-dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: path.join(__dirname, 'config/config.env') });
 
 // Load models
+const User = require('./models/User');
 const Chat = require('./models/Chat');
 const Message = require('./models/Message');
-const User = require('./models/User');
 
+console.log(process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -19,6 +21,10 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // Read JSON files
+const users = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
+);
+
 const chats = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/chats.json`, 'utf-8')
 );
@@ -27,16 +33,12 @@ const messages = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/messages.json`, 'utf-8')
 );
 
-const users = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
-);
-
 // Inport into DB
 const importData = async () => {
   try {
-    await Chat.create(chats);
-    await Message.create(messages);
     await User.create(users);
+    await Chat.create(chats);
+    // await Message.create(messages);
     console.log('Data imported'.green.inverse);
     process.exit();
   } catch (error) {
@@ -47,9 +49,9 @@ const importData = async () => {
 // Delete data
 const deleteData = async () => {
   try {
+    await User.deleteMany();
     await Chat.deleteMany();
     await Message.deleteMany();
-    await User.deleteMany();
     console.log('Data destroyed'.red.inverse);
     process.exit();
   } catch (error) {

@@ -12,9 +12,9 @@ const MessageSchema = new mongoose.Schema(
       required: [true, 'Please provide message with chatId'],
       select: false,
     },
-    user: {
-      type: mongoose.Schema.ObjectId, // Type will be an id of an object in schema
-      ref: 'User', // Reference to model
+    author: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
       required: [true, 'Please provide message with userId'],
     },
     createdAt: {
