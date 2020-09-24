@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
         <Container className="footer" fluid>
             <Row>
                 <Col>
-                    Футер
+                    {process.env.REACT_APP_NAME}&nbsp;{process.env.REACT_APP_VERSION}
                 </Col>
             </Row>
         </Container>
