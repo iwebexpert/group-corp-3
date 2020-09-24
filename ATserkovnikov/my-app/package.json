@@ -49,8 +49,9 @@
   "proxy": "http://localhost:4000",
   "scripts": {
     "start": "react-scripts start",
-    "serv": "serve -s build -l 3000",
+    "serve": "serve -s build -l 3000",
     "db": "json-server --port 4000 --delay 2000 --watch ./db.json",
+    "serverJs": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

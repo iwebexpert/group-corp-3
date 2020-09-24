@@ -146,7 +146,7 @@ export const chatAdd: ActionCreator<ChatAddAction> = (chatAdd: ChatAdd) => ({
 });
 
 export const chatsLoadDB = () => createAction({
-    endpoint: "http://localhost:4000/chats?_embed=messages",
+    endpoint: "../api/chats?_embed=messages",
     method: "GET",
     headers: {'Content-Type': 'application/json'},
     types: [
@@ -183,13 +183,14 @@ export const chatAddDB = (chat: ChatAdd) => {
                 messages: []
             };
 
-            await fetch("api/chats", {
+            const response = await fetch("../api/chats", {
                 method: 'POST',
                 body: JSON.stringify(newChat),
                 headers: {'Content-Type': 'application/json'}
             });
 
-            dispatch(chatAddSuccessDB(newChat));
+            if (response.ok)
+                dispatch(chatAddSuccessDB(newChat));
         }catch(error){
             dispatch(chatAddErrorDB(error));
         }
@@ -226,12 +227,12 @@ export const ChatRemoveDB = (chatId: number) => {
         try {
             dispatch(ChatRemoveRequestDB());
 
-            await fetch(`api/chats/${chatId}`, {
-                method: 'DELETE',
-                headers: {'Content-Type': 'application/json'}
+            const response = await fetch(`../api/chats/${chatId}`, {
+                method: 'DELETE'
             });
 
-            dispatch(ChatRemoveSuccessDB(chatId));
+            if (response.ok)
+                dispatch(ChatRemoveSuccessDB(chatId));
         }catch(error){
             dispatch(ChatRemoveErrorDB(error));
         }
@@ -263,13 +264,14 @@ export const MessageAddDB = (message: MessageData) => {
         try {
             dispatch(MessagesAddRequestDB());
 
-            await fetch("api/messages", {
+            const response = await fetch("../api/messages", {
                 method: 'POST',
                 body: JSON.stringify(message),
                 headers: {'Content-Type': 'application/json'}
             });
 
-            dispatch(MessagesAddSuccessDB(message));
+            if (response.ok)
+                dispatch(MessagesAddSuccessDB(message));
         }catch(error){
             dispatch(MessagesAddErrorDB(error));
         }
@@ -296,13 +298,14 @@ export const MessageUpdateDB = (message: MessageData) => {
         try {
             dispatch(MessagesUpdateRequestDB());
 
-            await fetch(`api/messages/${message.id}`, {
+            const response = await fetch(`../api/messages/${message.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(message),
                 headers: {'Content-Type': 'application/json'}
             });
 
-            dispatch(MessagesUpdateSuccessDB(message));
+            if (response.ok)
+                dispatch(MessagesUpdateSuccessDB(message));
         }catch(error){
             dispatch(MessagesUpdateErrorDB(error));
         }
