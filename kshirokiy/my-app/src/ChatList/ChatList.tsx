@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {Nav} from 'react-bootstrap';
 import {ChatsData} from '../types/types';
@@ -33,9 +33,13 @@ export const ChatList: React.FC<{}> = ({}) => {
     const dispatch = useDispatch();
     const classLink = ' mb-4 cursor-pointer';
 
-    if(Object.keys(chats).length === 0) {
-        dispatch(chatsLoad());
+    if (Object.keys(chats).length === 0) {
+
     }
+
+    useEffect(() => {
+        dispatch(chatsLoad());
+    }, []);
 
     const handleChatAdd = (id: any) => {
         dispatch(push(`/chats/${id}`));

@@ -1,17 +1,23 @@
 import React, {useState, useEffect, useContext} from 'react';
 import '../Messenger/Messenger.scss';
-import {Item, ItemWithId} from '../types/types';
+import {ItemWithId} from '../types/types';
 import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../store/reducers/rootReducer';
-import {chatsLoad, chatsMessageSend, sendMessage} from '../store/actions/actionType';
+import {chatsMessageBotSend, sendMessage} from '../store/actions/actionType';
 import {Messenger} from '../Messenger/Messenger';
 
 export const MessengerContainer: React.FC<{}> = () => {
     const {id} = useParams<any>();
     const [routeChange, setRouteChange] = useState<boolean>(false);
     const dispatch = useDispatch();
-    const messages = useSelector((state: AppState) => state.chats.chats[id] ? state.chats.chats[id].messages : []);
+    const messages = useSelector((state: AppState) => {
+        let chat = state.chats.chats.find(ch => {
+            return +ch.id === +id
+        });
+        let messages = chat && chat.messages || [];
+        return messages;
+    });
     const [isLoading, isError, lastAddMessage] = useSelector((state: AppState) =>
             ([state.chats.loading, state.chats.error, state.chats.lastAddMessage]));
 
@@ -24,7 +30,7 @@ export const MessengerContainer: React.FC<{}> = () => {
                 if (isManual && (lastAddMessage && lastAddMessage.hasOwnProperty('chatId') &&
                     +lastAddMessage.chatId === +id)) {
                     window.setTimeout(() => {
-                        dispatch(chatsMessageSend({
+                        dispatch(chatsMessageBotSend({
                             ...message
                         }));
                     }, 2000);

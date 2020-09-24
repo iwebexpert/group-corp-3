@@ -1,12 +1,11 @@
 import {useDispatch} from 'react-redux';
 import React, {useState} from 'react';
 import {Form} from 'react-bootstrap';
-import {chatsAdding} from '../store/actions/actionType';
+import {chatAdding, chatsAdding} from '../store/actions/actionType';
 
 
 export const AddingChatForm: React.FC<{}> = () => {
     const dispatch = useDispatch();
-
     const [validated, setValidated] = useState<boolean>(false);
     const [title, setTitle] = React.useState<string>('');
 
@@ -17,7 +16,7 @@ export const AddingChatForm: React.FC<{}> = () => {
         if (form.checkValidity()) {
             setValidated(false);
             let chat = {title}
-            dispatch(chatsAdding(chat));
+            dispatch(chatAdding(chat))
             setTitle('');
         }
     }

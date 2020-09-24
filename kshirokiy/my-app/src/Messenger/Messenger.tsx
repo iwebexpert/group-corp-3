@@ -18,7 +18,8 @@ export const Messenger: React.FC<MessengerProps> = ({
         items,
         isLoading,
         onSendHandler, routeChange,
-        paramId}) => {
+        paramId
+    }) => {
 
     const [isManual, setIsManual] = React.useState<boolean>(false);
     const handleMessageSendForm = (message: ItemWithId) => {
@@ -46,8 +47,9 @@ export const Messenger: React.FC<MessengerProps> = ({
     }, []);
 
     return (<div className='messenger'>
-        {isLoading && <div  className="d-flex mt-5 justify-content-center"><Spinner variant='success' animation='grow' /></div>}
+        {isLoading &&
+        <div className="d-flex mt-5 justify-content-center"><Spinner variant='success' animation='grow'/></div>}
         {!isLoading && <div><Messages items={items}></Messages>
-        <MessageField paramId={paramId} onSendHandler={handleMessageSendForm}></MessageField></div>}
+            <MessageField paramId={paramId} onSendHandler={handleMessageSendForm}></MessageField></div>}
     </div>);
 }

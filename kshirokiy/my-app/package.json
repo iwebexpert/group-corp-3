@@ -38,7 +38,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"json-server --watch db.json --port 3001\" \"react-scripts start\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -59,5 +60,6 @@
     "@types/shortid": "0.0.29",
     "node-sass": "^4.14.1",
     "redux-persist": "^6.0.0"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
