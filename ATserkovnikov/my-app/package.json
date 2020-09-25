@@ -24,6 +24,9 @@
     "bootstrap": "^4.5.2",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
+    "dot-env": "0.0.1",
+    "dotenv": "^8.2.0",
+    "dotenv-defaults": "^2.0.1",
     "http-proxy-middleware": "^1.0.5",
     "immutable": "^4.0.0-rc.12",
     "json-server": "^0.16.1",
@@ -43,6 +46,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "scss-loader": "0.0.1",
     "shortid": "^2.2.15",
     "typescript": "^3.7.5"
   },
@@ -54,7 +58,10 @@
     "serverJs": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "webpack --mode development",
+    "dev-server": "webpack-dev-server --port 3000 --open",
+    "prod": "webpack --mode production"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -70,5 +77,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "css-loader": "^4.3.0",
+    "dotenv-webpack": "^3.0.0",
+    "file-loader": "^6.1.0",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^0.11.2",
+    "ts-loader": "^8.0.4",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }

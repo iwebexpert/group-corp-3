@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Image} from 'react-bootstrap';
 import {OptionsModal} from '../../Options/OptionsModal';
 import {ConfigContext} from '../../../App'
+import logo from '../../../../Images/images.jpg';
 
 import './Header.scss'
 
@@ -11,9 +12,12 @@ export const Header: React.FC = () => {
     return (
         <Container className="header" fluid>
             <Row>
-                <Col/>
                 <Col>
-                    {process.env.REACT_APP_TITLE}
+                    <Image src={logo} roundedCircle style={{height: "40px"}} />
+                </Col>
+                <Col>
+                    {process.env.APP_TITLE}
+                    {process.env.TEST}
                 </Col>
                 <Col className="text-right">
                     <OptionsModal options={options} changeContextHandle={changeContextHandle} />

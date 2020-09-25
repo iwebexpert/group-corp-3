@@ -146,7 +146,7 @@ export const chatAdd: ActionCreator<ChatAddAction> = (chatAdd: ChatAdd) => ({
 });
 
 export const chatsLoadDB = () => createAction({
-    endpoint: "../api/chats?_embed=messages",
+    endpoint: "http://localhost:4000/chats?_embed=messages",
     method: "GET",
     headers: {'Content-Type': 'application/json'},
     types: [
@@ -183,7 +183,7 @@ export const chatAddDB = (chat: ChatAdd) => {
                 messages: []
             };
 
-            const response = await fetch("../api/chats", {
+            const response = await fetch("http://localhost:4000/chats", {
                 method: 'POST',
                 body: JSON.stringify(newChat),
                 headers: {'Content-Type': 'application/json'}
@@ -227,7 +227,7 @@ export const ChatRemoveDB = (chatId: number) => {
         try {
             dispatch(ChatRemoveRequestDB());
 
-            const response = await fetch(`../api/chats/${chatId}`, {
+            const response = await fetch(`http://localhost:4000/chats/${chatId}`, {
                 method: 'DELETE'
             });
 
@@ -264,7 +264,7 @@ export const MessageAddDB = (message: MessageData) => {
         try {
             dispatch(MessagesAddRequestDB());
 
-            const response = await fetch("../api/messages", {
+            const response = await fetch("http://localhost:4000/messages", {
                 method: 'POST',
                 body: JSON.stringify(message),
                 headers: {'Content-Type': 'application/json'}
@@ -298,7 +298,7 @@ export const MessageUpdateDB = (message: MessageData) => {
         try {
             dispatch(MessagesUpdateRequestDB());
 
-            const response = await fetch(`../api/messages/${message.id}`, {
+            const response = await fetch(`http://localhost:4000/messages/${message.id}`, {
                 method: 'PUT',
                 body: JSON.stringify(message),
                 headers: {'Content-Type': 'application/json'}
