@@ -1,0 +1,6 @@
+APP_TITLE="Мой чат"
+TEST="Not show"
+
+HTTPS=true
+SSL_CRT_FILE=./cert/server.crt
+SSL_KEY_FILE=./cert/server.key
