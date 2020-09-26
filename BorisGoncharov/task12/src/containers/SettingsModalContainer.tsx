@@ -2,45 +2,41 @@ import React, { FC, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { SettingsModal } from '../components/SettingsModal';
 import { AppState } from '../state/store';
-import {
-  SettingsActions,
-  settingsUpdate,
-  settingsModalClose,
-} from '../state/actions';
+import { userUpdate, userModalClose, UserActions } from '../state/actions';
 import i18n from '../i18n/i18n';
-import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 type StateProps = {
-  settings: Settings;
+  user: User;
   visible: boolean;
 };
 
 type DispatchProps = {
-  onSettingsChange: (settings: Settings) => void;
+  onSettingsChange: (user: User) => void;
   onSettingsModalClose: () => void;
 };
 
 type Props = StateProps & DispatchProps;
 
 export const SettingsModalContainer: FC<Props> = ({
-  settings,
+  user,
   visible,
   onSettingsChange,
   onSettingsModalClose,
 }) => {
   useEffect(() => {
-    i18n.changeLanguage(settings.language);
+    i18n.changeLanguage(user.settings.language);
     document.body.className = '';
     document.body.className = `${
-      settings.theme === 'dark' ? 'bg-dark' : 'bg-white'
+      user.settings.theme === 'dark' ? 'bg-dark' : 'bg-white'
     }`;
-  }, [settings]);
+  }, [user]);
 
   return (
     <SettingsModal
-      settings={settings}
+      user={user}
       visible={visible}
-      theme={settings.theme}
+      theme={user.settings.theme}
       onSettingsModalClose={onSettingsModalClose}
       onSettingsChange={onSettingsChange}
     ></SettingsModal>
@@ -49,18 +45,17 @@ export const SettingsModalContainer: FC<Props> = ({
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {
-    settings: state.settings.settings,
-    visible: state.settings.modalVisible,
+    user: state.user.user,
+    visible: state.user.modalVisible,
   };
 };
 
 const mapDispathToProps = (
-  dispatch: Dispatch<SettingsActions>
+  dispatch: ThunkDispatch<AppState, ThunkExtraArgs, UserActions>
 ): DispatchProps => {
   return {
-    onSettingsChange: (settings: Settings) =>
-      dispatch(settingsUpdate(settings) as any),
-    onSettingsModalClose: () => dispatch(settingsModalClose()),
+    onSettingsChange: (user: User) => dispatch(userUpdate(user)),
+    onSettingsModalClose: () => dispatch(userModalClose()),
   };
 };
 

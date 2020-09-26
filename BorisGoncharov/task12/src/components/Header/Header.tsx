@@ -6,22 +6,22 @@ import classNames from 'classnames';
 import './Header.scss';
 
 export type HeaderProps = {
-  settingsLoading: boolean;
+  userLoading: boolean;
   onSettingsButtonClick: () => void;
 };
 
 export const Header: FC<HeaderProps> = ({
-  settingsLoading,
+  userLoading,
   onSettingsButtonClick,
 }) => {
   const { t } = useTranslation();
 
   const iconClasses = classNames('header__settings-icon', {
-    rotate: settingsLoading,
+    rotate: userLoading,
   });
 
   const settingsButtonClickHandler = () => {
-    if (!settingsLoading) {
+    if (!userLoading) {
       onSettingsButtonClick();
     }
   };

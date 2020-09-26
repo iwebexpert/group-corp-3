@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
-import { generate } from 'shortid';
 import { ChatList } from '../components/ChatList';
 import { AppState } from '../state/store';
 import { ChatsActions, chatsAdd, chatsDelete } from '../state/actions';
-import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 type StateProps = {
   chats: Chat[];
@@ -29,20 +28,12 @@ const mapStateToProps = (state: AppState): StateProps => {
   };
 };
 
-const mapDispathToProps = (dispatch: Dispatch<ChatsActions>): DispatchProps => {
+const mapDispathToProps = (
+  dispatch: ThunkDispatch<AppState, ThunkExtraArgs, ChatsActions>
+): DispatchProps => {
   return {
-    onChatAdd: (title: string) => {
-      const newChatId = generate();
-      dispatch(
-        chatsAdd({
-          id: newChatId,
-          title,
-          isUnread: false,
-          typingAuthor: '',
-        }) as any
-      );
-    },
-    onChatDelete: (id: string) => dispatch(chatsDelete(id) as any),
+    onChatAdd: (title: string) => dispatch(chatsAdd(title)),
+    onChatDelete: (id: string) => dispatch(chatsDelete(id)),
   };
 };
 

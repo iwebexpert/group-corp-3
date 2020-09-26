@@ -42,8 +42,14 @@ const UserSchema = new mongoose.Schema(
 );
 
 // Fill fullName field
-UserSchema.virtual('fullName').get(function () {
-  this.fullName = `${this.firstName} ${this.lastName}`;
-});
+UserSchema.virtual('fullName')
+  .get(function () {
+    this.fullName = `${this.firstName} ${this.lastName}`;
+  })
+  .set(function (v) {
+    const firstName = v.substring(0, v.indexOf(' '));
+    const lastName = v.substring(v.indexOf(' ') + 1);
+    this.set({ firstName, lastName });
+  });
 
 module.exports = mongoose.model('User', UserSchema);

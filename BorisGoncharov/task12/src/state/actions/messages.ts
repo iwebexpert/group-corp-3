@@ -1,4 +1,5 @@
 import { ActionCreator, Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../store';
 
 // Need for messages loading abortions
@@ -46,12 +47,11 @@ export type MessagesLoadAbortionAction = {
 // Add
 export type MessagesAddRequestAction = {
   type: MessagesActionTypes.MESSAGES_ADD_REQUEST;
-  payload: Message;
 };
 
 export type MessagesAddSuccessAction = {
   type: MessagesActionTypes.MESSAGES_ADD_SUCCESS;
-  payload: string;
+  payload: Message;
 };
 
 export type MessagesAddFailureAction = {
@@ -94,7 +94,7 @@ export type MessagesActions =
 
 // Exporting actions
 // Load
-export const messagesLoad = (chatId: string) =>
+export const messagesLoad = (chatId: string): ThunkAction<void, AppState, ThunkExtraArgs, MessagesActions> =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
       // Abort previous fetch request
@@ -103,7 +103,7 @@ export const messagesLoad = (chatId: string) =>
 
       // Loading logic
       dispatch(messagesLoadRequest());
-      const result = await fetch(`${baseUrl}/messages?chatId=${chatId}`, { signal: abortController.signal });
+      const result = await fetch(`${baseUrl}/messages/${chatId}`, { signal: abortController.signal });
       dispatch(messagesLoadSuccess(await result.json()));
     } catch (error) {
       if (error?.name === 'AbortError') {
@@ -133,29 +133,35 @@ export const messagesLoadAbortion: ActionCreator<MessagesLoadAbortionAction> = (
 });
 
 // Add
-export const messagesAdd = (message: Message) =>
+export const messagesAdd = (message: string): ThunkAction<void, AppState, ThunkExtraArgs, MessagesActions> =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
-      dispatch(messagesAddRequest(message));
+      const state = getState();
+      dispatch(messagesAddRequest());
       const result = await fetch(`${baseUrl}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ...message, sentOnServer: true }),
+        body: JSON.stringify({
+          text: message,
+          chat: state.router.location.pathname.substring(1),
+          author: state.user.user.id,
+          createdAt: new Date(),
+          closable: true,
+        }),
       });
-      dispatch(messagesAddSuccess((await result.json() as Message).id));
+      dispatch(messagesAddSuccess(await result.json() as Message));
     } catch (error) {
       dispatch(messagesAddFailure(error));
     }
   };
 
-export const messagesAddRequest: ActionCreator<MessagesAddRequestAction> = (payload: Message) => ({
+export const messagesAddRequest: ActionCreator<MessagesAddRequestAction> = () => ({
   type: MessagesActionTypes.MESSAGES_ADD_REQUEST,
-  payload
 });
 
-export const messagesAddSuccess: ActionCreator<MessagesAddSuccessAction> = (payload: string) => ({
+export const messagesAddSuccess: ActionCreator<MessagesAddSuccessAction> = (payload: Message) => ({
   type: MessagesActionTypes.MESSAGES_ADD_SUCCESS,
   payload
 });
@@ -166,7 +172,7 @@ export const messagesAddFailure: ActionCreator<MessagesAddFailureAction> = (payl
 });
 
 // Delete
-export const messagesDelete = (id: string) =>
+export const messagesDelete = (id: string): ThunkAction<void, AppState, ThunkExtraArgs, MessagesActions> =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
       dispatch(messagesDeleteRequest());

@@ -7,7 +7,12 @@ import { Formik, Form, Field } from 'formik';
 import './SettingsModal.scss';
 
 const SettingsSchema = Yup.object().shape({
-  author: Yup.string()
+  firstName: Yup.string()
+    .min(3, 'SHORT_TEXT_ERROR')
+    .max(30, 'LONG_TEXT_ERROR')
+    .matches(/^[a-zA-Zа-яА-ЯёЁ]+$/, 'PATTERN_ERROR')
+    .required('REQUIRED_ERROR'),
+  lastName: Yup.string()
     .min(3, 'SHORT_TEXT_ERROR')
     .max(30, 'LONG_TEXT_ERROR')
     .matches(/^[a-zA-Zа-яА-ЯёЁ]+$/, 'PATTERN_ERROR')
@@ -16,16 +21,23 @@ const SettingsSchema = Yup.object().shape({
   language: Yup.string().required('REQUIRED_ERROR'),
 });
 
+type FormModel = {
+  firstName: string;
+  lastName: string;
+  theme: Theme;
+  language: Language;
+};
+
 export type SettingsModalProps = {
-  settings: Settings;
+  user: User;
   visible: boolean;
   theme?: Theme;
   onSettingsModalClose: () => void;
-  onSettingsChange: (settings: Settings) => void;
+  onSettingsChange: (user: User) => void;
 };
 
 export const SettingsModal: FC<SettingsModalProps> = ({
-  settings,
+  user,
   visible,
   theme = 'light',
   onSettingsModalClose,
@@ -33,19 +45,16 @@ export const SettingsModal: FC<SettingsModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const handleSubmit = (values: {
-    author: string;
-    theme: Theme;
-    language: Language;
-  }) => {
+  const handleSubmit = (values: FormModel) => {
     handleModalClose();
     onSettingsChange({
-      user: {
-        ...settings.user,
-        name: values.author,
+      ...user,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      settings: {
+        theme: values.theme,
+        language: values.language,
       },
-      theme: values.theme,
-      language: values.language,
     });
   };
 
@@ -67,10 +76,11 @@ export const SettingsModal: FC<SettingsModalProps> = ({
       <Formik
         initialValues={
           {
-            author: settings.user.name,
-            theme: settings.theme,
-            language: settings.language,
-          } as any
+            firstName: user.firstName,
+            lastName: user.lastName,
+            theme: user.settings.theme,
+            language: user.settings.language,
+          } as FormModel
         }
         validationSchema={SettingsSchema}
         onSubmit={handleSubmit}
@@ -79,15 +89,29 @@ export const SettingsModal: FC<SettingsModalProps> = ({
           <Form>
             <Modal.Body className={modalClasses}>
               <FormGroup>
-                <FormLabel>{t('AUTHOR')}</FormLabel>
+                <FormLabel>{t('FIRST_NAME')}</FormLabel>
                 <Field
                   className="form-control"
-                  name="author"
-                  placeholder={t('INPUT_AUTHORS_NAME')}
+                  name="firstName"
+                  placeholder={t('INPUT_AUTHORS_FIRST_NAME')}
                 />
-                {errors.author && touched.author ? (
+                {errors.firstName && touched.firstName ? (
                   <div className="invalid-feedback d-block">
-                    {t(errors.author)}
+                    {t(errors.firstName)}
+                  </div>
+                ) : null}
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel>{t('LAST_NAME')}</FormLabel>
+                <Field
+                  className="form-control"
+                  name="lastName"
+                  placeholder={t('INPUT_AUTHORS_LAST_NAME')}
+                />
+                {errors.lastName && touched.lastName ? (
+                  <div className="invalid-feedback d-block">
+                    {t(errors.lastName)}
                   </div>
                 ) : null}
               </FormGroup>

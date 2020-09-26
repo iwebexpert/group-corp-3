@@ -1,5 +1,6 @@
 import { push } from 'connected-react-router';
 import { ActionCreator, Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../store';
 
 // Define actions types
@@ -119,7 +120,7 @@ export type ChatsActions =
 
 // Exporting actions
 // Load
-export const chatsLoad = () =>
+export const chatsLoad = (): ThunkAction<void, AppState, ThunkExtraArgs, ChatsActions> =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
       dispatch(chatsLoadRequest());
@@ -148,7 +149,7 @@ export const chatsLoadFailure: ActionCreator<ChatsLoadFailureAction> = (payload:
 });
 
 // Delete
-export const chatsDelete = (id: string) =>
+export const chatsDelete = (id: string): ThunkAction<void, AppState, ThunkExtraArgs, ChatsActions> =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
       dispatch(chatsDeleteRequest());
@@ -179,7 +180,7 @@ export const chatsDeleteFailure: ActionCreator<ChatsDeleteFailureAction> = (payl
 });
 
 // Add
-export const chatsAdd = (chat: Chat) =>
+export const chatsAdd = (title: string): ThunkAction<void, AppState, ThunkExtraArgs, ChatsActions> =>
   async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
     try {
       dispatch(chatsAddRequest());
@@ -188,10 +189,10 @@ export const chatsAdd = (chat: Chat) =>
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(chat),
+        body: JSON.stringify({ title }),
       });
       const addedChat = await result.json() as Chat;
-      dispatch(chatsAddSuccess(addedChat));
+      dispatch(chatsAddSuccess({ ...addedChat, typingAuthor: '', isUnread: false }));
       // Relocate to new chat
       dispatch(push(`/${addedChat.id}`));
     } catch (error) {

@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { Header } from '../components/Header';
 import { AppState } from '../state/store';
-import { SettingsActions, settingsModalOpen } from '../state/actions';
+import { UserActions, userModalOpen } from '../state/actions';
 import { Dispatch } from 'redux';
 
 type StateProps = {
-  settingsLoading: boolean;
+  userLoading: boolean;
 };
 
 type DispatchProps = {
@@ -16,12 +16,12 @@ type DispatchProps = {
 type Props = StateProps & DispatchProps;
 
 export const HeaderContainer: FC<Props> = ({
-  settingsLoading,
+  userLoading,
   onSettingsButtonClick,
 }) => {
   return (
     <Header
-      settingsLoading={settingsLoading}
+      userLoading={userLoading}
       onSettingsButtonClick={onSettingsButtonClick}
     />
   );
@@ -29,15 +29,13 @@ export const HeaderContainer: FC<Props> = ({
 
 const mapStateToProps = (state: AppState): StateProps => {
   return {
-    settingsLoading: state.settings.loading,
+    userLoading: state.user.loading,
   };
 };
 
-const mapDispathToProps = (
-  dispatch: Dispatch<SettingsActions>
-): DispatchProps => {
+const mapDispathToProps = (dispatch: Dispatch<UserActions>): DispatchProps => {
   return {
-    onSettingsButtonClick: () => dispatch(settingsModalOpen()),
+    onSettingsButtonClick: () => dispatch(userModalOpen()),
   };
 };
 

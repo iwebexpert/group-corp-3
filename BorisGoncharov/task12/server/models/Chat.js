@@ -26,4 +26,8 @@ ChatSchema.pre('remove', async function (next) {
   next();
 });
 
+ChatSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
 module.exports = mongoose.model('Chat', ChatSchema);

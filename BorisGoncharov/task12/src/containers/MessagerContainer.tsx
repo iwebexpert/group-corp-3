@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Messenger } from '../components/Messenger';
 import { AppState } from '../state/store';
 import { MessagesActions, messagesAdd, messagesDelete } from '../state/actions';
-import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 type StateProps = {
   messages: Message[];
@@ -13,7 +13,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  onMessageSend: (message: Message) => void;
+  onMessageSend: (message: string) => void;
   onMessageClose: (id: string) => void;
 };
 
@@ -45,18 +45,18 @@ const mapStateToProps = (state: AppState): StateProps => {
 
   return {
     messages: state.messages.messages,
-    theme: state.settings.settings.theme,
-    user: state.settings.settings.user,
+    theme: state.user.user.settings.theme,
+    user: state.user.user,
     typingAuthor: activeChat?.typingAuthor || '',
   };
 };
 
 const mapDispathToProps = (
-  dispatch: Dispatch<MessagesActions>
+  dispatch: ThunkDispatch<AppState, ThunkExtraArgs, MessagesActions>
 ): DispatchProps => {
   return {
-    onMessageSend: (message: Message) => dispatch(messagesAdd(message) as any),
-    onMessageClose: (id: string) => dispatch(messagesDelete(id) as any),
+    onMessageSend: (message: string) => dispatch(messagesAdd(message)),
+    onMessageClose: (id: string) => dispatch(messagesDelete(id)),
   };
 };
 

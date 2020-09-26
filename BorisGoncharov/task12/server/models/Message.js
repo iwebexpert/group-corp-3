@@ -10,7 +10,6 @@ const MessageSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId, // Type will be an id of an object in schema
       ref: 'Chat', // Reference to model
       required: [true, 'Please provide message with chatId'],
-      select: false,
     },
     author: {
       type: mongoose.Schema.ObjectId,
@@ -19,7 +18,7 @@ const MessageSchema = new mongoose.Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      required: [true, 'Please provide message with date'],
     },
     closable: {
       type: Boolean,
@@ -31,5 +30,9 @@ const MessageSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+MessageSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
 
 module.exports = mongoose.model('Message', MessageSchema);

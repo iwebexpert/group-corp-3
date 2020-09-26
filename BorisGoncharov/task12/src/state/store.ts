@@ -3,7 +3,7 @@ import { createBrowserHistory, History } from "history";
 import { applyMiddleware, combineReducers, createStore, Store } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { messagesMiddleware, routeMiddleware } from "./middlewares";
-import { chatsReducer, ChatsReducerState, messagesReducer, MessagesReducerState, settingsReducer, SettingsReducerState } from "./reducers";
+import { chatsReducer, ChatsReducerState, messagesReducer, MessagesReducerState, userReducer, UserReducerState } from "./reducers";
 import thunk from 'redux-thunk';
 
 export const baseUrl = 'http://localhost:4000/api';
@@ -12,7 +12,7 @@ export type AppState = {
   router: RouterState,
   chats: ChatsReducerState;
   messages: MessagesReducerState;
-  settings: SettingsReducerState;
+  user: UserReducerState;
 };
 
 export const history = createBrowserHistory();
@@ -21,7 +21,7 @@ const createRootReducer = (history: History) => combineReducers<AppState>({
   router: connectRouter(history),
   chats: chatsReducer,
   messages: messagesReducer,
-  settings: settingsReducer,
+  user: userReducer,
 });
 
 export const store: Store = createStore(

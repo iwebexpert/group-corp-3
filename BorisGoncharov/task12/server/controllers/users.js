@@ -13,6 +13,10 @@ const addUser = asyncHandler(async (req, res) => {
   res.status(200).send(await User.create(req.body));
 });
 
+const updateUser = asyncHandler(async (req, res) => {
+  res.status(200).send(await User.findByIdAndUpdate(req.params.id, req.body));
+});
+
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
@@ -24,6 +28,10 @@ const deleteUser = asyncHandler(async (req, res) => {
   res.status(200).send({});
 });
 
-router.get('/:id', getUser).post('', addUser).delete('/:id', deleteUser);
+router
+  .get('/:id', getUser)
+  .post('', addUser)
+  .patch('/:id', updateUser)
+  .delete('/:id', deleteUser);
 
 module.exports = router;

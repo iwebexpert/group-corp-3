@@ -22,13 +22,6 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
         loading: true,
       };
 
-    case MessagesActionTypes.MESSAGES_LOAD_SUCCESS:
-      return {
-        ...state,
-        messages: action.payload,
-        loading: false,
-      };
-
     case MessagesActionTypes.MESSAGES_LOAD_FAILURE:
     case MessagesActionTypes.MESSAGES_ADD_FAILURE:
     case MessagesActionTypes.MESSAGES_DELETE_FAILURE:
@@ -39,7 +32,14 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
         loading: false,
       };
 
-    case MessagesActionTypes.MESSAGES_ADD_REQUEST:
+    case MessagesActionTypes.MESSAGES_LOAD_SUCCESS:
+      return {
+        ...state,
+        messages: action.payload,
+        loading: false,
+      };
+
+    case MessagesActionTypes.MESSAGES_ADD_SUCCESS:
       return update(state, {
         messages: {
           $push: [action.payload]
@@ -54,23 +54,6 @@ export const messagesReducer: Reducer<MessagesReducerState, MessagesActions> = (
           messages: {
             $splice: [[index, 1]],
           },
-        });
-      }
-      return state;
-
-    case MessagesActionTypes.MESSAGES_ADD_SUCCESS:
-      // Getting message array id
-      index = state.messages.findIndex(message => message.id === action.payload);
-      if (index !== -1) {
-        return update(state, {
-          messages: {
-            [index]: {
-              sentOnServer: {
-                $set: true
-              }
-            }
-          },
-
         });
       }
       return state;

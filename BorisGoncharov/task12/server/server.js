@@ -32,7 +32,7 @@ app.use(fileUpload());
 // Init controllers
 app.use('/api/chats', chats);
 app.use('/api/messages', messages);
-app.use('/api/users', user);
+app.use('/api/user', user);
 
 // Handle errors
 app.use(errorHandler);

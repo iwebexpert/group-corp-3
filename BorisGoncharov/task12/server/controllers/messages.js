@@ -6,16 +6,14 @@ const Message = require('../models/Message');
 const router = express.Router();
 
 const getMessages = asyncHandler(async (req, res) => {
-  res.status(200).send(
-    await Message.find({ chat: req.params.chatId }).populate({
-      path: 'user',
-      select: 'id fullName',
-    })
-  );
+  res
+    .status(200)
+    .send(await Message.find({ chat: req.params.chatId }).populate('author'));
 });
 
 const addMessage = asyncHandler(async (req, res) => {
-  res.status(200).send(await Message.create(req.body));
+  const message = await Message.create(req.body);
+  res.status(200).send(await Message.populate(message, 'author'));
 });
 
 const deleteMessage = asyncHandler(async (req, res) => {
