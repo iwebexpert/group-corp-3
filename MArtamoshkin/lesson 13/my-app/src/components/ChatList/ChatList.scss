@@ -1,0 +1,92 @@
+@import '../../styles/variables.scss';
+.chat-list {
+    max-height: $chat-height;
+    overflow-y: auto;
+    .chat-field {
+        border-bottom: 1px solid $gray;
+        margin: 0;
+        padding: 1.125rem 1rem .625rem;
+        cursor: pointer;
+        &.active-chat {
+            background: $gray;
+        }
+        &.not-fired {
+            background-color: $secondary;
+            p {
+                font-weight: 700;
+            }
+        }
+        .chat-ib {
+            float: left;
+            padding: 0 0 0 15px;
+            width: 85%;
+            h5 {
+                font-size: 15px;
+                color: $primary-color;
+                margin: 0 0 8px 0;
+            }
+            h5 span {
+                font-size: 11px;
+            }
+
+            .remove-chat {
+                &:hover {
+                    color: $secondary;
+                }
+            }
+            p {
+                height: 1.1rem;
+                font-size: 14px;
+                color: $gray-dark;
+                margin: auto
+            }
+        }
+        .avatar {
+            float: left;
+            width: 15%;
+        }
+        .chat-people {
+            overflow: hidden;
+            clear: both;
+        }
+    }
+}
+
+.add-new-chat {
+    border-top: 1px solid $gray;
+    margin: 0;
+    height: 2.5625rem;
+    padding: 0.375rem 0.75rem;
+    cursor: pointer;
+}
+
+.theme-dark {
+    .chat-field {
+        border-bottom-color: $dark-lighten;
+        &.not-fired {
+            background-color: rgba($dark-secondary, .2);
+            p, h5, span {
+                font-weight: 700;
+            }
+        }
+        &.active-chat {
+            background-color: #36404a;
+        }
+
+        .chat-ib {
+            h5 {
+                color: #e1e9f1;
+            }
+
+        .remove-chat {
+            &:hover {
+                color: $dark-secondary;
+            }
+        }
+        }
+    }
+    .add-new-chat {
+        border-top-color: $dark-lighten;
+        color: #e1e9f1;
+    }
+}
