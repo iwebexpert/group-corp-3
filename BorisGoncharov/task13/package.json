@@ -1,6 +1,6 @@
 {
-  "name": "task12",
-  "version": "0.0.12",
+  "name": "task13",
+  "version": "0.0.13",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -53,9 +53,9 @@
     "server": "node ./server/server.js",
     "seeder-insert": "node ./server/seeder.js -i",
     "seeder-delete": "node ./server/seeder.js -d",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "NODE_ENV=development webpack --mode development",
+    "dev-server": "webpack-dev-server --port 3000 --open",
+    "build": "NODE_ENV=production webpack --mode production"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -71,5 +71,20 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.3.0",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^0.11.2",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^8.0.4",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }
