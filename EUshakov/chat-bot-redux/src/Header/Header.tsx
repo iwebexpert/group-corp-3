@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AppSettings } from '../AppSettings/AppSettings';
@@ -10,8 +10,6 @@ export type HeaderProps = {
     logout: () => void
 };
 export const Header: React.FC<HeaderProps> = ({ isLoggedin, userName, login, logout }) => {
-    const [] = useState('');
-
     const loginStatus = <>
         <Navbar.Text className="mx-3"> {isLoggedin
             ? <>Signed in as: <a href="#login">{userName}</a></>

@@ -1,9 +1,5 @@
 import React from 'react';
+import { AuthReducerState } from '../reducers/auth';
 
-export type AuthorizationModel = {
-    isLoggedIn: boolean,
-    userName: string
-}
-
-export const defaultAuth: AuthorizationModel = { isLoggedIn: true, userName: 'Dear me' };
-export const AuthorizationContext = React.createContext<AuthorizationModel>(defaultAuth);
+export const defaultAuth: AuthReducerState = { isLoggedIn: true, userName: 'Dear me' };
+export const AuthorizationContext = React.createContext<AuthReducerState>(defaultAuth);

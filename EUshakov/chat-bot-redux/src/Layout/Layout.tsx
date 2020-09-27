@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import "./Layout.scss";
-import { Header } from '../Header/Header';
-import { AuthorizationModel, AuthorizationContext, defaultAuth } from './AuthorizationContext';
+import { AuthorizationContext } from './AuthorizationContext';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
 import { AboutPage } from '../pages/AboutPage';
 import { ChatContainer } from '../containers/ChatContainer';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { chatsLoad } from '../actions/chats';
 import { ChatListContainer } from '../containers/ChatListContainer';
+import { HeaderContainer } from '../containers/HeaderContainer';
+import { AppState } from '../reducers';
 
 export const Layout: React.FC<{}> = () => {
     const dispatch = useDispatch();
-    const [auth, setAuth] = useState<AuthorizationModel>(defaultAuth);
-    const handleLogin = (userName: string) => {
-        setAuth({ isLoggedIn: true, userName: userName });
-    };
-
-    const handleLogout = () => {
-        setAuth({ isLoggedIn: false, userName: '' });
-    };
+    const auth = useSelector((state: AppState) => state.auth);
 
     useEffect(() => {
         setTimeout(() => {
@@ -32,7 +26,7 @@ export const Layout: React.FC<{}> = () => {
 
     return <Container className="layout d-flex flex-column">
         <AuthorizationContext.Provider value={auth}>
-            <Header userName={auth.userName} isLoggedin={auth.isLoggedIn} login={handleLogin} logout={handleLogout} />
+            <HeaderContainer />
             <Row className="content flex-grow-1">
                 <Col md={3}>
                     <ChatListContainer />

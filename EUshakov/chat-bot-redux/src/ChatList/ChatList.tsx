@@ -15,7 +15,8 @@ export type ChatListProps = {
 export const ChatList: React.FC<ChatListProps> = ({ chatList, chatAdded }) => {
     const [chatName, setChatName] = useState<string>('');
 
-    const handleSubmit = () => {
+    const handleSubmit = (event: React.FormEvent<HTMLElement>) => {
+        event.preventDefault();
         const newChatName = chatName;
         setChatName('');
         chatAdded(newChatName);
@@ -38,7 +39,7 @@ export const ChatList: React.FC<ChatListProps> = ({ chatList, chatAdded }) => {
                         onChange={(event) => setChatName(event.target.value)}
                     />
                     <InputGroup.Append>
-                        <Button id="basic-addon1" type="submit">+</Button>
+                        <Button id="basic-addon1" type="submit" disabled={chatName.length === 0}>+</Button>
                     </InputGroup.Append>
                 </InputGroup>
             </Form>

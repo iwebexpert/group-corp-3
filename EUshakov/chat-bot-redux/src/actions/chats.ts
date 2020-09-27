@@ -1,6 +1,4 @@
 import { ActionCreator } from 'redux';
-import { type } from 'os';
-import { MessageProps } from '../Message/Message';
 import { MessageRequest } from '../MessageForm/MessageForm';
 
 export enum ChatActionTypes {

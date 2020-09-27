@@ -16,7 +16,7 @@ export const ChatContainer: React.FC<{}> = () => {
     const dispatch = useDispatch();
 
     const isLoading = useSelector((state: AppState) => state.chats.loading);
-    const chatState = useSelector((state: AppState) => state.chats.entries.find(chat => chat.id == selectedChatId) || state.chats.entries[0]);
+    const chatState = useSelector((state: AppState) => state.chats.entries.find(chat => chat.id === selectedChatId) || state.chats.entries[0]);
 
     const handleMessagePublish = (from: MessageRequest) => {
         dispatch(chatsMessageSend(from, selectedChatId));

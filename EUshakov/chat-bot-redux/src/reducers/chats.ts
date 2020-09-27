@@ -14,7 +14,7 @@ const initialState = {
 };
 
 const nextId = (messages: { id: number }[]) => {
-    return messages.reduce((prev, current) => prev > current.id ? prev : current.id, 0);
+    return messages.reduce((prev, current) => prev > current.id ? prev : current.id, 0) + 1;
 }
 
 export const chatsReducer: Reducer<ChatsReducerState, ChatsActions> = (state = initialState, action) => {

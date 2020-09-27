@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Button, Form, FormGroup, Row, Col } from 'react-bootstrap';
+import { Button, Form, Row, Col } from 'react-bootstrap';
 import { AuthorizationContext } from '../Layout/AuthorizationContext';
 
 export type MessageRequest = {
