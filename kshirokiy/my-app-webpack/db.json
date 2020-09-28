@@ -1,24 +1,24 @@
 {
   "chats": [
     {
-      "title": "chat 1",
+      "title": "test 1",
       "id": 1
     },
     {
-      "title": "lll",
+      "title": "test 2",
       "id": 2
     }
   ],
   "messages": [
     {
-      "message": "message 1 ",
-      "author": "author",
+      "message": "",
+      "author": "author 1",
       "chatId": 1,
       "id": 1
     },
     {
-      "message": "l;k;lk",
-      "author": ";l,;l",
+      "message": "test2",
+      "author": "test2",
       "chatId": 1,
       "id": 2
     }

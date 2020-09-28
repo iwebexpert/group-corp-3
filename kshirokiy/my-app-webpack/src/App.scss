@@ -1,0 +1,88 @@
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+
+
+@import "~bootstrap/scss/bootstrap";
+
+
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.App {
+  text-align: center;
+  padding: 20px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.tasks {
+  padding: 10px;
+  border: 1px solid gray;
+}
+.task-item {
+  position: relative;
+  font-size: 0;
+  padding-left: 20px;
+}
+.task-item > * {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1rem;
+}
+.task-item > input {
+  height: 1rem;
+  width: 1rem;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -45%)
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes pulsate{50%{text-shadow:0 -1px rgba(0,0,0,.3),0 0 5px #f03000,0 0 8px #f80000;}
+}
+.answerBot {
+  animation: pulsate .3s linear;
+}
