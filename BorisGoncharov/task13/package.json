@@ -49,13 +49,12 @@
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "webpack-dev-server --port 3000 --open",
     "server": "node ./server/server.js",
     "seeder-insert": "node ./server/seeder.js -i",
     "seeder-delete": "node ./server/seeder.js -d",
-    "dev": "NODE_ENV=development webpack --mode development",
-    "dev-server": "webpack-dev-server --port 3000 --open",
-    "build": "NODE_ENV=production webpack --mode production"
+    "dev": "SET NODE_ENV=development & webpack --mode development",
+    "build": "SET NODE_ENV=production & webpack --mode production"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -78,6 +77,7 @@
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.3.0",
+    "dotenv-webpack": "^3.0.0",
     "html-webpack-plugin": "^4.5.0",
     "mini-css-extract-plugin": "^0.11.2",
     "sass-loader": "^10.0.2",
