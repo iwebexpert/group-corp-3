@@ -30,6 +30,34 @@
       "author": "Бот",
       "messageText": "Привет Андрей",
       "read": true
+    },
+    {
+      "id": "Mx4KOrJ8F",
+      "chatId": 1,
+      "author": "Андрей",
+      "messageText": "zxczxczxc",
+      "read": true
+    },
+    {
+      "author": "Бот",
+      "chatId": 1,
+      "messageText": "Привет! Андрей",
+      "id": "_J5urwr2yn",
+      "read": true
+    },
+    {
+      "id": "iNE8ySrQ2",
+      "chatId": 0,
+      "author": "Андрей",
+      "messageText": "zxczxczxc",
+      "read": true
+    },
+    {
+      "id": "ntZWIpkYO",
+      "chatId": 0,
+      "author": "Андрей",
+      "messageText": "gggggg",
+      "read": true
     }
   ]
 }
