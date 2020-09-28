@@ -1,0 +1,34 @@
+@import '../../styles/variables.scss';
+.badge.badge-chat {
+    background-color: $primary-color;
+    color: $white;
+}
+
+.chat-logo {
+    display: flex;
+    width: 2rem;
+    height: 1.9rem;
+    margin: .3rem .5rem 0 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-image: url('../../../public/chat-logo.png');
+}
+
+.theme-dark {
+    .navbar {
+        // background-color: $dark-primary;
+        color: $white;
+        .navbar-brand, .nav-item, .settings-btn {
+            color: $white;
+        }
+        .badge.badge-chat {
+            background-color: $dark-secondary;
+            color: $black
+        }
+    }
+
+    .chat-logo { 
+        filter: invert(100%);
+    }
+}
