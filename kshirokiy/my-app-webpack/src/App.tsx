@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.scss';
 import Layout from './Layout/Layout';
 import {ConfigApp} from './types/types';
 import {chatsData} from './ChatList/ChatList';

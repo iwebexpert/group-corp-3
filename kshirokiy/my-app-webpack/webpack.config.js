@@ -27,10 +27,29 @@ fs.readFile(__dirname + '/dev.env', {encoding: 'utf-8'}, function(err, data) {
 });
 
 module.exports = {
-    entry: path.join(__dirname, 'src', 'index.tsx'),
+    entry: {
+        app: path.join(__dirname, 'src', 'index.tsx'),
+        commonAndBootstrap: path.join(__dirname, 'src', 'Bootstrap.tsx')
+    },
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                react: {
+                    automaticNamePrefix: 'react',
+                },
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                },
+            },
+        }
+    },
     output: {
+        publicPath: '/',
         path: path.join(__dirname, 'build'),
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -69,10 +88,14 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 10000
-                        }
-                    }
-                ]
+                            limit: 10192,
+                            esModule: false,
+                            fallback: 'file-loader',
+                            name: devMode ? '[path][name].[ext]' : '[contenthash].[ext]',
+                            outputPath: 'images',
+                        },
+                    },
+                ],
             }
         ]
     },
