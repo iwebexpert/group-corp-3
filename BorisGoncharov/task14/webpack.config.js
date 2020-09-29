@@ -29,14 +29,14 @@ const config = (devMode) => {
     output: {
       publicPath: '/',
       path: path.join(__dirname, 'build'),
-      filename: 'bundle.js',
+      filename: '[name].bundle.js',
     },
 
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
       alias: {
-        'react-dom': '@hot-loader/react-dom',
-        components: path.join(__dirname, 'src', 'components'),
+        'react-dom': '@hot-loader/react-dom', // Replaces convetional react-dom with @hot-loader/react-dom for HMR support
+        components: path.join(__dirname, 'src', 'components'), // Alias for components dir
       },
     },
 
@@ -54,6 +54,7 @@ const config = (devMode) => {
                 '@babel/preset-react',
               ],
               plugins: [
+                '@babel/plugin-transform-runtime', // For async await syntax support
                 '@babel/plugin-proposal-class-properties',
                 'react-hot-loader/babel',
               ],

@@ -45,17 +45,18 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.7",
     "shortid": "^2.2.15",
     "typescript": "^3.9.5",
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "webpack-dev-server --port 3000 --open --mode development",
+    "start": "SET NODE_ENV=development & webpack-dev-server --port 3000 --open --mode development",
     "server": "node ./server/server.js",
     "seeder-insert": "node ./server/seeder.js -i",
     "seeder-delete": "node ./server/seeder.js -d",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "dev": "SET NODE_ENV=development & webpack --mode development",
+    "build": "SET NODE_ENV=production & webpack --mode production"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -75,6 +76,7 @@
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "babel-loader": "^8.1.0",
