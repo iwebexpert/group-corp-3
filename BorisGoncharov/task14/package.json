@@ -1,8 +1,9 @@
 {
-  "name": "task13",
-  "version": "0.0.13",
+  "name": "task14",
+  "version": "0.0.14",
   "private": true,
   "dependencies": {
+    "@hot-loader/react-dom": "^17.0.0-rc.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -49,12 +50,12 @@
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "webpack-dev-server --port 3000 --open",
+    "start": "webpack-dev-server --port 3000 --open --mode development",
     "server": "node ./server/server.js",
     "seeder-insert": "node ./server/seeder.js -i",
     "seeder-delete": "node ./server/seeder.js -d",
-    "dev": "SET NODE_ENV=development & webpack --mode development",
-    "build": "SET NODE_ENV=production & webpack --mode production"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -75,14 +76,19 @@
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^4.3.0",
     "dotenv-webpack": "^3.0.0",
+    "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.5.0",
     "mini-css-extract-plugin": "^0.11.2",
+    "react-hot-loader": "^4.13.0",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.4",
+    "url-loader": "^4.1.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
