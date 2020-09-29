@@ -1,0 +1,11 @@
+.chat-item {
+    background-color: yellow;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    &.isSelected {
+        border-style: solid;
+        border-width: 2px;
+        border-color: red;
+    }
+}

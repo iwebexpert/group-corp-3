@@ -1,0 +1,18 @@
+.message {
+    //width: fit-content;
+    border-radius: 3px;
+    margin: 5px;
+}
+.owner {
+    background-color: yellowgreen;
+    text-align: end;
+}
+
+.guest {
+    background-color: lightskyblue;
+}
+
+.message-author {
+    color: gray;
+    font-size: smaller;
+}
