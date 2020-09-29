@@ -6,8 +6,6 @@ import { messagesMiddleware, routeMiddleware } from "./middlewares";
 import { chatsReducer, ChatsReducerState, messagesReducer, MessagesReducerState, userReducer, UserReducerState } from "./reducers";
 import thunk from 'redux-thunk';
 
-export const baseUrl = 'http://localhost:4000/api';
-
 export type AppState = {
   router: RouterState,
   chats: ChatsReducerState;
@@ -29,7 +27,7 @@ export const store: Store = createStore(
   composeWithDevTools(
     applyMiddleware(
       routerMiddleware(history), // for dispatching history actions
-      thunk.withExtraArgument<ThunkExtraArgs>({ baseUrl }),
+      thunk,
       // ... other middlewares ...
       messagesMiddleware,
       routeMiddleware,

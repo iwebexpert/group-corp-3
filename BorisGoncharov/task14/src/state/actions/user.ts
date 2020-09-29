@@ -1,4 +1,5 @@
 import { ActionCreator, Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../store';
 
 // Define actions types
@@ -76,11 +77,11 @@ export type UserActions =
 
 // Exporting actions
 // Load
-export const userLoad = () =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+export const userLoad = (): ThunkAction<void, AppState, void, UserActions> =>
+  async (dispatch: Dispatch) => {
     try {
       dispatch(userLoadRequest());
-      const result = await fetch(`${baseUrl}/user/${sessionStorage.getItem('userId')}`);
+      const result = await fetch(`/api/api/user/${sessionStorage.getItem('userId')}`);
       dispatch(userLoadSuccess(await result.json()));
     } catch (error) {
       dispatch(userLoadFailure(error));
@@ -102,12 +103,12 @@ export const userLoadFailure: ActionCreator<UserLoadFailureAction> = (payload: s
 });
 
 // Load
-export const userUpdate = (user: User) =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+export const userUpdate = (user: User): ThunkAction<void, AppState, void, UserActions> =>
+  async (dispatch: Dispatch) => {
     try {
       // Show changes instantly
       dispatch(userUpdateRequest(user));
-      const result = await fetch(`${baseUrl}/user/${sessionStorage.getItem('userId')}`, {
+      const result = await fetch(`/api/api/user/${sessionStorage.getItem('userId')}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'

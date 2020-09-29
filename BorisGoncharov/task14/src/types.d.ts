@@ -30,7 +30,3 @@ type Settings = {
 type Theme = 'light' | 'dark';
 
 type Language = 'en' | 'ru';
-
-type ThunkExtraArgs = {
-  baseUrl: string;
-}

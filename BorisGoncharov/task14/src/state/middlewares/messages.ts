@@ -1,6 +1,6 @@
 import { Middleware } from 'redux';
 import { chatsMarkUnread, chatsResetTypingAuthor, chatsSetTypingAuthor, MessagesActionTypes, messagesAddSuccess, MessagesAddSuccessAction } from '../actions';
-import { AppState, baseUrl } from '../store';
+import { AppState } from '../store';
 
 const BOT = {
   id: '5f6b6389334cf630c4973591',
@@ -34,7 +34,7 @@ export const messagesMiddleware: Middleware = store => next => action => {
         store.dispatch(chatsSetTypingAuthor({ chat, author: BOT.firstName }));
 
         // Send BOT's message
-        const result = await fetch(`${baseUrl}/messages`, {
+        const result = await fetch(`/messages`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

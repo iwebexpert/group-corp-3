@@ -51,7 +51,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 };
 
 const mapDispathToProps = (
-  dispatch: ThunkDispatch<AppState, ThunkExtraArgs, UserActions>
+  dispatch: ThunkDispatch<AppState, void, UserActions>
 ): DispatchProps => {
   return {
     onSettingsChange: (user: User) => dispatch(userUpdate(user)),

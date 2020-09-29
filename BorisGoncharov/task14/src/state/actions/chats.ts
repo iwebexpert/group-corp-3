@@ -120,11 +120,11 @@ export type ChatsActions =
 
 // Exporting actions
 // Load
-export const chatsLoad = (): ThunkAction<void, AppState, ThunkExtraArgs, ChatsActions> =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+export const chatsLoad = (): ThunkAction<void, AppState, void, ChatsActions> =>
+  async (dispatch: Dispatch) => {
     try {
       dispatch(chatsLoadRequest());
-      const result = await fetch(`${baseUrl}/chats`);
+      const result = await fetch(`/api/chats`);
       const chats = await result.json();
       dispatch(chatsLoadSuccess(chats));
       // Relocate to 1st chat
@@ -149,11 +149,11 @@ export const chatsLoadFailure: ActionCreator<ChatsLoadFailureAction> = (payload:
 });
 
 // Delete
-export const chatsDelete = (id: string): ThunkAction<void, AppState, ThunkExtraArgs, ChatsActions> =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+export const chatsDelete = (id: string): ThunkAction<void, AppState, void, ChatsActions> =>
+  async (dispatch: Dispatch, getState: () => AppState) => {
     try {
       dispatch(chatsDeleteRequest());
-      const result = await fetch(`${baseUrl}/chats/${id}`, {
+      const result = await fetch(`/api/chats/${id}`, {
         method: 'DELETE',
       });
       await result.json();
@@ -180,11 +180,11 @@ export const chatsDeleteFailure: ActionCreator<ChatsDeleteFailureAction> = (payl
 });
 
 // Add
-export const chatsAdd = (title: string): ThunkAction<void, AppState, ThunkExtraArgs, ChatsActions> =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+export const chatsAdd = (title: string): ThunkAction<void, AppState, void, ChatsActions> =>
+  async (dispatch: Dispatch) => {
     try {
       dispatch(chatsAddRequest());
-      const result = await fetch(`${baseUrl}/chats`, {
+      const result = await fetch(`/api/chats`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

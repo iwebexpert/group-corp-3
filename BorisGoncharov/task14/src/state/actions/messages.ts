@@ -94,8 +94,8 @@ export type MessagesActions =
 
 // Exporting actions
 // Load
-export const messagesLoad = (chatId: string): ThunkAction<void, AppState, ThunkExtraArgs, MessagesActions> =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+export const messagesLoad = (chatId: string): ThunkAction<void, AppState, void, MessagesActions> =>
+  async (dispatch: Dispatch) => {
     try {
       // Abort previous fetch request
       abortController.abort();
@@ -103,7 +103,7 @@ export const messagesLoad = (chatId: string): ThunkAction<void, AppState, ThunkE
 
       // Loading logic
       dispatch(messagesLoadRequest());
-      const result = await fetch(`${baseUrl}/messages/${chatId}`, { signal: abortController.signal });
+      const result = await fetch(`/api/messages/${chatId}`, { signal: abortController.signal });
       dispatch(messagesLoadSuccess(await result.json()));
     } catch (error) {
       if (error?.name === 'AbortError') {
@@ -133,12 +133,12 @@ export const messagesLoadAbortion: ActionCreator<MessagesLoadAbortionAction> = (
 });
 
 // Add
-export const messagesAdd = (message: string): ThunkAction<void, AppState, ThunkExtraArgs, MessagesActions> =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+export const messagesAdd = (message: string): ThunkAction<void, AppState, void, MessagesActions> =>
+  async (dispatch: Dispatch, getState: () => AppState) => {
     try {
       const state = getState();
       dispatch(messagesAddRequest());
-      const result = await fetch(`${baseUrl}/messages`, {
+      const result = await fetch(`/api/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -172,11 +172,11 @@ export const messagesAddFailure: ActionCreator<MessagesAddFailureAction> = (payl
 });
 
 // Delete
-export const messagesDelete = (id: string): ThunkAction<void, AppState, ThunkExtraArgs, MessagesActions> =>
-  async (dispatch: Dispatch, getState: () => AppState, { baseUrl }: ThunkExtraArgs) => {
+export const messagesDelete = (id: string): ThunkAction<void, AppState, void, MessagesActions> =>
+  async (dispatch: Dispatch) => {
     try {
       dispatch(messagesDeleteRequest());
-      await fetch(`${baseUrl}/messages/${id}`, {
+      await fetch(`/api/messages/${id}`, {
         method: 'DELETE',
       });
       dispatch(messagesDeleteSuccess(id));

@@ -18,6 +18,7 @@ const ChatContainer: FC<Props> = ({ chatsLoading, messagesLoading, theme }) => {
   useEffect(() => {
     // Boris Goncharov user
     sessionStorage.setItem('userId', '5f6b6389334cf630c497358d');
+
     // Load data
     dispatch(chatsLoad());
     dispatch(userLoad());

@@ -4,7 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-require('dotenv').config();
+const envConf = require('dotenv').config();
+
+console.log(envConf);
 
 const config = (devMode) => {
   return {
@@ -116,6 +118,7 @@ const config = (devMode) => {
       compress: true,
       publicPath: '/',
       contentBase: path.join(__dirname, 'src'),
+      proxy: { '/api/**': { target: 'http://localhost:4000', secure: false } }, // Proxy for server
     },
   };
 };
