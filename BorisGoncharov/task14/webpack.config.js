@@ -3,10 +3,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
-const envConf = require('dotenv').config();
-
-console.log(envConf);
+// Filters .env config vars to start with APP_
+const APP_ = /^APP_/i;
+const env = Object.keys(require('dotenv').config().parsed)
+  .filter((key) => APP_.test(key))
+  .reduce((env, key) => {
+    env['process.env.' + key] = JSON.stringify(process.env[key]);
+    return env;
+  }, {});
+// Add package json vars
+env['process.env.APP_VERSION'] = JSON.stringify(
+  process.env.npm_package_version
+);
+env['process.env.APP_NAME'] = JSON.stringify(process.env.npm_package_name);
 
 const config = (devMode) => {
   return {
@@ -38,7 +49,8 @@ const config = (devMode) => {
       extensions: ['.ts', '.tsx', '.js'],
       alias: {
         'react-dom': '@hot-loader/react-dom', // Replaces convetional react-dom with @hot-loader/react-dom for HMR support
-        components: path.join(__dirname, 'src', 'components'), // Alias for components dir
+        '@components': path.join(__dirname, 'src', 'components'), // Alias for components dir
+        '@assets': path.join(__dirname, 'src', 'assets'), // Alias for assets dir
       },
     },
 
@@ -108,7 +120,7 @@ const config = (devMode) => {
         filename: devMode ? '[name].css' : '[name].[hash].css',
         chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
       }),
-      new Dotenv(),
+      new webpack.DefinePlugin(env),
     ],
 
     devServer: {

@@ -1,4 +1,4 @@
-@import "node_modules/bootstrap/scss/bootstrap";
+@import 'node_modules/bootstrap/scss/bootstrap';
 
 .header {
   &__settings-icon {
@@ -26,5 +26,11 @@
     &:hover {
       fill: $yellow;
     }
+  }
+
+  &__chat-icon {
+    margin-left: $spacer;
+    height: $spacer * 2;
+    width: $spacer * 2;
   }
 }
