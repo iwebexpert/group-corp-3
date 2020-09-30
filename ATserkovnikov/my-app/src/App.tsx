@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Layout} from "./components/Layout";
 import {ChatThemeEnum, LangEnum, Options, OptionsContext} from "./models";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 const initState: Options = {
     author: "Андрей",
