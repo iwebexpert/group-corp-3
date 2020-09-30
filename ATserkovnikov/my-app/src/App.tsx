@@ -3,6 +3,7 @@ import {Layout} from "./components/Layout";
 import {ChatThemeEnum, LangEnum, Options, OptionsContext} from "./models";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import {hot} from "react-hot-loader/root";
 
 const initState: Options = {
     author: "Андрей",
@@ -18,7 +19,7 @@ export const ConfigContext = React.createContext<OptionsContext>({
 
 export const ConfigContextConsumer = ConfigContext.Consumer;
 
-export const App: React.FC = () => {
+const AppComponent: React.FC = () => {
     const [curContext, setCurContext] = useState(initState);
     const updateContext = (context: Options) => setCurContext(context);
 
@@ -29,3 +30,4 @@ export const App: React.FC = () => {
     );
 };
 
+export const App = hot(AppComponent);

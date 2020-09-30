@@ -45,7 +45,9 @@ module.exports =  {
             }
         }
     },
+
     output: {
+        publicPath: "/",
         path: path.join(__dirname, 'build'),
         filename: '[name].bundle.js',
     },
@@ -55,6 +57,7 @@ module.exports =  {
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
         alias: {
+            'react-dom': '@hot-loader/react-dom',
             components: path.join(__dirname, 'src', 'components'),
         },
     },
@@ -68,7 +71,7 @@ module.exports =  {
                     loader: "babel-loader",
                     options: {
                         presets: ['@babel/preset-typescript', '@babel/preset-env', '@babel/preset-react'],
-                        plugins: ['@babel/plugin-proposal-class-properties'],
+                        plugins: ['@babel/plugin-proposal-class-properties', 'react-hot-loader/babel'],
                     }
                 }
             },
@@ -80,7 +83,13 @@ module.exports =  {
                 test: /\.s?css$/i,
                 use: [
                     'style-loader',
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: true,
+                            reloadAll: true
+                        }
+                    },
                     'css-loader',
                     'sass-loader',
                 ],
@@ -129,11 +138,17 @@ module.exports =  {
         }),
         new MiniCssExtractPlugin({
             filename: devMode ? '[name].main.css' : '[name].[hash].css',
+            chunkFileName: devMode ? '[id].main.css' : '[id].[hash].css'
         }),
         //new Dotenv(),
         new webpack.DefinePlugin(stringified),
     ],
     devServer: {
         historyApiFallback: true,
+        hot: true,
+        inline: true,
+        compress: true,
+        publicPath: '/',
+        contentBase: path.join(__dirname, 'src')
     },
 }
