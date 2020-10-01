@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Helvetica';
+    font-style: normal;
+    src: url("./HelveticaRegular.woff");
+}
+
+body {
+    font-family:  Helvetica, Arial, sans-serif;
+} 
