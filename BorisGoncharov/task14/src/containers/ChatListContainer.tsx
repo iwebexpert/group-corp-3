@@ -29,7 +29,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 };
 
 const mapDispathToProps = (
-  dispatch: ThunkDispatch<AppState, ThunkExtraArgs, ChatsActions>
+  dispatch: ThunkDispatch<AppState, void, ChatsActions>
 ): DispatchProps => {
   return {
     onChatAdd: (title: string) => dispatch(chatsAdd(title)),

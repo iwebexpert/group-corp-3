@@ -2,7 +2,6 @@
   "name": "task14",
   "version": "0.0.14",
   "private": true,
-  "proxy": "http://localhost:4000",
   "dependencies": {
     "@hot-loader/react-dom": "^17.0.0-rc.2",
     "@testing-library/jest-dom": "^4.2.4",
@@ -52,12 +51,12 @@
     "yup": "^0.29.3"
   },
   "scripts": {
-    "start": "SET NODE_ENV=development & webpack-dev-server --port 3000 --open --mode development",
+    "start": "webpack-dev-server --port 3000 --open --mode development",
     "server": "node ./server/server.js",
     "seeder-insert": "node ./server/seeder.js -i",
     "seeder-delete": "node ./server/seeder.js -d",
-    "dev": "SET NODE_ENV=development & webpack --mode development",
-    "build": "SET NODE_ENV=production & webpack --mode production"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
@@ -38,6 +37,8 @@ const config = (devMode) => {
         },
       },
     },
+
+    devtool: 'inline-source-map',
 
     output: {
       publicPath: '/',
@@ -130,7 +131,16 @@ const config = (devMode) => {
       compress: true,
       publicPath: '/',
       contentBase: path.join(__dirname, 'src'),
-      proxy: { '/api/**': { target: 'http://localhost:4000', secure: false } }, // Proxy for server
+      proxy: {
+        '/api': {
+          target: 'http://localhost:4000',
+          pathRewrite: {
+            '^/api': '',
+          },
+          secure: false,
+          changeOrigin: true,
+        },
+      }, // Proxy for server
     },
   };
 };

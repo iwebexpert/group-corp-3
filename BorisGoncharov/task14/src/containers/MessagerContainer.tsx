@@ -52,7 +52,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 };
 
 const mapDispathToProps = (
-  dispatch: ThunkDispatch<AppState, ThunkExtraArgs, MessagesActions>
+  dispatch: ThunkDispatch<AppState, void, MessagesActions>
 ): DispatchProps => {
   return {
     onMessageSend: (message: string) => dispatch(messagesAdd(message)),
